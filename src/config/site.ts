@@ -3,16 +3,21 @@ export const site = {
   url: "https://simpletools-72t.pages.dev",
   description:
     "Free calculators for US e-commerce sellers to price products, estimate fees, and plan ads with clear formulas.",
-  nav: [
-    { label: "Home", href: "/" },
-    { label: "Tools", href: "/tools/" },
-    { label: "E-commerce Tools", href: "/ec-tools/" },
-    { label: "About", href: "/about/" }
+
+  headerTools: [
+    { label: "Profit Margin", href: "/tools/e-commerce/profit-margin/" },
+    { label: "Break-even Price", href: "/tools/e-commerce/break-even-price/" },
+    { label: "Product Pricing", href: "/tools/e-commerce/product-pricing/" },
+    { label: "Ad Cost / Order", href: "/tools/e-commerce/ad-cost-per-order/" },
+    { label: "Amazon FBA Fee", href: "/tools/e-commerce/amazon-fba-fee/" },
+    { label: "All Tools", href: "/tools/" }
   ],
+
   footer: [
     { label: "About", href: "/about/" },
     { label: "Privacy Policy", href: "/privacy/" },
     { label: "Contact", href: "/contact/" }
   ],
+
   contactEmail: "hello@simpletools.io"
 };
