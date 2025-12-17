@@ -1,5 +1,8 @@
 ---
 import { site } from "../../config/site";
+
+const toolLinks = (site as any).headerTools ?? [];
+const navLinks = (site as any).nav ?? [];
 ---
 
 <header class="st_header">
@@ -10,9 +13,10 @@ import { site } from "../../config/site";
     </a>
   </div>
 
+  <!-- 2행: 우선 headerTools가 있으면 그걸, 없으면 nav를 보여줌 -->
   <div class="st_bottom">
     <div class="container st_menu">
-      {site.headerTools.map((item) => (
+      {(toolLinks.length ? toolLinks : navLinks).map((item) => (
         <a class="st_toolLink" href={item.href}>{item.label}</a>
       ))}
     </div>
@@ -29,7 +33,6 @@ import { site } from "../../config/site";
     border-bottom: 1px solid rgba(2,6,23,.08);
   }
 
-  /* 1행: 로고 */
   .st_top{
     display:flex;
     align-items:center;
@@ -54,7 +57,6 @@ import { site } from "../../config/site";
     font-size:12px;
   }
 
-  /* 2행: 계산기 메뉴 */
   .st_bottom{
     border-top: 1px solid rgba(2,6,23,.06);
   }
