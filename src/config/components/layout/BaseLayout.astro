@@ -1,37 +1,131 @@
 ---
-import "../../styles/global.css";
-import Header from "./Header.astro";
-import Footer from "./Footer.astro";
-import { site } from "../../config/site";
-
-const { title, description, canonical } = Astro.props;
-const pageTitle = title ? `${title} | ${site.name}` : site.name;
-const pageDesc = description ?? site.description;
-const pageCanonical = canonical ?? site.url;
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import { site } from "../config/site";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDesc} />
-    <link rel="canonical" href={pageCanonical} />
+<BaseLayout
+  title="Free calculators for US e-commerce sellers"
+  description={site.description}
+  canonical={site.url}
+>
+  <section class="section">
+    <div class="badge">US E-commerce • Free • No login</div>
+    <h1 class="title">
+      Simple calculators for US e-commerce sellers.
+    </h1>
+    <p class="sub">
+      Price smarter, understand fees, and plan ad spend with clear formulas and fast results.
+    </p>
 
-    <!-- Inter (Google Fonts) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+    <div class="ctaRow">
+      <a class="btn" href="/ec-tools/">Explore E-commerce Tools</a>
+      <a class="btn btn-ghost" href="/tools/">View all tools</a>
+    </div>
 
-  <body>
-    <Header />
-    <main class="container" style="padding: 26px 0 44px;">
-      <slot />
-    </main>
-    <Footer />
-  </body>
-</html>
+    <div class="heroGrid">
+      <div class="card heroCard">
+        <div class="kicker">Start here</div>
+        <h2 class="h2">Profit Margin Calculator</h2>
+        <p>
+          See your true net profit and net margin after COGS, platform fees, payment fees, shipping, and ads.
+        </p>
+        <a class="miniLink" href="/ec-tools/profit-margin/">Open calculator →</a>
+      </div>
+
+      <div class="card heroCard">
+        <div class="kicker">Avoid mistakes</div>
+        <h2 class="h2">Break-even Price</h2>
+        <p>
+          Find the minimum price you can sell for without losing money—before you launch or run ads.
+        </p>
+        <a class="miniLink" href="/ec-tools/break-even-price/">Open calculator →</a>
+      </div>
+
+      <div class="card heroCard">
+        <div class="kicker">Ad planning</div>
+        <h2 class="h2">Ad Cost per Order</h2>
+        <p>
+          Calculate the maximum ad spend per order you can afford while still hitting your target margin.
+        </p>
+        <a class="miniLink" href="/ec-tools/ad-cost-per-order/">Open calculator →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="card infoCard">
+      <div class="infoGrid">
+        <div>
+          <div class="kicker">Why SimpleTools</div>
+          <h2 class="h2">Built to pass the “thin content” trap.</h2>
+          <p>
+            Every calculator includes how it works, formulas, examples, and FAQs—so you can trust the result and learn
+            the reasoning behind it.
+          </p>
+        </div>
+        <div class="infoList">
+          <div class="infoItem">
+            <div class="dot"></div>
+            <div>
+              <div class="infoTitle">No login</div>
+              <div class="infoText">Use instantly. No accounts, no gated access.</div>
+            </div>
+          </div>
+          <div class="infoItem">
+            <div class="dot"></div>
+            <div>
+              <div class="infoTitle">US-first</div>
+              <div class="infoText">USD, percent-based fees, ad spend per order.</div>
+            </div>
+          </div>
+          <div class="infoItem">
+            <div class="dot"></div>
+            <div>
+              <div class="infoTitle">Clear formulas</div>
+              <div class="infoText">Transparent calculations you can verify.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; margin: 14px 0 18px; }
+
+  .heroGrid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:14px;
+    margin-top: 18px;
+  }
+  @media (max-width: 980px){
+    .heroGrid{ grid-template-columns:1fr; }
+  }
+
+  .heroCard{ padding:18px; }
+  .h2{ margin:10px 0 8px; font-size:18px; letter-spacing:-0.02em; }
+  .heroCard p{ margin:0 0 10px; font-size:13px; }
+
+  .miniLink{ font-weight:800; font-size:13px; }
+
+  .infoCard{ padding:18px; }
+  .infoGrid{
+    display:grid; grid-template-columns: 1.2fr .8fr; gap:16px; align-items:start;
+  }
+  @media (max-width: 980px){
+    .infoGrid{ grid-template-columns:1fr; }
+  }
+
+  .infoList{ display:flex; flex-direction:column; gap:10px; }
+  .infoItem{
+    display:flex; gap:10px; align-items:flex-start;
+    padding:12px; border-radius:14px;
+    border: 1px solid rgba(2,6,23,.10);
+    background: rgba(255,255,255,.7);
+  }
+  .dot{ width:10px; height:10px; border-radius:999px; background:#2563eb; margin-top:4px; }
+  .infoTitle{ font-weight:900; font-size:13px; }
+  .infoText{ font-size:12px; color: var(--muted); margin-top:2px; }
+</style>
