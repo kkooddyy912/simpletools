@@ -6,10 +6,10 @@ export const site = {
 
   headerTools: [
     { label: "Profit Margin", href: "/tools/e-commerce/profit-margin/" },
-    { label: "Break-even Price", href: "/tools/e-commerce/break-even-price/" },
-    { label: "Product Pricing", href: "/tools/e-commerce/product-pricing/" },
-    { label: "Ad Cost / Order", href: "/tools/e-commerce/ad-cost-per-order/" },
-    { label: "Amazon FBA Fee", href: "/tools/e-commerce/amazon-fba-fee/" },
+    { label: "Break-even", href: "/tools/e-commerce/break-even-price/" },
+    { label: "Pricing", href: "/tools/e-commerce/product-pricing/" },
+    { label: "Ad CPO", href: "/tools/e-commerce/ad-cost-per-order/" },
+    { label: "FBA Fee", href: "/tools/e-commerce/amazon-fba-fee/" },
     { label: "All Tools", href: "/tools/" }
   ],
 
