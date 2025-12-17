@@ -3,50 +3,85 @@ import { site } from "../../config/site";
 ---
 
 <header class="st_header">
-  <div class="container st_headerInner">
+  <div class="container st_top">
     <a class="st_brand" href="/">
       <span class="st_logo">ST</span>
       <span class="st_name">{site.name}</span>
     </a>
+  </div>
 
-    <nav class="st_nav" aria-label="Primary navigation">
-      {site.nav.map((item) => (
-        <a class="st_navLink" href={item.href}>{item.label}</a>
+  <div class="st_bottom">
+    <div class="container st_menu">
+      {site.headerTools.map((item) => (
+        <a class="st_toolLink" href={item.href}>{item.label}</a>
       ))}
-    </nav>
+    </div>
   </div>
 </header>
 
 <style>
   .st_header{
-    position: sticky; top:0; z-index:50;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(245,247,251,.92);
     backdrop-filter: blur(10px);
-    background: rgba(245,247,251,.75);
     border-bottom: 1px solid rgba(2,6,23,.08);
   }
-  .st_headerInner{
-    display:flex; align-items:center; justify-content:space-between;
-    padding: 14px 0;
-  }
-  .st_brand{ display:flex; align-items:center; gap:10px; font-weight:800; }
-  .st_logo{
-    width:34px; height:34px; border-radius:10px;
-    display:inline-flex; align-items:center; justify-content:center;
-    background:#0f172a; color:#fff; font-size:12px;
-  }
-  .st_name{ letter-spacing:-0.02em; }
 
-  .st_nav{ display:flex; gap:14px; flex-wrap:wrap; }
-  .st_navLink{
-    font-size:13px; font-weight:700;
-    padding:8px 10px; border-radius:12px;
-    border: 1px solid rgba(2,6,23,.10);
-    background: rgba(255,255,255,.7);
+  /* 1행: 로고 */
+  .st_top{
+    display:flex;
+    align-items:center;
+    padding: 14px 0 10px;
   }
-  .st_navLink:hover{ opacity:.9; }
+  .st_brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:900;
+    letter-spacing:-0.02em;
+  }
+  .st_logo{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#0f172a;
+    color:#fff;
+    font-size:12px;
+  }
+
+  /* 2행: 계산기 메뉴 */
+  .st_bottom{
+    border-top: 1px solid rgba(2,6,23,.06);
+  }
+  .st_menu{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    padding: 10px 0 12px;
+  }
+  .st_toolLink{
+    font-size:12px;
+    font-weight:800;
+    padding:8px 12px;
+    border-radius:999px;
+    border:1px solid rgba(2,6,23,.10);
+    background: rgba(255,255,255,.75);
+    white-space:nowrap;
+  }
+  .st_toolLink:hover{
+    background:#0f172a;
+    color:#fff;
+  }
 
   @media (max-width: 720px){
-    .st_headerInner{ gap:12px; align-items:flex-start; flex-direction:column; }
-    .st_nav{ width:100%; }
+    .st_menu{
+      overflow-x:auto;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 </style>
