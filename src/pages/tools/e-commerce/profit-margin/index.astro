@@ -152,20 +152,21 @@ Net margin (%) =
     }
 
     /* ===== Right ===== */
-    .calcRight {
-      display: flex;
-      align-items: flex-start;
-    }
+  .calcRight {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 88px; /* ← 입력필드 첫 줄과 맞추는 핵심 */
+}
 
-    .resultCard {
-      width: 100%;
-      background: #f3f4f6;
-      border-radius: 16px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+ .resultCard {
+  width: 100%;
+  background: #f3f4f6;
+  border-radius: 999px; /* pill */
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
     .resultItem span {
       font-size: 14px;
