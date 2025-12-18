@@ -4,19 +4,26 @@ import BaseLayout from "../../../../components/layout/BaseLayout.astro";
 
 <BaseLayout
   title="Profit Margin Calculator — Free & Instant | SimpleTools"
-  description="Calculate your real net profit and net margin after all costs. Free, no login, instant results."
+  description="Calculate your real net profit and net margin after all variable costs. Free, no login, instant results."
 >
-  <section class="calcWrap">
-    <!-- LEFT : INPUTS -->
-    <div class="calcLeft">
-      <span class="badge">Free • No login • Instant</span>
+  <!-- ===================== -->
+  <!-- Header / Intro -->
+  <!-- ===================== -->
+  <section class="calcHeader">
+    <span class="badge">Free • No login • Instant</span>
+    <h1>Profit Margin Calculator</h1>
+    <p>
+      Calculate your real net profit and net margin after all variable costs.
+      Designed for quick decisions with clear formulas.
+    </p>
+  </section>
 
-      <h1>Profit Margin Calculator</h1>
-      <p class="intro">
-        Calculate your real net profit and net margin after all variable costs.
-        Designed for quick decisions with clear formulas.
-      </p>
-
+  <!-- ===================== -->
+  <!-- Calculator Body -->
+  <!-- ===================== -->
+  <section class="calcBody">
+    <!-- Left : Inputs -->
+    <div class="calcInputs">
       <div class="inputGroup">
         <label>Selling price (USD)</label>
         <input type="number" placeholder="e.g. 50" />
@@ -48,8 +55,8 @@ import BaseLayout from "../../../../components/layout/BaseLayout.astro";
       </div>
     </div>
 
-    <!-- RIGHT : RESULTS -->
-    <div class="calcRight">
+    <!-- Right : Results -->
+    <div class="calcResults">
       <div class="resultCard">
         <div class="resultItem">
           <span>Net Profit</span>
@@ -64,6 +71,9 @@ import BaseLayout from "../../../../components/layout/BaseLayout.astro";
     </div>
   </section>
 
+  <!-- ===================== -->
+  <!-- Content / SEO -->
+  <!-- ===================== -->
   <section class="content">
     <h2>How it works</h2>
     <p>
@@ -85,52 +95,76 @@ Price
 Net margin (%) =
 (Net profit ÷ Price) × 100
     </pre>
+
+    <h2>FAQ</h2>
+    <p><strong>Does this include taxes?</strong><br />
+      No. Taxes vary by location and are not included.
+    </p>
+
+    <p><strong>Which platforms is this for?</strong><br />
+      Amazon, Shopify, Etsy, or any platform with percentage-based fees.
+    </p>
+
+    <p><strong>Is this calculator free?</strong><br />
+      Yes. No login or payment is required.
+    </p>
   </section>
 
+  <!-- ===================== -->
+  <!-- Styles -->
+  <!-- ===================== -->
   <style>
-    /* ===== Layout ===== */
-    .calcWrap {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 32px;
+    /* ===== Header ===== */
+    .calcHeader {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 48px 20px;
-    }
-
-    @media (max-width: 900px) {
-      .calcWrap {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ===== Left ===== */
-    .calcLeft {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      padding: 48px 20px 32px;
     }
 
     .badge {
       display: inline-block;
       font-size: 12px;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 999px;
       background: #eef4ff;
       color: #245bdb;
-      width: fit-content;
     }
 
-    h1 {
+    .calcHeader h1 {
       font-size: 32px;
-      line-height: 1.2;
-      margin: 8px 0;
+      margin: 12px 0;
     }
 
-    .intro {
+    .calcHeader p {
       color: #555;
-      max-width: 520px;
-      margin-bottom: 8px;
+      max-width: 560px;
+    }
+
+    /* ===== Body ===== */
+    .calcBody {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .calcBody {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== Inputs ===== */
+    .calcInputs {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     .inputGroup {
@@ -151,22 +185,20 @@ Net margin (%) =
       font-size: 15px;
     }
 
-    /* ===== Right ===== */
-  .calcRight {
-  display: flex;
-  align-items: flex-start;
-  margin-top: 88px; /* ← 입력필드 첫 줄과 맞추는 핵심 */
-}
+    /* ===== Results ===== */
+    .calcResults {
+      align-self: flex-start;
+    }
 
- .resultCard {
-  width: 100%;
-  background: #f3f4f6;
-  border-radius: 999px; /* pill */
-  padding: 28px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+    .resultCard {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
     .resultItem span {
       font-size: 14px;
@@ -175,6 +207,7 @@ Net margin (%) =
 
     .resultItem strong {
       font-size: 32px;
+      font-weight: 600;
       display: block;
       margin-top: 4px;
     }
@@ -186,12 +219,17 @@ Net margin (%) =
       padding: 40px 20px 80px;
     }
 
+    .content h2 {
+      margin-top: 32px;
+    }
+
     pre {
       background: #f3f4f6;
       padding: 20px;
       border-radius: 12px;
       font-size: 14px;
       overflow-x: auto;
+      margin-top: 12px;
     }
   </style>
 </BaseLayout>
