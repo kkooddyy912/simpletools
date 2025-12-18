@@ -51,17 +51,21 @@ import { site } from "../../../../config/site";
       </div>
 
       <!-- RIGHT: RESULTS -->
-      <div class="results">
-        <div class="resultBox">
-          <div class="rLabel">Net Profit</div>
-          <div class="rValue" id="netProfit">$0.00</div>
-        </div>
+<div class="results">
+  <div class="resultCard">
+    <div class="resultRow">
+      <span class="label">Net Profit</span>
+      <span class="value" id="netProfit">$0.00</span>
+    </div>
 
-        <div class="resultBox">
-          <div class="rLabel">Net Margin</div>
-          <div class="rValue" id="netMargin">0%</div>
-        </div>
-      </div>
+    <div class="divider"></div>
+
+    <div class="resultRow">
+      <span class="label">Net Margin</span>
+      <span class="value big" id="netMargin">0%</span>
+    </div>
+  </div>
+</div>
     </section>
 
     <!-- INFO -->
@@ -153,48 +157,131 @@ Net margin (%) =
   </script>
 
   <style>
-    .page { max-width: 1000px; }
-    .lead { font-size: 14px; color: var(--muted); }
+.page { max-width: 1000px; }
 
-    .calcWrap {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 16px;
-      margin: 20px 0;
-    }
+.lead { font-size: 14px; color: var(--muted); }
 
-    @media (max-width: 900px) {
-      .calcWrap { grid-template-columns: 1fr; }
-    }
+/* 1행: 좌 입력 / 우 결과 */
+.calcWrap {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 16px;
+  margin: 20px 0;
+}
 
-    .inputs, .results {
-      padding: 16px;
-      border-radius: 18px;
-      border: 1px solid rgba(2,6,23,.1);
-      background: rgba(255,255,255,.75);
-    }
+@media (max-width: 900px) {
+  .calcWrap { grid-template-columns: 1fr; }
+}
 
-    .field { margin-bottom: 10px; }
-    label { font-size: 12px; font-weight: 900; }
-    input {
-      width: 100%;
-      padding: 8px;
-      border-radius: 10px;
-      border: 1px solid rgba(2,6,23,.15);
-    }
+/* 입력/결과 카드 공통 */
+.inputs, .results {
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(2,6,23,.10);
+  background: rgba(255,255,255,.75);
+}
 
-    .resultBox { margin-bottom: 16px; }
-    .rLabel { font-size: 12px; color: var(--muted); }
-    .rValue { font-size: 28px; font-weight: 900; }
+/* 입력 영역 */
+.field { margin-bottom: 10px; }
 
-    .info { margin-top: 28px; }
-    .info h2 { margin-top: 20px; }
-    pre {
-      background: #0f172a;
-      color: #fff;
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 12px;
-    }
+label { 
+  display: block;
+  font-size: 12px; 
+  font-weight: 900; 
+  margin-bottom: 6px;
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(2,6,23,.15);
+  background: #fff;
+  outline: none;
+}
+
+input:focus {
+  border-color: rgba(37,99,235,.45);
+  box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+}
+
+/* ✅ 결과 영역 리디자인 */
+.results {
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(2,6,23,.08);
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.90),
+    rgba(255,255,255,.72)
+  );
+}
+
+.resultCard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+}
+
+/* 라벨 왼쪽 / 값 가운데 */
+.resultRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.rLabel {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted);
+  text-align: left;
+}
+
+.rValue {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.rValue.big {
+  font-size: 44px;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(2,6,23,.08);
+  margin: 6px 0;
+}
+
+/* 2행 설명 */
+.info { margin-top: 28px; }
+
+.info h2 {
+  margin-top: 20px;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.info h3 {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.info p, .info li {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+pre {
+  background: #0f172a;
+  color: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  overflow-x: auto;
+}
+
   </style>
 </BaseLayout>
