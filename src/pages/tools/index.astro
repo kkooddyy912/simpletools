@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import { site } from "../../config/site";
+---
+
+<BaseLayout
+  title="Tools"
+  description="A lightweight index of tools on SimpleTools."
+  canonical={`${site.url}/tools/`}
+>
+  <article class="page">
+    <h1>Tools</h1>
+    <p>
+      SimpleTools is a free calculator platform designed for quick decisions. Tools are organized by category.
+    </p>
+    <p>
+      Currently available: <strong>E-commerce tools</strong>.
+      More categories (e.g., Tax, Wedding) will be added over time.
+    </p>
+
+    <div class="card">
+      <div class="label">Available now</div>
+      <a class="link" href="/tools/e-commerce/">E-commerce Tools →</a>
+    </div>
+  </article>
+
+  <style>
+    .page{ max-width: 820px; }
+    h1{ margin: 0 0 10px; }
+    p{ font-size: 14px; color: var(--muted); }
+    .card{
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.75);
+    }
+    .label{ font-size: 12px; font-weight: 900; color: var(--muted); }
+    .link{ display:inline-block; margin-top: 8px; font-weight: 900; text-decoration: underline; }
+  </style>
+</BaseLayout>
