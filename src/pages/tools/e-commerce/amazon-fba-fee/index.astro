@@ -1,0 +1,266 @@
+---
+import BaseLayout from "../../../../components/layout/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Amazon FBA Fee Calculator — Simple & Free | SimpleTools"
+  description="Estimate Amazon FBA fees and see how much profit you keep after Amazon costs. Free and instant."
+>
+  <!-- ===================== -->
+  <!-- Header / Intro -->
+  <!-- ===================== -->
+  <section class="calcHeader">
+    <span class="badge">Free • No login • Instant</span>
+    <h1>Amazon FBA Fee Calculator (Simple)</h1>
+    <p>
+      Quickly estimate Amazon FBA fees and see how much profit you keep
+      after Amazon selling and fulfillment costs.
+    </p>
+  </section>
+
+  <!-- ===================== -->
+  <!-- Calculator Body -->
+  <!-- ===================== -->
+  <section class="calcBody">
+    <!-- Left : Inputs -->
+    <div class="calcInputs">
+      <div class="inputGroup">
+        <label>Selling price (USD)</label>
+        <input id="fba_price" type="number" placeholder="e.g. 29.99" />
+      </div>
+
+      <div class="inputGroup">
+        <label>Product cost (COGS)</label>
+        <input id="fba_cogs" type="number" placeholder="e.g. 8" />
+      </div>
+
+      <div class="inputGroup">
+        <label>Amazon referral fee (%)</label>
+        <input id="fba_referral" type="number" placeholder="e.g. 15" />
+      </div>
+
+      <div class="inputGroup">
+        <label>FBA fulfillment fee</label>
+        <input id="fba_fulfillment" type="number" placeholder="e.g. 5.25" />
+      </div>
+    </div>
+
+    <!-- Right : Results -->
+    <div class="calcResults">
+      <div class="resultCard">
+        <div class="resultItem">
+          <span>Total Amazon Fees</span>
+          <strong id="fba_fees">$0.00</strong>
+        </div>
+
+        <div class="resultItem">
+          <span>Estimated Profit</span>
+          <strong id="fba_profit">$0.00</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== -->
+  <!-- Content / SEO -->
+  <!-- ===================== -->
+  <section class="content">
+    <h2>How it works</h2>
+    <p>
+      This calculator estimates Amazon FBA fees using a percentage-based referral fee
+      and a fixed fulfillment fee per order. It then subtracts those fees and your
+      product cost from the selling price to show your estimated profit.
+    </p>
+
+    <h2>Formula</h2>
+    <pre>
+Referral fee = Price × Referral fee %
+
+Total Amazon fees =
+Referral fee + FBA fulfillment fee
+
+Estimated profit =
+Price − Product cost − Total Amazon fees
+    </pre>
+
+    <h2>FAQ</h2>
+    <p><strong>Is this an official Amazon calculator?</strong><br />
+      No. This is a simplified estimator for quick decision-making.
+    </p>
+
+    <p><strong>Does this include storage fees?</strong><br />
+      No. Storage and long-term storage fees vary and are not included.
+    </p>
+
+    <p><strong>Who is this calculator for?</strong><br />
+      Amazon sellers who want a fast profit check before using FBA.
+    </p>
+  </section>
+
+  <!-- ===================== -->
+  <!-- Logic -->
+  <!-- ===================== -->
+  <script is:inline>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+
+      const price = $("fba_price");
+      const cogs = $("fba_cogs");
+      const referral = $("fba_referral");
+      const fulfillment = $("fba_fulfillment");
+      const feesEl = $("fba_fees");
+      const profitEl = $("fba_profit");
+
+      function num(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+      }
+
+      function calc() {
+        const p = num(price.value);
+        const c = num(cogs.value);
+        const r = num(referral.value) / 100;
+        const f = num(fulfillment.value);
+
+        const referralFee = p * r;
+        const totalFees = referralFee + f;
+        const profit = p - c - totalFees;
+
+        feesEl.textContent = totalFees.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        });
+
+        profitEl.textContent = profit.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        });
+      }
+
+      [price, cogs, referral, fulfillment].forEach((el) => {
+        el.addEventListener("input", calc);
+        el.addEventListener("change", calc);
+      });
+
+      calc();
+    })();
+  </script>
+
+  <!-- ===================== -->
+  <!-- Styles (Template fixed) -->
+  <!-- ===================== -->
+  <style>
+    .calcHeader {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 20px 32px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: #245bdb;
+    }
+
+    .calcHeader h1 {
+      font-size: 32px;
+      margin: 12px 0;
+    }
+
+    .calcHeader p {
+      color: #555;
+      max-width: 560px;
+    }
+
+    .calcBody {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .calcBody {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calcInputs {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .inputGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    input {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 15px;
+    }
+
+    .calcResults {
+      align-self: flex-start;
+    }
+
+    .resultCard {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .resultItem span {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .resultItem strong {
+      font-size: 32px;
+      font-weight: 600;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .content h2 {
+      margin-top: 32px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+  </style>
+</BaseLayout>
