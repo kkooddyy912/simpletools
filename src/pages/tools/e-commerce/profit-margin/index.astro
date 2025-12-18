@@ -1,84 +1,80 @@
 ---
 import BaseLayout from "../../../../components/layout/BaseLayout.astro";
+import "../../../../styles/calculator.css";
 import { site } from "../../../../config/site";
 ---
 
 <BaseLayout
   title="Profit Margin Calculator — Free & Instant | SimpleTools"
-  description="Calculate net profit and net margin after all costs. Free, instant, and no login."
+  description="Calculate net profit and profit margin after product cost, fees, shipping, and ads. Free, no login."
   canonical={`${site.url}/tools/e-commerce/profit-margin/`}
 >
   <article class="page">
     <div class="badge">Free • No login • Instant</div>
+
     <h1>Profit Margin Calculator</h1>
     <p class="lead">
-      Calculate your real profit and margin after product cost, fees, shipping, and ads.
+      Calculate your real profit and net margin after product cost, platform fees, payment fees,
+      shipping, and ad spend.
     </p>
 
-    <!-- CALCULATOR -->
-    <section class="calcWrap">
-      <!-- LEFT: INPUTS -->
-      <div class="inputs">
-        <div class="field">
+    <!-- Calculator -->
+    <section class="calc">
+      <div class="calcGrid">
+        <div class="calcField">
           <label>Selling price (USD)</label>
-          <input id="price" type="number" step="0.01" />
+          <input id="price" type="number" placeholder="e.g. 50" />
         </div>
 
-        <div class="field">
+        <div class="calcField">
           <label>Product cost (COGS)</label>
-          <input id="cost" type="number" step="0.01" />
+          <input id="cost" type="number" placeholder="e.g. 15" />
         </div>
 
-        <div class="field">
+        <div class="calcField">
           <label>Platform fee (%)</label>
-          <input id="platformFee" type="number" step="0.1" />
+          <input id="platformFee" type="number" placeholder="e.g. 15" />
         </div>
 
-        <div class="field">
+        <div class="calcField">
           <label>Payment fee (%)</label>
-          <input id="paymentFee" type="number" step="0.1" />
+          <input id="paymentFee" type="number" placeholder="e.g. 2.9" />
         </div>
 
-        <div class="field">
+        <div class="calcField">
           <label>Shipping cost</label>
-          <input id="shipping" type="number" step="0.01" />
+          <input id="shipping" type="number" placeholder="e.g. 5" />
         </div>
 
-        <div class="field">
+        <div class="calcField">
           <label>Ad cost per order</label>
-          <input id="ads" type="number" step="0.01" />
+          <input id="ads" type="number" placeholder="e.g. 10" />
         </div>
       </div>
 
-      <!-- RIGHT: RESULTS -->
-<div class="results">
-  <div class="resultCard">
-    <div class="resultRow">
-      <span class="label">Net Profit</span>
-      <span class="value" id="netProfit">$0.00</span>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="resultRow">
-      <span class="label">Net Margin</span>
-      <span class="value big" id="netMargin">0%</span>
-    </div>
-  </div>
-</div>
+      <div class="calcResult">
+        <div>
+          <div class="label">Net Profit</div>
+          <div class="value" id="netProfit">$0.00</div>
+        </div>
+        <div>
+          <div class="label">Net Margin</div>
+          <div class="value" id="netMargin">0%</div>
+        </div>
+      </div>
     </section>
 
-    <!-- INFO -->
+    <!-- Explanation -->
     <section class="info">
       <h2>How it works</h2>
       <p>
         The calculator subtracts all variable costs from the selling price.
-        Percentage-based fees are calculated from revenue, while shipping and ad costs
-        are treated as fixed per order.
+        Percentage-based fees are calculated from revenue, while shipping and advertising
+        costs are treated as fixed costs per order.
       </p>
 
       <h2>Formula</h2>
-      <pre>
+      <pre class="formula">
 Net profit =
 Price
 − Product cost
@@ -93,19 +89,39 @@ Net margin (%) =
 
       <h2>Example</h2>
       <p>
-        Price $50, product cost $15, platform fee 15%, payment fee 2.9%,
-        shipping $5, ads $10 → Net profit $11.05, margin 22.1%.
+        If you sell a product for <strong>$50</strong> with a product cost of <strong>$15</strong>,
+        a platform fee of <strong>15%</strong>, payment fee of <strong>2.9%</strong>,
+        shipping cost of <strong>$5</strong>, and ad cost of <strong>$10</strong>,
+        your net profit is <strong>$11.05</strong> and your net margin is <strong>22.1%</strong>.
       </p>
 
       <h2>FAQ</h2>
-      <h3>Does this include taxes?</h3>
-      <p>No. Taxes vary by location and are excluded.</p>
-
-      <h3>Which platforms can I use this for?</h3>
-      <p>Amazon, Shopify, Etsy, or any platform with percentage fees.</p>
-
-      <h3>Why is my margin lower than expected?</h3>
-      <p>Fees and ads often take a larger share than expected.</p>
+      <ul>
+        <li>
+          <strong>Does this include taxes?</strong><br />
+          No. Taxes vary by location and are not included in this calculation.
+        </li>
+        <li>
+          <strong>Which platforms is this for?</strong><br />
+          Amazon, Shopify, Etsy, or any platform with percentage-based fees.
+        </li>
+        <li>
+          <strong>Why is my margin lower than expected?</strong><br />
+          Platform fees and advertising costs often take a larger share than expected.
+        </li>
+        <li>
+          <strong>Can I use this before running ads?</strong><br />
+          Yes. Use it to estimate how much ad spend you can afford per order.
+        </li>
+        <li>
+          <strong>Is this calculator free?</strong><br />
+          Yes. No login or payment is required.
+        </li>
+        <li>
+          <strong>Are the formulas transparent?</strong><br />
+          Yes. The exact formulas are shown above.
+        </li>
+      </ul>
     </section>
 
     <div class="back">
@@ -113,197 +129,52 @@ Net margin (%) =
     </div>
   </article>
 
-  <!-- SCRIPT -->
-  <script>
-    const ids = [
-      "price",
-      "cost",
-      "platformFee",
-      "paymentFee",
-      "shipping",
-      "ads",
-    ];
+  <style>
+    .page{ max-width: 980px; }
+    h1{ margin: 10px 0 8px; }
+    .lead{ margin-bottom: 16px; font-size: 14px; color: var(--muted); }
 
-    ids.forEach((id) =>
-      document.getElementById(id).addEventListener("input", calculate)
-    );
+    .info{ margin-top: 22px; }
+    .info h2{ margin: 22px 0 8px; font-size: 18px; letter-spacing:-0.02em; }
+    .info p, .info li{ font-size: 14px; color: var(--muted); }
+    .info ul{ margin: 10px 0 0 18px; }
 
-    function v(id) {
-      return Number(document.getElementById(id).value) || 0;
+    .formula{
+      margin-top: 8px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(2,6,23,.04);
+      font-size: 13px;
+      overflow-x: auto;
     }
+
+    .back{ margin-top: 24px; }
+    .back a{ font-weight: 900; text-decoration: underline; }
+  </style>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
 
     function calculate() {
-      const price = v("price");
-      if (price <= 0) {
-        document.getElementById("netProfit").innerText = "$0.00";
-        document.getElementById("netMargin").innerText = "0%";
-        return;
-      }
+      const price = +$("price").value || 0;
+      const cost = +$("cost").value || 0;
+      const platformFee = +$("platformFee").value || 0;
+      const paymentFee = +$("paymentFee").value || 0;
+      const shipping = +$("shipping").value || 0;
+      const ads = +$("ads").value || 0;
 
       const feeTotal =
-        (v("platformFee") / 100) * price +
-        (v("paymentFee") / 100) * price;
+        price * (platformFee / 100) +
+        price * (paymentFee / 100);
 
-      const netProfit =
-        price - v("cost") - feeTotal - v("shipping") - v("ads");
+      const netProfit = price - cost - feeTotal - shipping - ads;
+      const netMargin = price > 0 ? (netProfit / price) * 100 : 0;
 
-      const netMargin = (netProfit / price) * 100;
-
-      document.getElementById("netProfit").innerText =
-        `$${netProfit.toFixed(2)}`;
-      document.getElementById("netMargin").innerText =
-        `${netMargin.toFixed(1)}%`;
+      $("netProfit").textContent = `$${netProfit.toFixed(2)}`;
+      $("netMargin").textContent = `${netMargin.toFixed(1)}%`;
     }
+
+    ["price","cost","platformFee","paymentFee","shipping","ads"]
+      .forEach(id => $(id).addEventListener("input", calculate));
   </script>
-
-  <style>
-/* ===== Page ===== */
-.page { max-width: 1000px; }
-.lead { font-size: 14px; color: var(--muted); }
-
-/* ===== 1행: 좌 입력 / 우 결과 ===== */
-.calcWrap{
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 16px;
-  margin: 20px 0;
-}
-
-@media (max-width: 900px){
-  .calcWrap{ grid-template-columns: 1fr; }
-}
-
-/* ===== Card Base (inputs/results) ===== */
-.inputs, .results{
-  border-radius: 18px;
-  border: 1px solid rgba(2,6,23,.10);
-  background: rgba(255,255,255,.75);
-}
-
-/* ===== Inputs ===== */
-.inputs{ padding: 16px; }
-
-.field{ margin-bottom: 12px; }
-
-label{
-  display: block;
-  font-size: 12px;
-  font-weight: 900;
-  margin-bottom: 6px;
-  letter-spacing: -0.01em;
-}
-
-input{
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(2,6,23,.15);
-  background: #fff;
-  outline: none;
-  font-size: 14px;
-}
-
-input::placeholder{ color: rgba(2,6,23,.35); }
-
-input:focus{
-  border-color: rgba(37,99,235,.45);
-  box-shadow: 0 0 0 4px rgba(37,99,235,.12);
-}
-
-/* ===== Results (항목 추가돼도 항상 가운데 정렬) ===== */
-.results{
-  padding: 20px;
-  border: 1px solid rgba(2,6,23,.08);
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,.90),
-    rgba(255,255,255,.72)
-  );
-  min-height: 340px;        /* ✅ 세로 가운데 정렬 안정 */
-  display: flex;            /* ✅ 가운데 정렬 베이스 */
-}
-
-.resultCard{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  /* ✅ 결과 항목이 늘어나도 중앙으로 */
-  gap: 26px;
-}
-
-/* 라벨 좌 / 값 우 */
-.resultRow{
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  column-gap: 24px;
-}
-
-.rLabel{
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: -0.01em;
-}
-
-.rValue{
-  font-size: 64px;          /* ✅ 현재 느낌 유지 */
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  text-align: right;
-  color: inherit;
-}
-
-.rValue.big{
-  font-size: 72px;
-}
-
-.divider{
-  height: 1px;
-  background: rgba(2,6,23,.10);
-}
-
-/* 모바일 최적화 */
-@media (max-width: 900px){
-  .results{ min-height: unset; padding: 18px; }
-  .rValue{ font-size: 52px; }
-  .rValue.big{ font-size: 58px; }
-  .rLabel{ font-size: 15px; }
-}
-
-/* ===== 2행 설명(How it works / Formula / Example / FAQ) ===== */
-.info{ margin-top: 28px; }
-
-.info h2{
-  margin-top: 22px;
-  font-size: 20px;
-  letter-spacing: -0.02em;
-}
-
-.info h3{
-  margin-top: 12px;
-  font-size: 14px;
-}
-
-.info p, .info li{
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-pre{
-  background: #0f172a;
-  color: #fff;
-  padding: 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  overflow-x: auto;
-}
-
-/* ===== Optional: Back link spacing ===== */
-.back{ margin-top: 24px; }
-
-
-  </style>
 </BaseLayout>
