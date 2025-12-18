@@ -150,6 +150,19 @@ Net margin (%) =
 
     .back{ margin-top: 24px; }
     .back a{ font-weight: 900; text-decoration: underline; }
+
+/* Force 2-column calculator layout on desktop */
+.calcGrid{
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 14px !important;
+}
+@media (max-width: 768px){
+  .calcGrid{
+    grid-template-columns: 1fr !important;
+  }
+}
+
   </style>
 
   <script>
