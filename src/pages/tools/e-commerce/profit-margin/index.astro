@@ -23,49 +23,49 @@ import BaseLayout from "../../../../components/layout/BaseLayout.astro";
   <!-- ===================== -->
   <section class="calcBody">
     <!-- Left : Inputs -->
-    <div class="calcInputs">
+    <div class="calcInputs" id="pm_inputs">
       <div class="inputGroup">
-        <label>Selling price (USD)</label>
-        <input type="number" placeholder="e.g. 50" />
+        <label for="pm_price">Selling price (USD)</label>
+        <input id="pm_price" type="number" inputmode="decimal" step="0.01" min="0" placeholder="e.g. 50" />
       </div>
 
       <div class="inputGroup">
-        <label>Product cost (COGS)</label>
-        <input type="number" placeholder="e.g. 15" />
+        <label for="pm_cogs">Product cost (COGS)</label>
+        <input id="pm_cogs" type="number" inputmode="decimal" step="0.01" min="0" placeholder="e.g. 15" />
       </div>
 
       <div class="inputGroup">
-        <label>Platform fee (%)</label>
-        <input type="number" placeholder="e.g. 15" />
+        <label for="pm_platform_fee">Platform fee (%)</label>
+        <input id="pm_platform_fee" type="number" inputmode="decimal" step="0.01" min="0" placeholder="e.g. 15" />
       </div>
 
       <div class="inputGroup">
-        <label>Payment fee (%)</label>
-        <input type="number" placeholder="e.g. 2.9" />
+        <label for="pm_payment_fee">Payment fee (%)</label>
+        <input id="pm_payment_fee" type="number" inputmode="decimal" step="0.01" min="0" placeholder="e.g. 2.9" />
       </div>
 
       <div class="inputGroup">
-        <label>Shipping cost</label>
-        <input type="number" placeholder="e.g. 5" />
+        <label for="pm_shipping">Shipping cost</label>
+        <input id="pm_shipping" type="number" inputmode="decimal" step="0.01" min="0" placeholder="e.g. 5" />
       </div>
 
       <div class="inputGroup">
-        <label>Ad cost per order</label>
-        <input type="number" placeholder="e.g. 10" />
+        <label for="pm_ads">Ad cost per order</label>
+        <input id="pm_ads" type="number" inputmode="decimal" step="0.01" min="0" placeholder="e.g. 10" />
       </div>
     </div>
 
     <!-- Right : Results -->
     <div class="calcResults">
-      <div class="resultCard">
+      <div class="resultCard" aria-live="polite">
         <div class="resultItem">
           <span>Net Profit</span>
-          <strong>$0.00</strong>
+          <strong id="pm_net_profit">$0.00</strong>
         </div>
 
         <div class="resultItem">
           <span>Net Margin</span>
-          <strong>0%</strong>
+          <strong id="pm_net_margin">0%</strong>
         </div>
       </div>
     </div>
@@ -109,6 +109,85 @@ Net margin (%) =
       Yes. No login or payment is required.
     </p>
   </section>
+
+  <!-- ===================== -->
+  <!-- Logic (JS) -->
+  <!-- ===================== -->
+  <script is:inline>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+
+      const elPrice = $("pm_price");
+      const elCogs = $("pm_cogs");
+      const elPlatformFee = $("pm_platform_fee");
+      const elPaymentFee = $("pm_payment_fee");
+      const elShipping = $("pm_shipping");
+      const elAds = $("pm_ads");
+
+      const elNetProfit = $("pm_net_profit");
+      const elNetMargin = $("pm_net_margin");
+
+      function toNum(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+      }
+
+      function clampMin0(n) {
+        return n < 0 ? 0 : n;
+      }
+
+      function formatUSD(n) {
+        // Allow negative profit display (important)
+        const sign = n < 0 ? "-" : "";
+        const abs = Math.abs(n);
+        return sign + abs.toLocaleString("en-US", { style: "currency", currency: "USD" });
+      }
+
+      function formatPct(n) {
+        // n already in percent units
+        if (!Number.isFinite(n)) return "0%";
+        const rounded = Math.round(n * 10) / 10; // 1 decimal
+        // Show -0 as 0
+        const safe = Object.is(rounded, -0) ? 0 : rounded;
+        return safe.toLocaleString("en-US") + "%";
+      }
+
+      function calc() {
+        const price = clampMin0(toNum(elPrice.value));
+        const cogs = clampMin0(toNum(elCogs.value));
+        const platformPct = clampMin0(toNum(elPlatformFee.value)) / 100;
+        const paymentPct = clampMin0(toNum(elPaymentFee.value)) / 100;
+        const shipping = clampMin0(toNum(elShipping.value));
+        const ads = clampMin0(toNum(elAds.value));
+
+        const platformFee = price * platformPct;
+        const paymentFee = price * paymentPct;
+
+        const netProfit = price - cogs - platformFee - paymentFee - shipping - ads;
+        const netMargin = price > 0 ? (netProfit / price) * 100 : 0;
+
+        elNetProfit.textContent = formatUSD(netProfit);
+        elNetMargin.textContent = formatPct(netMargin);
+      }
+
+      // Bind events
+      const inputs = [elPrice, elCogs, elPlatformFee, elPaymentFee, elShipping, elAds];
+      inputs.forEach((input) => {
+        input.addEventListener("input", calc);
+        input.addEventListener("change", calc);
+      });
+
+      // Optional: set reasonable defaults for instant feedback (commented)
+      // elPrice.value = 50;
+      // elCogs.value = 15;
+      // elPlatformFee.value = 15;
+      // elPaymentFee.value = 2.9;
+      // elShipping.value = 5;
+      // elAds.value = 10;
+
+      calc();
+    })();
+  </script>
 
   <!-- ===================== -->
   <!-- Styles -->
@@ -183,6 +262,12 @@ Net margin (%) =
       border-radius: 10px;
       border: 1px solid #ddd;
       font-size: 15px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #b8cdfd;
+      box-shadow: 0 0 0 4px rgba(36, 91, 219, 0.08);
     }
 
     /* ===== Results ===== */
