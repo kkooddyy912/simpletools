@@ -1,0 +1,209 @@
+---
+import BaseLayout from "../../../../components/layout/BaseLayout.astro";
+import { site } from "../../../../config/site";
+---
+
+<BaseLayout
+  title="Profit Margin Calculator — Free & Instant | SimpleTools"
+  description="Calculate net profit and net margin after COGS, platform fees, payment fees, shipping, and ad costs. Free and no login."
+  canonical={`${site.url}/tools/e-commerce/profit-margin/`}
+>
+  <article class="page">
+    <div class="badge">Free • No login • Instant result</div>
+    <h1>Profit Margin Calculator</h1>
+
+    <p class="lead">
+      Calculate your true net profit and net margin after all costs—product cost, platform fees,
+      payment processing, shipping, and advertising.
+    </p>
+
+    <!-- CALCULATOR -->
+    <section class="calculator">
+      <div class="field">
+        <label>Selling price (USD)</label>
+        <input type="number" id="price" placeholder="e.g. 49.99" />
+      </div>
+
+      <div class="field">
+        <label>Product cost (COGS)</label>
+        <input type="number" id="cost" placeholder="e.g. 15" />
+      </div>
+
+      <div class="field">
+        <label>Platform fee (%)</label>
+        <input type="number" id="platformFee" placeholder="e.g. 15" />
+      </div>
+
+      <div class="field">
+        <label>Payment processing fee (%)</label>
+        <input type="number" id="paymentFee" placeholder="e.g. 2.9" />
+      </div>
+
+      <div class="field">
+        <label>Shipping cost</label>
+        <input type="number" id="shipping" placeholder="e.g. 5" />
+      </div>
+
+      <div class="field">
+        <label>Ad cost per order</label>
+        <input type="number" id="ads" placeholder="e.g. 10" />
+      </div>
+
+      <button class="btn" onclick="calculate()">Calculate</button>
+
+      <div class="result" id="result">
+        <div><strong>Net profit:</strong> <span id="netProfit">$0</span></div>
+        <div><strong>Net margin:</strong> <span id="netMargin">0%</span></div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="info">
+      <h2>How it works</h2>
+      <p>
+        This calculator subtracts all variable costs from your selling price to determine how much
+        money you actually keep from each sale.
+      </p>
+      <p>
+        Platform fees and payment fees are calculated as percentages of the selling price, while
+        shipping and ad costs are treated as fixed costs per order.
+      </p>
+    </section>
+
+    <!-- FORMULA -->
+    <section class="info">
+      <h2>Formula</h2>
+      <pre>
+Net profit =
+Selling price
+− Product cost
+− (Platform fee % × Selling price)
+− (Payment fee % × Selling price)
+− Shipping cost
+− Ad cost
+
+Net margin (%) =
+(Net profit ÷ Selling price) × 100
+      </pre>
+    </section>
+
+    <!-- EXAMPLE -->
+    <section class="info">
+      <h2>Example</h2>
+      <p>
+        If you sell a product for $50 with a product cost of $15, platform fee of 15%,
+        payment fee of 2.9%, shipping cost of $5, and ad cost of $10:
+      </p>
+      <ul>
+        <li>Total fees = $8.95</li>
+        <li>Net profit = $11.05</li>
+        <li>Net margin ≈ 22.1%</li>
+      </ul>
+    </section>
+
+    <!-- FAQ -->
+    <section class="info">
+      <h2>FAQ</h2>
+
+      <h3>Does this include taxes?</h3>
+      <p>No. This calculator focuses on operational profitability before income taxes.</p>
+
+      <h3>Is this for Amazon, Shopify, or Etsy?</h3>
+      <p>
+        Yes. You can use it for any platform by adjusting the platform fee percentage.
+      </p>
+
+      <h3>What if my ad cost varies?</h3>
+      <p>
+        Use your average ad cost per order for a realistic estimate.
+      </p>
+
+      <h3>Why is my margin lower than expected?</h3>
+      <p>
+        Fees and advertising often account for a large portion of revenue.
+        This calculator makes those costs visible.
+      </p>
+
+      <h3>Is this calculator free?</h3>
+      <p>Yes. No login and no payment required.</p>
+
+      <h3>Can I use this for pricing decisions?</h3>
+      <p>
+        Yes. This tool is often used to validate pricing before launching ads or discounts.
+      </p>
+    </section>
+
+    <!-- RELATED -->
+    <section class="related">
+      <h2>Related calculators</h2>
+      <ul>
+        <li><a href="/tools/e-commerce/break-even-price/">Break-even Price Calculator</a></li>
+        <li><a href="/tools/e-commerce/product-pricing/">Product Pricing Calculator</a></li>
+        <li><a href="/tools/e-commerce/ad-cost-per-order/">Ad Cost per Order Calculator</a></li>
+      </ul>
+    </section>
+
+    <div class="back">
+      <a href="/tools/e-commerce/">← Back to E-commerce Tools</a>
+    </div>
+  </article>
+
+  <script>
+    function calculate() {
+      const price = Number(document.getElementById("price").value) || 0;
+      const cost = Number(document.getElementById("cost").value) || 0;
+      const platformFee = Number(document.getElementById("platformFee").value) || 0;
+      const paymentFee = Number(document.getElementById("paymentFee").value) || 0;
+      const shipping = Number(document.getElementById("shipping").value) || 0;
+      const ads = Number(document.getElementById("ads").value) || 0;
+
+      const feeTotal =
+        (platformFee / 100) * price + (paymentFee / 100) * price;
+
+      const netProfit =
+        price - cost - feeTotal - shipping - ads;
+
+      const netMargin =
+        price > 0 ? (netProfit / price) * 100 : 0;
+
+      document.getElementById("netProfit").innerText =
+        `$${netProfit.toFixed(2)}`;
+      document.getElementById("netMargin").innerText =
+        `${netMargin.toFixed(1)}%`;
+    }
+  </script>
+
+  <style>
+    .page{ max-width: 820px; }
+    .lead{ font-size: 14px; color: var(--muted); }
+    .calculator{
+      margin: 18px 0;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.75);
+    }
+    .field{ margin-bottom: 10px; }
+    label{ font-size: 12px; font-weight: 900; }
+    input{
+      width:100%;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(2,6,23,.15);
+    }
+    .result{ margin-top: 12px; font-size: 14px; }
+    .info{ margin-top: 22px; }
+    .info h2{ font-size: 18px; margin-bottom: 6px; }
+    .info h3{ font-size: 14px; margin-top: 10px; }
+    pre{
+      background: #0f172a;
+      color: #fff;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+    .related ul{ margin-left: 18px; }
+    .back{ margin-top: 24px; }
+  </style>
+</BaseLayout>
