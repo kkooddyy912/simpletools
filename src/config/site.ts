@@ -19,5 +19,5 @@ export const site = {
     { label: "Contact", href: "/contact/" }
   ],
 
-  contactEmail: "hello@simpletools.io"
+  contactEmail: "we@btrw.kr"
 };
