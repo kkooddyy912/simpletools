@@ -6,16 +6,16 @@ const year = new Date().getFullYear();
 <footer class="st_footer">
   <div class="container st_footerInner">
     <div class="st_footerTop">
-      <div>
+      <div class="st_footerInfo">
         <div class="st_footerBrand">{site.name}</div>
         <div class="st_footerDesc">{site.description}</div>
       </div>
 
-      <div class="st_footerLinks" aria-label="Footer links">
+      <nav class="st_footerLinks" aria-label="Footer links">
         {site.footer.map((item) => (
-          <a class="st_footerLink" href={item.href}>{item.label}</a>
+          <a href={item.href}>{item.label}</a>
         ))}
-      </div>
+      </nav>
     </div>
 
     <div class="st_footerBottom">
@@ -26,28 +26,91 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .st_footer{
-    margin-top: 30px;
-    border-top: 1px solid rgba(2,6,23,.10);
-    background: rgba(255,255,255,.55);
+/* ===== Footer Base ===== */
+.st_footer{
+  margin-top:40px;
+  border-top:1px solid rgba(2,6,23,.08);
+  background:rgba(255,255,255,.6);
+}
+
+.st_footerInner{
+  padding:24px 0;
+}
+
+/* ===== Top ===== */
+.st_footerTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:24px;
+  flex-wrap:wrap;
+}
+
+.st_footerInfo{
+  max-width:520px;
+}
+
+.st_footerBrand{
+  font-weight:900;
+  letter-spacing:-0.02em;
+}
+
+.st_footerDesc{
+  margin-top:6px;
+  font-size:12px;
+  line-height:1.5;
+  color:var(--muted);
+}
+
+/* ===== Links (중요 수정 포인트) ===== */
+.st_footerLinks{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.st_footerLinks a{
+  font-size:12px;
+  font-weight:600;
+  color:#6b7280;              /* muted gray */
+  text-decoration:none;
+  padding:0;
+  border:none;
+  background:none;
+}
+
+.st_footerLinks a:hover{
+  color:#111827;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.st_footerLinks a:focus-visible{
+  outline:2px solid rgba(17,24,39,.25);
+  outline-offset:4px;
+  border-radius:6px;
+}
+
+/* ===== Bottom ===== */
+.st_footerBottom{
+  margin-top:18px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.st_footerEmail{
+  font-weight:600;
+}
+
+/* ===== Mobile ===== */
+@media (max-width:640px){
+  .st_footerLinks{
+    gap:14px;
   }
-  .st_footerInner{ padding: 22px 0; }
-  .st_footerTop{
-    display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap;
-  }
-  .st_footerBrand{ font-weight:900; letter-spacing:-0.02em; }
-  .st_footerDesc{ font-size:12px; color: var(--muted); margin-top:6px; max-width:520px; }
-  .st_footerLinks{ display:flex; gap:10px; flex-wrap:wrap; }
-  .st_footerLink{
-    font-size:12px; font-weight:800;
-    padding:8px 10px; border-radius:12px;
-    border: 1px solid rgba(2,6,23,.10);
-    background: rgba(255,255,255,.8);
-  }
-  .st_footerBottom{
-    margin-top: 14px;
-    display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
-    font-size:12px; color: var(--muted);
-  }
-  .st_footerEmail{ font-weight:700; }
+}
 </style>
