@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://simpletools-72t.pages.dev/sitemap.xml
+Sitemap: https://simple-tools.app/sitemap.xml
