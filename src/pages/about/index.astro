@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import { site } from "../../config/site";
+---
+
+<BaseLayout
+  title="About"
+  description="Why SimpleTools exists and who it is built for."
+  canonical={`${site.url}/about/`}
+>
+  <article class="page">
+    <h1>About SimpleTools</h1>
+
+    <p>
+      SimpleTools is a free calculator platform built for fast, practical decisions. The goal is simple:
+      reduce guesswork by making common calculations quick, clear, and repeatable.
+    </p>
+
+    <h2>Who it’s for</h2>
+    <p>
+      SimpleTools is designed for people who need quick answers—especially small business operators and online sellers.
+      Today we focus on e-commerce workflows, and we’ll expand into other categories over time.
+    </p>
+
+    <h2>What makes it different</h2>
+    <ul>
+      <li><strong>No login</strong> — use tools instantly.</li>
+      <li><strong>Clear explanations</strong> — each tool includes how it works, formulas, and FAQs.</li>
+      <li><strong>Built to scale</strong> — categories can expand without changing the core structure.</li>
+    </ul>
+
+    <h2>Why it’s free</h2>
+    <p>
+      The site is supported by advertising. Keeping the tools free helps more people make better decisions without
+      friction or paywalls.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      For questions or feedback, email us at
+      <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>.
+    </p>
+  </article>
+
+  <style>
+    .page{ max-width: 820px; }
+    h1{ margin: 0 0 10px; }
+    h2{ margin: 18px 0 8px; font-size: 18px; letter-spacing:-0.02em; }
+    p, li{ font-size: 14px; }
+    ul{ margin: 8px 0 0 18px; }
+    a{ font-weight: 800; text-decoration: underline; }
+  </style>
+</BaseLayout>
