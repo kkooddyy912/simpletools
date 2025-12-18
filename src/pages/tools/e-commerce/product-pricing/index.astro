@@ -1,0 +1,266 @@
+---
+import BaseLayout from "../../../../components/layout/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Product Pricing Calculator — Free & Instant | SimpleTools"
+  description="Calculate a recommended selling price based on your target margin and all costs."
+>
+  <!-- ===================== -->
+  <!-- Header / Intro -->
+  <!-- ===================== -->
+  <section class="calcHeader">
+    <span class="badge">Free • No login • Instant</span>
+    <h1>Product Pricing Calculator</h1>
+    <p>
+      Calculate a recommended selling price based on your target profit margin,
+      product cost, fees, shipping, and advertising spend.
+    </p>
+  </section>
+
+  <!-- ===================== -->
+  <!-- Calculator Body -->
+  <!-- ===================== -->
+  <section class="calcBody">
+    <!-- Left : Inputs -->
+    <div class="calcInputs">
+      <div class="inputGroup">
+        <label>Product cost (COGS)</label>
+        <input id="pp_cogs" type="number" placeholder="e.g. 15" />
+      </div>
+
+      <div class="inputGroup">
+        <label>Target margin (%)</label>
+        <input id="pp_margin" type="number" placeholder="e.g. 30" />
+      </div>
+
+      <div class="inputGroup">
+        <label>Platform fee (%)</label>
+        <input id="pp_platform" type="number" placeholder="e.g. 15" />
+      </div>
+
+      <div class="inputGroup">
+        <label>Payment fee (%)</label>
+        <input id="pp_payment" type="number" placeholder="e.g. 2.9" />
+      </div>
+
+      <div class="inputGroup">
+        <label>Shipping cost</label>
+        <input id="pp_shipping" type="number" placeholder="e.g. 5" />
+      </div>
+
+      <div class="inputGroup">
+        <label>Ad cost per order</label>
+        <input id="pp_ads" type="number" placeholder="e.g. 10" />
+      </div>
+    </div>
+
+    <!-- Right : Results -->
+    <div class="calcResults">
+      <div class="resultCard">
+        <div class="resultItem">
+          <span>Recommended Price</span>
+          <strong id="pp_price">$0.00</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== -->
+  <!-- Content / SEO -->
+  <!-- ===================== -->
+  <section class="content">
+    <h2>How it works</h2>
+    <p>
+      This calculator works backwards from your target profit margin to determine
+      a selling price that covers all costs and fees while meeting your margin goal.
+    </p>
+
+    <h2>Formula</h2>
+    <pre>
+Recommended price =
+(Product cost + Shipping + Ads)
+÷ (1 − Target margin % − Platform fee % − Payment fee %)
+    </pre>
+
+    <h2>FAQ</h2>
+    <p><strong>What is a target margin?</strong><br />
+      The percentage of revenue you want to keep as profit after all costs.
+    </p>
+
+    <p><strong>Can I use this for new products?</strong><br />
+      Yes. This calculator is designed for pricing before launch.
+    </p>
+
+    <p><strong>Is this calculator free?</strong><br />
+      Yes. No login or payment is required.
+    </p>
+  </section>
+
+  <!-- ===================== -->
+  <!-- Logic -->
+  <!-- ===================== -->
+  <script is:inline>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+
+      const cogs = $("pp_cogs");
+      const margin = $("pp_margin");
+      const platform = $("pp_platform");
+      const payment = $("pp_payment");
+      const shipping = $("pp_shipping");
+      const ads = $("pp_ads");
+      const priceEl = $("pp_price");
+
+      function num(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+      }
+
+      function calc() {
+        const c = num(cogs.value);
+        const m = num(margin.value) / 100;
+        const p = num(platform.value) / 100;
+        const pay = num(payment.value) / 100;
+        const s = num(shipping.value);
+        const a = num(ads.value);
+
+        const denominator = 1 - m - p - pay;
+
+        if (denominator <= 0) {
+          priceEl.textContent = "—";
+          return;
+        }
+
+        const price = (c + s + a) / denominator;
+
+        priceEl.textContent = price.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        });
+      }
+
+      [cogs, margin, platform, payment, shipping, ads].forEach((el) => {
+        el.addEventListener("input", calc);
+        el.addEventListener("change", calc);
+      });
+
+      calc();
+    })();
+  </script>
+
+  <!-- ===================== -->
+  <!-- Styles (Template fixed) -->
+  <!-- ===================== -->
+  <style>
+    .calcHeader {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 20px 32px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: #245bdb;
+    }
+
+    .calcHeader h1 {
+      font-size: 32px;
+      margin: 12px 0;
+    }
+
+    .calcHeader p {
+      color: #555;
+      max-width: 560px;
+    }
+
+    .calcBody {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .calcBody {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calcInputs {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .inputGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    input {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 15px;
+    }
+
+    .calcResults {
+      align-self: flex-start;
+    }
+
+    .resultCard {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    .resultItem span {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .resultItem strong {
+      font-size: 32px;
+      font-weight: 600;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .content h2 {
+      margin-top: 32px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+  </style>
+</BaseLayout>
