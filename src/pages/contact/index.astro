@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import { site } from "../../config/site";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact SimpleTools."
+  canonical={`${site.url}/contact/`}
+>
+  <article class="page">
+    <h1>Contact</h1>
+
+    <p>
+      Questions, feedback, or partnership inquiries are welcome.
+      The fastest way to reach us is email.
+    </p>
+
+    <div class="card">
+      <div class="label">Email</div>
+      <a class="email" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+      <div class="hint">We typically reply within 1–2 business days.</div>
+    </div>
+
+    <h2>What to include</h2>
+    <ul>
+      <li>Which calculator/page you’re referring to</li>
+      <li>Your use case (what you’re trying to calculate)</li>
+      <li>Any example numbers if a result looks off</li>
+    </ul>
+  </article>
+
+  <style>
+    .page{ max-width: 820px; }
+    h1{ margin: 0 0 10px; }
+    h2{ margin: 18px 0 8px; font-size: 18px; letter-spacing:-0.02em; }
+    p, li{ font-size: 14px; }
+    ul{ margin: 8px 0 0 18px; }
+
+    .card{
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.75);
+    }
+    .label{ font-size: 12px; font-weight: 900; color: var(--muted); }
+    .email{ display:inline-block; margin-top: 6px; font-size: 16px; font-weight: 900; text-decoration: underline; }
+    .hint{ margin-top: 6px; font-size: 12px; color: var(--muted); }
+  </style>
+</BaseLayout>
