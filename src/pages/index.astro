@@ -4,128 +4,284 @@ import { site } from "../config/site";
 ---
 
 <BaseLayout
-  title="Free calculators for US e-commerce sellers"
-  description={site.description}
+  title="Free simple calculators — instant results | SimpleTools"
+  description="Free, no-login calculators for fast decisions. Clear formulas, instant results, and practical tools for daily business and life."
   canonical={site.url}
 >
-  <section class="section">
-    <div class="badge">US E-commerce • Free • No login</div>
-    <h1 class="title">
-      Simple calculators for US e-commerce sellers.
-    </h1>
-    <p class="sub">
-      Price smarter, understand fees, and plan ad spend with clear formulas and fast results.
-    </p>
-
-    <div class="ctaRow">
-      <a class="btn" href="/ec-tools/">Explore E-commerce Tools</a>
-      <a class="btn btn-ghost" href="/tools/">View all tools</a>
-    </div>
-
+  <!-- HERO (2-column) -->
+  <section class="hero">
     <div class="heroGrid">
-      <div class="card heroCard">
-        <div class="kicker">Start here</div>
-        <h2 class="h2">Profit Margin Calculator</h2>
-        <p>
-          See your true net profit and net margin after COGS, platform fees, payment fees, shipping, and ads.
+      <!-- LEFT: Content -->
+      <div class="heroLeft">
+        <div class="badge">Free • No login • Instant results</div>
+
+        <h1 class="heroTitle">Simple calculators for quick decisions.</h1>
+
+        <p class="heroDesc">
+          Fast, clear, and reliable tools for everyday calculations—pricing, fees, budgets, and more.
+          See results instantly with transparent formulas.
         </p>
-        <a class="miniLink" href="/ec-tools/profit-margin/">Open calculator →</a>
+
+        <div class="heroCtas">
+          <!-- 지금은 e-commerce만 있어서 여기로 보냄 (카피는 중립) -->
+          <a class="btn" href="/tools/e-commerce/">Open calculators</a>
+          <a class="btn btn-ghost" href="/tools/e-commerce/#calculators">Most used tools</a>
+        </div>
+
+        <div class="heroMini">
+          <div class="miniItem">
+            <div class="miniK">Simple inputs</div>
+            <div class="miniV">Enter values → get results instantly.</div>
+          </div>
+          <div class="miniItem">
+            <div class="miniK">Transparent formulas</div>
+            <div class="miniV">How it works • Formula • FAQ on every tool.</div>
+          </div>
+          <div class="miniItem">
+            <div class="miniK">Built to scale</div>
+            <div class="miniV">E-commerce now, Tax/Wedding next.</div>
+          </div>
+        </div>
       </div>
 
-      <div class="card heroCard">
-        <div class="kicker">Avoid mistakes</div>
-        <h2 class="h2">Break-even Price</h2>
-        <p>
-          Find the minimum price you can sell for without losing money—before you launch or run ads.
-        </p>
-        <a class="miniLink" href="/ec-tools/break-even-price/">Open calculator →</a>
-      </div>
+      <!-- RIGHT: Illustration (placeholder UI cards) -->
+      <div class="heroRight" aria-hidden="true">
+        <div class="gridBg"></div>
 
-      <div class="card heroCard">
-        <div class="kicker">Ad planning</div>
-        <h2 class="h2">Ad Cost per Order</h2>
-        <p>
-          Calculate the maximum ad spend per order you can afford while still hitting your target margin.
-        </p>
-        <a class="miniLink" href="/ec-tools/ad-cost-per-order/">Open calculator →</a>
+        <div class="illusCard illusA">
+          <div class="illusTitle">Instant Output</div>
+          <div class="illusRow">
+            <span class="illusLabel">Result</span>
+            <span class="illusValue">$1,248.40</span>
+          </div>
+          <div class="bars">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="illusCard illusB">
+          <div class="illusTitle">Clear Breakdown</div>
+          <div class="illusRow">
+            <span class="illusLabel">Fees</span>
+            <span class="illusValue">− 12.4%</span>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <div class="illusCard illusC">
+          <div class="illusTitle">Practical Tools</div>
+          <div class="chips">
+            <span>Pricing</span><span>Fees</span><span>Ads</span><span>Budget</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- QUICK LINKS -->
   <section class="section section-tight">
-    <div class="card infoCard">
-      <div class="infoGrid">
-        <div>
-          <div class="kicker">Why SimpleTools</div>
-          <h2 class="h2">Built to pass the “thin content” trap.</h2>
-          <p>
-            Every calculator includes how it works, formulas, examples, and FAQs—so you can trust the result and learn
-            the reasoning behind it.
-          </p>
-        </div>
-        <div class="infoList">
-          <div class="infoItem">
-            <div class="dot"></div>
-            <div>
-              <div class="infoTitle">No login</div>
-              <div class="infoText">Use instantly. No accounts, no gated access.</div>
-            </div>
-          </div>
-          <div class="infoItem">
-            <div class="dot"></div>
-            <div>
-              <div class="infoTitle">US-first</div>
-              <div class="infoText">USD, percent-based fees, ad spend per order.</div>
-            </div>
-          </div>
-          <div class="infoItem">
-            <div class="dot"></div>
-            <div>
-              <div class="infoTitle">Clear formulas</div>
-              <div class="infoText">Transparent calculations you can verify.</div>
-            </div>
-          </div>
-        </div>
+    <div class="card">
+      <div class="kicker">Start here</div>
+      <h2 class="h2">Most-used calculators (free)</h2>
+      <p class="p">
+        Quick tools designed for speed and clarity. Every calculator includes how it works, the formula, and FAQs
+        so you can trust the result.
+      </p>
+
+      <div class="quickGrid">
+        <a class="quick" href="/tools/e-commerce/profit-margin/">
+          <div class="qTitle">Profit Margin</div>
+          <div class="qDesc">Net profit & net margin after costs and fees.</div>
+        </a>
+
+        <a class="quick" href="/tools/e-commerce/break-even-price/">
+          <div class="qTitle">Break-even Price</div>
+          <div class="qDesc">Minimum selling price to avoid losses.</div>
+        </a>
+
+        <a class="quick" href="/tools/e-commerce/product-pricing/">
+          <div class="qTitle">Product Pricing</div>
+          <div class="qDesc">Reverse-calc a recommended selling price.</div>
+        </a>
+
+        <a class="quick" href="/tools/e-commerce/ad-cost-per-order/">
+          <div class="qTitle">Ad Cost / Order</div>
+          <div class="qDesc">Max ad spend per order while keeping margin.</div>
+        </a>
+
+        <a class="quick" href="/tools/e-commerce/amazon-fba-fee/">
+          <div class="qTitle">Amazon FBA Fee</div>
+          <div class="qDesc">Simple fee estimate + profit check.</div>
+        </a>
+      </div>
+
+      <div class="note">
+        Currently available: <strong>E-commerce tools</strong>. More categories will be added over time.
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; margin: 14px 0 18px; }
-
+  /* HERO */
+  .hero{ padding: 26px 0 14px; }
   .heroGrid{
     display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:14px;
-    margin-top: 18px;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 18px;
+    align-items: center;
   }
   @media (max-width: 980px){
-    .heroGrid{ grid-template-columns:1fr; }
+    .heroGrid{ grid-template-columns: 1fr; }
   }
 
-  .heroCard{ padding:18px; }
-  .h2{ margin:10px 0 8px; font-size:18px; letter-spacing:-0.02em; }
-  .heroCard p{ margin:0 0 10px; font-size:13px; }
-
-  .miniLink{ font-weight:800; font-size:13px; }
-
-  .infoCard{ padding:18px; }
-  .infoGrid{
-    display:grid; grid-template-columns: 1.2fr .8fr; gap:16px; align-items:start;
+  .heroTitle{
+    font-size: 46px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin: 12px 0 10px;
   }
-  @media (max-width: 980px){
-    .infoGrid{ grid-template-columns:1fr; }
+  @media (max-width: 520px){
+    .heroTitle{ font-size: 36px; }
+  }
+  .heroDesc{
+    margin: 0 0 14px;
+    font-size: 16px;
+    max-width: 60ch;
   }
 
-  .infoList{ display:flex; flex-direction:column; gap:10px; }
-  .infoItem{
-    display:flex; gap:10px; align-items:flex-start;
-    padding:12px; border-radius:14px;
+  .heroCtas{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom: 14px;
+  }
+
+  .heroMini{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:10px;
+    max-width: 560px;
+  }
+  .miniItem{
+    padding: 12px 14px;
+    border-radius: 16px;
     border: 1px solid rgba(2,6,23,.10);
     background: rgba(255,255,255,.7);
   }
-  .dot{ width:10px; height:10px; border-radius:999px; background:#2563eb; margin-top:4px; }
-  .infoTitle{ font-weight:900; font-size:13px; }
-  .infoText{ font-size:12px; color: var(--muted); margin-top:2px; }
+  .miniK{ font-weight:900; font-size: 13px; }
+  .miniV{ font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  /* RIGHT Illustration */
+  .heroRight{
+    position: relative;
+    min-height: 380px;
+    border-radius: 22px;
+    border: 1px solid rgba(2,6,23,.10);
+    background: rgba(255,255,255,.55);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .gridBg{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to right, rgba(2,6,23,.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(2,6,23,.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+    opacity: .45;
+    pointer-events:none;
+  }
+
+  .illusCard{
+    position:absolute;
+    border-radius: 18px;
+    border: 1px solid rgba(2,6,23,.10);
+    background: rgba(255,255,255,.85);
+    box-shadow: 0 18px 40px rgba(2,6,23,.10);
+    padding: 14px;
+    z-index: 1;
+  }
+  .illusTitle{ font-weight: 900; font-size: 13px; margin-bottom: 10px; }
+  .illusRow{ display:flex; justify-content:space-between; gap:12px; font-size: 12px; color: var(--muted); }
+  .illusValue{ font-weight: 900; color: var(--text); }
+
+  .illusA{ left: 18px; top: 18px; width: 64%; }
+  .illusB{ right: 18px; top: 120px; width: 56%; }
+  .illusC{ left: 18px; bottom: 18px; width: 60%; }
+
+  .bars{
+    margin-top: 10px;
+    display:flex; gap:8px; align-items:flex-end;
+    height: 52px;
+  }
+  .bars span{
+    flex:1;
+    border-radius: 10px;
+    background: rgba(37,99,235,.18);
+    border: 1px solid rgba(37,99,235,.22);
+  }
+  .bars span:nth-child(1){ height: 18px; }
+  .bars span:nth-child(2){ height: 32px; }
+  .bars span:nth-child(3){ height: 24px; }
+  .bars span:nth-child(4){ height: 44px; }
+  .bars span:nth-child(5){ height: 28px; }
+
+  .line{
+    height: 54px;
+    margin-top: 10px;
+    border-radius: 14px;
+    background:
+      linear-gradient(90deg, rgba(37,99,235,.0), rgba(37,99,235,.35), rgba(37,99,235,.0));
+    position:relative;
+  }
+  .line:after{
+    content:"";
+    position:absolute; left:10%; top:50%;
+    width: 80%; height: 2px;
+    background: rgba(2,6,23,.12);
+    transform: translateY(-50%);
+    border-radius: 99px;
+  }
+
+  .chips{ display:flex; gap:8px; flex-wrap:wrap; }
+  .chips span{
+    font-size: 11px;
+    font-weight: 800;
+    padding: 7px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(2,6,23,.10);
+    background: rgba(255,255,255,.85);
+    color: var(--muted);
+  }
+
+  /* QUICK LIST */
+  .kicker{ font-weight: 900; font-size: 12px; color: var(--muted); }
+  .h2{ margin: 8px 0 8px; font-size: 20px; letter-spacing:-0.02em; }
+  .p{ margin: 0 0 14px; font-size: 13px; color: var(--muted); max-width: 74ch; }
+
+  .quickGrid{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 980px){
+    .quickGrid{ grid-template-columns: 1fr; }
+  }
+
+  .quick{
+    padding: 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(2,6,23,.10);
+    background: rgba(255,255,255,.75);
+  }
+  .qTitle{ font-weight: 900; font-size: 13px; }
+  .qDesc{ margin-top: 4px; font-size: 12px; color: var(--muted); }
+
+  .note{
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--muted);
+    padding-top: 12px;
+    border-top: 1px solid rgba(2,6,23,.08);
+  }
 </style>
