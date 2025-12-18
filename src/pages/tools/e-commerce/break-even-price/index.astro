@@ -1,0 +1,220 @@
+---
+import BaseLayout from "../../../../components/layout/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Break-even Price Calculator — Free & Instant | SimpleTools"
+  description="Calculate the minimum selling price needed to break even after fees, costs, shipping, and ads."
+>
+  <style>
+    .calc-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: #2563eb;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .desc {
+      max-width: 640px;
+      color: #4b5563;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      font-size: 15px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .result-card {
+      background: #f9fafb;
+      border-radius: 24px;
+      padding: 28px;
+    }
+
+    .result-label {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+
+    .result-value {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .content {
+      margin-top: 56px;
+      max-width: 760px;
+    }
+
+    .content h2 {
+      margin: 32px 0 12px;
+    }
+
+    .formula {
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 14px;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+
+  <section class="calc-wrap">
+    <span class="badge">Free • No login • Instant</span>
+
+    <h1>Break-even Price Calculator</h1>
+
+    <p class="desc">
+      Find the minimum selling price required to break even after all costs and fees.
+      Ideal for pricing decisions before launching or running ads.
+    </p>
+
+    <div class="calc-grid">
+      <!-- LEFT: INPUTS -->
+      <div class="card">
+        <div class="field">
+          <label>Product cost (COGS)</label>
+          <input id="cost" type="number" placeholder="e.g. 15" />
+        </div>
+
+        <div class="field">
+          <label>Platform fee (%)</label>
+          <input id="platformFee" type="number" placeholder="e.g. 15" />
+        </div>
+
+        <div class="field">
+          <label>Payment fee (%)</label>
+          <input id="paymentFee" type="number" placeholder="e.g. 2.9" />
+        </div>
+
+        <div class="field">
+          <label>Shipping cost</label>
+          <input id="shipping" type="number" placeholder="e.g. 5" />
+        </div>
+
+        <div class="field">
+          <label>Ad cost per order</label>
+          <input id="ads" type="number" placeholder="e.g. 10" />
+        </div>
+      </div>
+
+      <!-- RIGHT: RESULT -->
+      <div class="result-card">
+        <div class="result-label">Break-even Price</div>
+        <div id="result" class="result-value">$0.00</div>
+      </div>
+    </div>
+
+    <!-- SEO CONTENT -->
+    <div class="content">
+      <h2>How it works</h2>
+      <p>
+        The calculator determines the selling price at which total revenue equals total costs.
+        Percentage-based fees are calculated from the selling price, while other costs are fixed per order.
+      </p>
+
+      <h2>Formula</h2>
+      <div class="formula">
+        Break-even price = <br />
+        (Product cost + Shipping + Ads) <br />
+        ÷ (1 − Platform fee % − Payment fee %)
+      </div>
+
+      <h2>FAQ</h2>
+      <p><strong>Does this include taxes?</strong><br />No. Taxes vary by region and are not included.</p>
+      <p><strong>Is this calculator free?</strong><br />Yes. No login or payment required.</p>
+      <p><strong>Can I use this before running ads?</strong><br />Yes. This is designed for pre-launch pricing.</p>
+    </div>
+  </section>
+
+  <script>
+    const cost = document.getElementById("cost");
+    const platformFee = document.getElementById("platformFee");
+    const paymentFee = document.getElementById("paymentFee");
+    const shipping = document.getElementById("shipping");
+    const ads = document.getElementById("ads");
+    const result = document.getElementById("result");
+
+    function calculate() {
+      const c = parseFloat(cost.value) || 0;
+      const pf = (parseFloat(platformFee.value) || 0) / 100;
+      const payf = (parseFloat(paymentFee.value) || 0) / 100;
+      const s = parseFloat(shipping.value) || 0;
+      const a = parseFloat(ads.value) || 0;
+
+      const denominator = 1 - pf - payf;
+
+      if (denominator <= 0) {
+        result.textContent = "—";
+        return;
+      }
+
+      const price = (c + s + a) / denominator;
+
+      result.textContent = `$${price.toFixed(2)}`;
+    }
+
+    [cost, platformFee, paymentFee, shipping, ads].forEach((el) =>
+      el.addEventListener("input", calculate)
+    );
+  </script>
+</BaseLayout>
