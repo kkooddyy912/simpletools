@@ -1,107 +1,170 @@
 ---
 import BaseLayout from "../../../components/layout/BaseLayout.astro";
-import { site } from "../../../config/site";
 ---
 
 <BaseLayout
-  title="E-commerce Tools"
-  description="Free e-commerce calculators for pricing, profit, fees, and ad planning."
-  canonical={`${site.url}/tools/e-commerce/`}
+  title="E-commerce Calculators for US Sellers — Free Tools | SimpleTools"
+  description="Free e-commerce calculators for US sellers. Price products, estimate fees, plan ad spend, and avoid losses."
 >
-  <article class="page" id="calculators">
-    <div class="badge">Free • No login • Instant results</div>
-    <h1>E-commerce Tools</h1>
+  <!-- ===================== -->
+  <!-- Header -->
+  <!-- ===================== -->
+  <section class="hubHeader">
+    <h1>E-commerce Calculators</h1>
+    <p>
+      Free calculators designed for US e-commerce sellers.
+      Use these tools to price products, estimate fees, and plan ad spend
+      with clear formulas and instant results.
+    </p>
+  </section>
 
-    <p class="lead">
-      Practical calculators for pricing, profitability, and ad planning. Each tool explains how it works, the formula,
-      and FAQs so you can validate results quickly.
+  <!-- ===================== -->
+  <!-- Calculator List -->
+  <!-- ===================== -->
+  <section class="hubList">
+    <ul>
+      <li>
+        <a href="/tools/e-commerce/profit-margin/">
+          <h2>Profit Margin Calculator</h2>
+        </a>
+        <p>
+          Calculate your real net profit and net margin after product costs,
+          platform fees, payment fees, shipping, and advertising.
+        </p>
+      </li>
+
+      <li>
+        <a href="/tools/e-commerce/break-even-price/">
+          <h2>Break-even Price Calculator</h2>
+        </a>
+        <p>
+          Find the minimum selling price required to avoid losses before
+          launching a product or running ads.
+        </p>
+      </li>
+
+      <li>
+        <a href="/tools/e-commerce/product-pricing/">
+          <h2>Product Pricing Calculator</h2>
+        </a>
+        <p>
+          Set a recommended selling price based on your target profit margin
+          and all associated costs.
+        </p>
+      </li>
+
+      <li>
+        <a href="/tools/e-commerce/ad-cost-per-order/">
+          <h2>Ad Cost per Order Calculator</h2>
+        </a>
+        <p>
+          Determine the maximum advertising cost per order you can afford
+          while still hitting your target margin.
+        </p>
+      </li>
+
+      <li>
+        <a href="/tools/e-commerce/amazon-fba-fee/">
+          <h2>Amazon FBA Fee Calculator (Simple)</h2>
+        </a>
+        <p>
+          Estimate Amazon referral and fulfillment fees and see how much
+          profit you keep after using FBA.
+        </p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===================== -->
+  <!-- SEO / Context -->
+  <!-- ===================== -->
+  <section class="hubContent">
+    <h2>Why these calculators matter</h2>
+    <p>
+      Pricing mistakes are one of the most common reasons e-commerce sellers
+      lose money. Platform fees, payment processing, fulfillment, and advertising
+      costs can quickly reduce margins if they are not calculated correctly.
     </p>
 
-    <section class="grid" aria-label="calculator list">
-      <a class="card" href="/tools/e-commerce/profit-margin/">
-        <div class="title">Profit Margin Calculator</div>
-        <div class="desc">Calculate net profit and net margin after COGS, fees, shipping, and ads.</div>
-        <div class="meta">Best for: quick profitability check</div>
-      </a>
+    <p>
+      SimpleTools provides clear, transparent calculators that help you make
+      informed pricing and advertising decisions without spreadsheets or logins.
+      All calculations are shown openly so you can trust and verify the results.
+    </p>
+  </section>
 
-      <a class="card" href="/tools/e-commerce/break-even-price/">
-        <div class="title">Break-even Price Calculator</div>
-        <div class="desc">Find the minimum price you can sell for without losing money.</div>
-        <div class="meta">Best for: pricing safety</div>
-      </a>
-
-      <a class="card" href="/tools/e-commerce/product-pricing/">
-        <div class="title">Product Pricing Calculator</div>
-        <div class="desc">Reverse-calc a recommended selling price based on your target margin.</div>
-        <div class="meta">Best for: launch pricing</div>
-      </a>
-
-      <a class="card" href="/tools/e-commerce/ad-cost-per-order/">
-        <div class="title">Ad Cost per Order (Max CPO)</div>
-        <div class="desc">Calculate the maximum ad spend per order while keeping your target margin.</div>
-        <div class="meta">Best for: ads planning</div>
-      </a>
-
-      <a class="card" href="/tools/e-commerce/amazon-fba-fee/">
-        <div class="title">Amazon FBA Fee (Simple)</div>
-        <div class="desc">Estimate FBA fees quickly and check whether the product still makes sense.</div>
-        <div class="meta">Best for: FBA decision</div>
-      </a>
-    </section>
-
-    <section class="info">
-      <h2>How these calculators are designed</h2>
-      <p>
-        Each calculator focuses on clarity and speed. You enter only the essential numbers, and the tool returns an
-        instant result. Under the calculator, you’ll find a short explanation, the formula used, and FAQs.
-      </p>
-
-      <h2>What’s included</h2>
-      <ul>
-        <li>USD-first inputs</li>
-        <li>Percent-based fee fields</li>
-        <li>Clear breakdown of results</li>
-        <li>How it works + formula + FAQ sections</li>
-      </ul>
-    </section>
-
-    <div class="back">
-      <a href="/">← Back to Home</a>
-    </div>
-  </article>
-
+  <!-- ===================== -->
+  <!-- Styles -->
+  <!-- ===================== -->
   <style>
-    .page{ max-width: 980px; }
-    h1{ margin: 10px 0 8px; }
-    .lead{ margin: 0 0 16px; font-size: 14px; color: var(--muted); max-width: 78ch; }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 14px;
-    }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
+    .hubHeader {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 20px 32px;
+      text-align: center;
     }
 
-    .card{
-      display:block;
-      padding: 16px;
-      border-radius: 18px;
-      border: 1px solid rgba(2,6,23,.10);
-      background: rgba(255,255,255,.75);
+    .hubHeader h1 {
+      font-size: 36px;
+      margin-bottom: 16px;
     }
-    .title{ font-weight: 900; font-size: 14px; letter-spacing:-0.02em; }
-    .desc{ margin-top: 6px; font-size: 13px; color: var(--muted); }
-    .meta{ margin-top: 10px; font-size: 12px; font-weight: 900; color: rgba(2,6,23,.62); }
 
-    .info{ margin-top: 18px; }
-    .info h2{ margin: 18px 0 8px; font-size: 18px; letter-spacing:-0.02em; }
-    .info p, .info li{ font-size: 14px; color: var(--muted); }
-    .info ul{ margin: 8px 0 0 18px; }
+    .hubHeader p {
+      color: #555;
+      line-height: 1.6;
+    }
 
-    .back{ margin-top: 18px; }
-    .back a{ font-weight: 900; text-decoration: underline; }
+    .hubList {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 48px;
+    }
+
+    .hubList ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hubList li {
+      padding: 24px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .hubList h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .hubList a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .hubList a:hover h2 {
+      text-decoration: underline;
+    }
+
+    .hubList p {
+      color: #555;
+      line-height: 1.6;
+      max-width: 720px;
+    }
+
+    .hubContent {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .hubContent h2 {
+      margin-bottom: 16px;
+    }
+
+    .hubContent p {
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 16px;
+    }
   </style>
 </BaseLayout>
