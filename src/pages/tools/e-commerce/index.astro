@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../../../components/layout/BaseLayout.astro";
+import { site } from "../../../config/site";
+---
+
+<BaseLayout
+  title="E-commerce Tools"
+  description="Free e-commerce calculators for pricing, profit, fees, and ad planning."
+  canonical={`${site.url}/tools/e-commerce/`}
+>
+  <article class="page" id="calculators">
+    <div class="badge">Free • No login • Instant results</div>
+    <h1>E-commerce Tools</h1>
+
+    <p class="lead">
+      Practical calculators for pricing, profitability, and ad planning. Each tool explains how it works, the formula,
+      and FAQs so you can validate results quickly.
+    </p>
+
+    <section class="grid" aria-label="calculator list">
+      <a class="card" href="/tools/e-commerce/profit-margin/">
+        <div class="title">Profit Margin Calculator</div>
+        <div class="desc">Calculate net profit and net margin after COGS, fees, shipping, and ads.</div>
+        <div class="meta">Best for: quick profitability check</div>
+      </a>
+
+      <a class="card" href="/tools/e-commerce/break-even-price/">
+        <div class="title">Break-even Price Calculator</div>
+        <div class="desc">Find the minimum price you can sell for without losing money.</div>
+        <div class="meta">Best for: pricing safety</div>
+      </a>
+
+      <a class="card" href="/tools/e-commerce/product-pricing/">
+        <div class="title">Product Pricing Calculator</div>
+        <div class="desc">Reverse-calc a recommended selling price based on your target margin.</div>
+        <div class="meta">Best for: launch pricing</div>
+      </a>
+
+      <a class="card" href="/tools/e-commerce/ad-cost-per-order/">
+        <div class="title">Ad Cost per Order (Max CPO)</div>
+        <div class="desc">Calculate the maximum ad spend per order while keeping your target margin.</div>
+        <div class="meta">Best for: ads planning</div>
+      </a>
+
+      <a class="card" href="/tools/e-commerce/amazon-fba-fee/">
+        <div class="title">Amazon FBA Fee (Simple)</div>
+        <div class="desc">Estimate FBA fees quickly and check whether the product still makes sense.</div>
+        <div class="meta">Best for: FBA decision</div>
+      </a>
+    </section>
+
+    <section class="info">
+      <h2>How these calculators are designed</h2>
+      <p>
+        Each calculator focuses on clarity and speed. You enter only the essential numbers, and the tool returns an
+        instant result. Under the calculator, you’ll find a short explanation, the formula used, and FAQs.
+      </p>
+
+      <h2>What’s included</h2>
+      <ul>
+        <li>USD-first inputs</li>
+        <li>Percent-based fee fields</li>
+        <li>Clear breakdown of results</li>
+        <li>How it works + formula + FAQ sections</li>
+      </ul>
+    </section>
+
+    <div class="back">
+      <a href="/">← Back to Home</a>
+    </div>
+  </article>
+
+  <style>
+    .page{ max-width: 980px; }
+    h1{ margin: 10px 0 8px; }
+    .lead{ margin: 0 0 16px; font-size: 14px; color: var(--muted); max-width: 78ch; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      display:block;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.75);
+    }
+    .title{ font-weight: 900; font-size: 14px; letter-spacing:-0.02em; }
+    .desc{ margin-top: 6px; font-size: 13px; color: var(--muted); }
+    .meta{ margin-top: 10px; font-size: 12px; font-weight: 900; color: rgba(2,6,23,.62); }
+
+    .info{ margin-top: 18px; }
+    .info h2{ margin: 18px 0 8px; font-size: 18px; letter-spacing:-0.02em; }
+    .info p, .info li{ font-size: 14px; color: var(--muted); }
+    .info ul{ margin: 8px 0 0 18px; }
+
+    .back{ margin-top: 18px; }
+    .back a{ font-weight: 900; text-decoration: underline; }
+  </style>
+</BaseLayout>
