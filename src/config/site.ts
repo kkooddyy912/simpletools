@@ -10,7 +10,7 @@ export const site = {
     { label: "Pricing", href: "/tools/e-commerce/product-pricing/" },
     { label: "Ad CPO", href: "/tools/e-commerce/ad-cost-per-order/" },
     { label: "FBA Fee", href: "/tools/e-commerce/amazon-fba-fee/" },
-    { label: "All Tools", href: "/tools/" }
+    // { label: "All Tools", href: "/tools/" }
   ],
 
   footer: [
