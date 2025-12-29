@@ -4,7 +4,7 @@ import BaseLayout from "../../../../components/layout/BaseLayout.astro";
 
 const pageTitle = "Amazon FBA Fee Calculator — Free & Instant | SimpleTools";
 const pageDescription =
-  "Estimate Amazon FBA fees and your profit per order using selling price, COGS, referral fee %, and FBA fee inputs. No login. Instant results with formulas and FAQ.";
+  "Estimate Amazon referral + FBA fulfillment fees and see net profit and net margin per order. No login. Instant results with clear formulas.";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -14,8 +14,8 @@ const pageDescription =
         <div class="st_kicker">Free • No login • Instant</div>
         <h1 class="st_h1">Amazon FBA Fee Calculator</h1>
         <p class="st_lead">
-          Estimate Amazon referral + FBA fees and see net profit and net margin
-          per order—fast, with transparent formulas.
+          Estimate Amazon fees (referral + fulfillment) and see your net profit and net margin per order.
+          Use presets for referral fee if you’re not sure.
         </p>
       </div>
     </section>
@@ -27,22 +27,14 @@ const pageDescription =
         <div class="st_card st_inputs">
           <div class="st_cardHead">
             <h2 class="st_h2">Inputs</h2>
-            <p class="st_muted">Enter your price, product cost, and Amazon fees.</p>
+            <p class="st_muted">Enter your per-order numbers. Referral fee presets help you start fast.</p>
           </div>
 
           <div class="st_field">
             <label class="st_label" for="fba_price">Selling price (USD)</label>
             <div class="st_inputRow">
               <span class="st_prefix">$</span>
-              <input
-                id="fba_price"
-                class="st_input"
-                inputmode="decimal"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-              />
+              <input id="fba_price" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
             </div>
           </div>
 
@@ -50,75 +42,61 @@ const pageDescription =
             <label class="st_label" for="fba_cogs">Product cost (COGS)</label>
             <div class="st_inputRow">
               <span class="st_prefix">$</span>
-              <input
-                id="fba_cogs"
-                class="st_input"
-                inputmode="decimal"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-              />
+              <input id="fba_cogs" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
             </div>
-            <div class="st_hint">Your per-unit cost (manufacturing + inbound, if you include it).</div>
           </div>
 
           <div class="st_field">
-            <label class="st_label" for="fba_referral">Amazon referral fee (%)</label>
+            <label class="st_label" for="fba_referral">Referral fee (%)</label>
             <div class="st_inputRow">
-              <input
-                id="fba_referral"
-                class="st_input"
-                inputmode="decimal"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-              />
+              <input id="fba_referral" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
               <span class="st_suffix">%</span>
             </div>
-            <div class="st_hint">Category-based percentage fee (often ~8–15%).</div>
+
+            <div class="st_presetRow" aria-label="Referral fee presets">
+              <button type="button" class="st_presetBtn" data-ref="8">8%</button>
+
+              <button
+                type="button"
+                class="st_presetBtn st_presetPrimary"
+                data-ref="15"
+                aria-label="Recommended referral fee"
+              >
+                15%
+                <span class="st_presetTag">Recommended</span>
+              </button>
+
+              <button type="button" class="st_presetBtn" data-ref="20">20%</button>
+
+              <span class="st_presetHint">Most categories fall between 8–15%</span>
+            </div>
+
+            <div class="st_hint">Referral fee is a percentage of selling price.</div>
           </div>
 
           <div class="st_field">
-            <label class="st_label" for="fba_fulfillment">FBA fulfillment fee (per unit)</label>
+            <label class="st_label" for="fba_fulfill">FBA fulfillment fee (per order)</label>
             <div class="st_inputRow">
               <span class="st_prefix">$</span>
-              <input
-                id="fba_fulfillment"
-                class="st_input"
-                inputmode="decimal"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-              />
+              <input id="fba_fulfill" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
             </div>
-            <div class="st_hint">Pick &amp; pack + weight handling (you input the fee).</div>
+            <div class="st_hint">Pick from Amazon’s fee table for your size/weight tier.</div>
           </div>
 
           <div class="st_field">
             <label class="st_label" for="fba_other">Other per-order costs (optional)</label>
             <div class="st_inputRow">
               <span class="st_prefix">$</span>
-              <input
-                id="fba_other"
-                class="st_input"
-                inputmode="decimal"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-              />
+              <input id="fba_other" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
             </div>
-            <div class="st_hint">Optional: prep, labeling, returns allowance, coupons, etc.</div>
+            <div class="st_hint">Optional: prep/label, returns allowance, storage allocation, inserts, etc.</div>
           </div>
 
           <div class="st_divider"></div>
 
           <div class="st_actions">
             <button class="st_btn" type="button" id="fba_reset">Reset</button>
-            <div class="st_note">Tip: start by pasting known fees from your listing.</div>
+            <div class="st_note">Tip: If you’re unsure, start with 15% referral + your best fulfillment estimate.</div>
           </div>
         </div>
 
@@ -126,7 +104,7 @@ const pageDescription =
         <aside class="st_card st_results" aria-label="Results">
           <div class="st_cardHead">
             <h2 class="st_h2">Results</h2>
-            <p class="st_muted">Net profit and a simple fee breakdown.</p>
+            <p class="st_muted">Instant output with a clear breakdown.</p>
           </div>
 
           <div class="st_resultMain">
@@ -135,31 +113,31 @@ const pageDescription =
 
             <div class="st_badgeRow">
               <span class="st_badge" id="fba_marginBadge">Net margin: 0.0%</span>
-              <span class="st_badge" id="fba_totalFeeBadge">Total fees: $0.00</span>
+              <span class="st_badge" id="fba_feeBadge">Total fees: $0.00</span>
             </div>
 
             <div class="st_warn" id="fba_warn" hidden>
-              Price is required. Enter a selling price above $0 to calculate profit and margin.
+              Selling price is <strong>$0</strong>. Enter a price to calculate referral fee and margin.
             </div>
           </div>
 
           <div class="st_pills">
             <div class="st_pill">
               <div class="st_pillKey">Referral fee</div>
-              <div class="st_pillVal" id="fba_referralFee">$0.00</div>
+              <div class="st_pillVal" id="fba_referralAmt">$0.00</div>
               <div class="st_pillSub">Referral % × price</div>
             </div>
 
             <div class="st_pill">
-              <div class="st_pillKey">FBA fulfillment fee</div>
-              <div class="st_pillVal" id="fba_fulfillmentFee">$0.00</div>
-              <div class="st_pillSub">Per unit (input)</div>
+              <div class="st_pillKey">Fulfillment fee</div>
+              <div class="st_pillVal" id="fba_fulfillAmt">$0.00</div>
+              <div class="st_pillSub">Per-order FBA fee</div>
             </div>
 
             <div class="st_pill">
-              <div class="st_pillKey">COGS + other costs</div>
-              <div class="st_pillVal" id="fba_costs">$0.00</div>
-              <div class="st_pillSub">COGS + optional costs</div>
+              <div class="st_pillKey">Total cost</div>
+              <div class="st_pillVal" id="fba_totalCost">$0.00</div>
+              <div class="st_pillSub">COGS + fees + other</div>
             </div>
           </div>
         </aside>
@@ -171,63 +149,57 @@ const pageDescription =
       <div class="st_contentInner">
         <h2 class="st_h3">How it works</h2>
         <p class="st_p">
-          This calculator estimates your per-order profit on Amazon FBA using a simple breakdown:
-          product cost (COGS), referral fee (percentage of selling price), FBA fulfillment fee (per unit),
-          and any optional extra costs you want to include. It outputs net profit and net margin.
+          This calculator estimates Amazon fees in a simple, per-order view. The referral fee is a percentage of your
+          selling price. The FBA fulfillment fee is a fixed amount per order based on your product’s size and weight.
+          We subtract these fees plus your product cost and any optional costs to estimate net profit and net margin.
         </p>
 
         <h2 class="st_h3">Formula</h2>
         <div class="st_formula">
           <div class="st_formulaLine">
-            <span class="st_mono">Referral fee</span> =
-            <span class="st_mono">Price × (Referral % / 100)</span>
+            <span class="st_mono">Referral fee</span> = <span class="st_mono">Price × (Referral % / 100)</span>
           </div>
           <div class="st_formulaLine">
-            <span class="st_mono">Total fees</span> =
-            <span class="st_mono">Referral fee + FBA fulfillment fee</span>
+            <span class="st_mono">Total fees</span> = <span class="st_mono">Referral fee + Fulfillment fee</span>
           </div>
           <div class="st_formulaLine">
-            <span class="st_mono">Net profit</span> =
-            <span class="st_mono">Price − COGS − Other costs − Total fees</span>
+            <span class="st_mono">Total cost</span> = <span class="st_mono">COGS + Total fees + Other costs</span>
           </div>
           <div class="st_formulaLine">
-            <span class="st_mono">Net margin (%)</span> =
-            <span class="st_mono">(Net profit ÷ Price) × 100</span>
+            <span class="st_mono">Net profit</span> = <span class="st_mono">Price − Total cost</span>
+          </div>
+          <div class="st_formulaLine">
+            <span class="st_mono">Net margin (%)</span> = <span class="st_mono">(Net profit ÷ Price) × 100</span>
           </div>
         </div>
 
         <h2 class="st_h3">Example</h2>
         <p class="st_p">
-          If you sell at $50, COGS is $15, referral fee is 15%, FBA fulfillment fee is $5, and other costs are $1:
-          referral fee = $7.50, total fees = $12.50, net profit = 50 − 15 − 1 − 12.50 = <strong>$21.50</strong>,
-          net margin ≈ <strong>43.0%</strong>.
+          If price is $40, COGS is $14, referral fee is 15%, fulfillment fee is $5, and other costs are $1:
+          referral fee = $6.00, total fees = $11.00, total cost = $26.00, net profit = <strong>$14.00</strong>,
+          net margin = <strong>35.0%</strong>.
         </p>
 
         <h2 class="st_h3">FAQ</h2>
         <div class="st_faq">
           <details class="st_faqItem">
-            <summary>Is this an official Amazon fee calculator?</summary>
-            <p>No. It’s a simple estimator. Use your listing’s known fees for the most accurate result.</p>
+            <summary>What is the referral fee?</summary>
+            <p>It’s the percentage Amazon takes from the selling price (varies by category). If unsure, start with 15%.</p>
           </details>
 
           <details class="st_faqItem">
-            <summary>What should I enter for referral fee?</summary>
-            <p>Use your category’s referral fee percentage (commonly around 8–15%).</p>
+            <summary>What is the FBA fulfillment fee?</summary>
+            <p>A per-order fee based on the product’s size/weight tier. Enter the amount from Amazon’s fee table.</p>
           </details>
 
           <details class="st_faqItem">
             <summary>Does this include storage fees?</summary>
-            <p>Not automatically. If you want, add estimated storage/returns/coupons into “Other per-order costs”.</p>
+            <p>Storage is usually monthly. If you want a per-order estimate, put your allocation in “Other costs”.</p>
           </details>
 
           <details class="st_faqItem">
-            <summary>Why is my margin negative?</summary>
-            <p>Your total costs and fees exceed your selling price. Lower costs, raise price, or reduce fees where possible.</p>
-          </details>
-
-          <details class="st_faqItem">
-            <summary>Can I use this for FBM?</summary>
-            <p>You can—set FBA fulfillment fee to $0 and instead add your shipping/handling into “Other costs”.</p>
+            <summary>Does this include taxes?</summary>
+            <p>No. Taxes vary by state and business setup, so they’re excluded to keep the calculator simple.</p>
           </details>
 
           <details class="st_faqItem">
@@ -248,17 +220,18 @@ const pageDescription =
       price: $("fba_price"),
       cogs: $("fba_cogs"),
       referral: $("fba_referral"),
-      fulfillment: $("fba_fulfillment"),
+      fulfill: $("fba_fulfill"),
       other: $("fba_other"),
 
       outProfit: $("fba_profit"),
       outMarginBadge: $("fba_marginBadge"),
-      outTotalFeeBadge: $("fba_totalFeeBadge"),
-      outReferralFee: $("fba_referralFee"),
-      outFulfillmentFee: $("fba_fulfillmentFee"),
-      outCosts: $("fba_costs"),
-      warn: $("fba_warn"),
+      outFeeBadge: $("fba_feeBadge"),
 
+      outReferralAmt: $("fba_referralAmt"),
+      outFulfillAmt: $("fba_fulfillAmt"),
+      outTotalCost: $("fba_totalCost"),
+
+      warn: $("fba_warn"),
       reset: $("fba_reset"),
     };
 
@@ -275,46 +248,44 @@ const pageDescription =
       }).format(Number.isFinite(n) ? n : 0);
 
     function calc() {
-      const price = Math.max(0, toNum(el.price.value));
-      const cogs = Math.max(0, toNum(el.cogs.value));
-      const referralRate = Math.max(0, toNum(el.referral.value)) / 100;
-      const fulfillmentFee = Math.max(0, toNum(el.fulfillment.value));
+      const price = toNum(el.price.value);
+      const cogs = toNum(el.cogs.value);
+      const referralRate = Math.max(0, toNum(el.referral.value) / 100);
+      const fulfill = Math.max(0, toNum(el.fulfill.value));
       const other = Math.max(0, toNum(el.other.value));
 
-      if (price <= 0) {
-        el.warn.hidden = false;
-        el.outProfit.textContent = money(0);
-        el.outMarginBadge.textContent = "Net margin: 0.0%";
-        el.outTotalFeeBadge.textContent = `Total fees: ${money(0)}`;
-        el.outReferralFee.textContent = money(0);
-        el.outFulfillmentFee.textContent = money(0);
-        el.outCosts.textContent = money(cogs + other);
-        return;
-      }
+      if (price <= 0) el.warn.hidden = false;
+      else el.warn.hidden = true;
 
-      el.warn.hidden = true;
+      const referralAmt = price * referralRate;
+      const totalFees = referralAmt + fulfill;
+      const totalCost = cogs + totalFees + other;
 
-      const referralFee = price * referralRate;
-      const totalFees = referralFee + fulfillmentFee;
-      const costs = cogs + other;
+      const profit = price - totalCost;
+      const margin = price > 0 ? (profit / price) * 100 : 0;
 
-      const netProfit = price - costs - totalFees;
-      const netMargin = (netProfit / price) * 100;
+      el.outReferralAmt.textContent = money(referralAmt);
+      el.outFulfillAmt.textContent = money(fulfill);
+      el.outTotalCost.textContent = money(totalCost);
 
-      el.outProfit.textContent = money(netProfit);
-      el.outMarginBadge.textContent = `Net margin: ${(Number.isFinite(netMargin) ? netMargin : 0).toFixed(1)}%`;
-      el.outTotalFeeBadge.textContent = `Total fees: ${money(totalFees)}`;
-
-      el.outReferralFee.textContent = money(referralFee);
-      el.outFulfillmentFee.textContent = money(fulfillmentFee);
-      el.outCosts.textContent = money(costs);
+      el.outProfit.textContent = money(profit);
+      el.outMarginBadge.textContent = `Net margin: ${(Number.isFinite(margin) ? margin : 0).toFixed(1)}%`;
+      el.outFeeBadge.textContent = `Total fees: ${money(totalFees)}`;
     }
+
+    // Referral preset buttons
+    document.querySelectorAll("[data-ref]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        el.referral.value = btn.getAttribute("data-ref");
+        calc();
+      });
+    });
 
     ["input", "change"].forEach((evt) => {
       el.price.addEventListener(evt, calc);
       el.cogs.addEventListener(evt, calc);
       el.referral.addEventListener(evt, calc);
-      el.fulfillment.addEventListener(evt, calc);
+      el.fulfill.addEventListener(evt, calc);
       el.other.addEventListener(evt, calc);
     });
 
@@ -322,7 +293,7 @@ const pageDescription =
       el.price.value = "";
       el.cogs.value = "";
       el.referral.value = "";
-      el.fulfillment.value = "";
+      el.fulfill.value = "";
       el.other.value = "";
       calc();
     });
@@ -337,7 +308,7 @@ const pageDescription =
 
     .st_calcHero { padding-top: 8px; padding-bottom: 10px; }
     .st_calcHeroTop { max-width: 820px; }
-    .st_kicker {
+    .st_kicker{
       display: inline-flex;
       gap: 8px;
       align-items: center;
@@ -349,13 +320,13 @@ const pageDescription =
       padding: 7px 10px;
       border-radius: 999px;
     }
-    .st_h1 {
+    .st_h1{
       margin: 12px 0 8px;
       font-size: clamp(26px, 3vw, 34px);
       line-height: 1.15;
       letter-spacing: -0.03em;
     }
-    .st_lead {
+    .st_lead{
       margin: 0;
       font-size: 14px;
       line-height: 1.6;
@@ -365,7 +336,7 @@ const pageDescription =
 
     /* Grid */
     .st_calcWrap { margin-top: 14px; }
-    .st_calcGrid {
+    .st_calcGrid{
       display: grid;
       grid-template-columns: 1.3fr 1fr;
       gap: 14px;
@@ -464,6 +435,46 @@ const pageDescription =
     .st_btn:hover{ transform: translateY(-1px); }
     .st_note{ font-size: 12px; color: var(--muted, rgba(2,6,23,.60)); }
 
+    /* Referral presets */
+    .st_presetRow{
+      margin-top: 10px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .st_presetBtn{
+      appearance:none;
+      border:1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.92);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      cursor:pointer;
+      position: relative;
+    }
+    .st_presetBtn:hover{ transform: translateY(-1px); }
+    .st_presetPrimary{
+      border-color: rgba(37,99,235,.35);
+      background: rgba(37,99,235,.08);
+      color: rgba(29,78,216,.95);
+    }
+    .st_presetTag{
+      margin-left: 6px;
+      padding: 3px 6px;
+      font-size: 10px;
+      font-weight: 900;
+      border-radius: 999px;
+      background: rgba(37,99,235,.15);
+      color: rgba(29,78,216,.95);
+    }
+    .st_presetHint{
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted, rgba(2,6,23,.60));
+    }
+
     /* Results */
     .st_results { position: sticky; top: 14px; }
     @media (max-width: 860px) { .st_results { position: static; } }
@@ -552,7 +563,10 @@ const pageDescription =
       line-height: 1.7;
       color: rgba(2,6,23,.80);
     }
-    .st_mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-weight: 800; }
+    .st_mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-weight: 800;
+    }
 
     .st_faq{ margin-top: 8px; display: grid; gap: 10px; }
     .st_faqItem{
