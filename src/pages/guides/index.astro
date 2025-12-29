@@ -1,0 +1,153 @@
+---
+// File: src/pages/guides/index.astro
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+
+const pageTitle = "Guides — Pricing, fees & ad planning basics | SimpleTools";
+const pageDescription =
+  "Practical guides for quick, reliable decisions—pricing, fees, budgets, and more. Clear explanations, examples, and links to free calculators.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="st_calcPage">
+    <section class="container st_calcHero">
+      <div class="st_calcHeroTop">
+        <div class="st_kicker">Free • No login • Clear explanations</div>
+        <h1 class="st_h1">Guides</h1>
+        <p class="st_lead">
+          Simple, practical guides that explain the “why” behind the numbers.
+          Each guide includes definitions, examples, common mistakes, and links to free calculators.
+        </p>
+      </div>
+    </section>
+
+    <section class="container st_content">
+      <div class="st_contentInner">
+        <h2 class="st_h3">Start here</h2>
+
+        <div class="st_cards">
+          <a class="st_cardLink" href="/guides/ecommerce-pricing-basics/">
+            <div class="st_cardLinkTitle">E-commerce Pricing Basics (US sellers)</div>
+            <div class="st_cardLinkDesc">
+              Learn the core flow: profit margin → break-even → product pricing → ad cost per order.
+              Includes formulas, a worked example, and FAQs.
+            </div>
+            <div class="st_cardLinkMeta">Read guide →</div>
+          </a>
+        </div>
+
+        <h2 class="st_h3">What you’ll find in every guide</h2>
+        <ul class="st_list">
+          <li>Definitions that match real seller decisions (pricing, fees, ad spend)</li>
+          <li>Transparent formulas you can verify</li>
+          <li>1–2 realistic examples with numbers</li>
+          <li>Common mistakes checklist</li>
+          <li>FAQ designed for quick scanning</li>
+          <li>Direct links to calculators</li>
+        </ul>
+
+        <h2 class="st_h3">Currently available</h2>
+        <p class="st_p">
+          Guides are expanding over time. Right now, the most complete set supports E-commerce tools.
+          Next categories planned: Tax and Wedding (coming soon).
+        </p>
+
+        <a class="st_backLink" href="/tools/">← Back to All Tools</a>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .st_calcPage { padding: 18px 0 34px; }
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+    .st_calcHero { padding-top: 8px; padding-bottom: 10px; }
+    .st_calcHeroTop { max-width: 860px; }
+    .st_kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12px; font-weight:800; color: var(--muted, rgba(2,6,23,.65));
+      border:1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.7);
+      padding:7px 10px; border-radius:999px;
+    }
+    .st_h1{
+      margin:12px 0 8px;
+      font-size: clamp(26px, 3vw, 34px);
+      line-height:1.15; letter-spacing:-0.03em;
+    }
+    .st_lead{
+      margin:0;
+      font-size:14px; line-height:1.6;
+      color: var(--muted, rgba(2,6,23,.70));
+      max-width: 68ch;
+    }
+
+    .st_content{ margin-top: 16px; }
+    .st_contentInner{ max-width: 980px; margin: 0 auto; padding: 16px 0 0; }
+    .st_h3{
+      margin:18px 0 10px;
+      font-size:14px; font-weight:950; letter-spacing:-0.02em;
+    }
+    .st_p{ margin:0; font-size:13px; line-height:1.75; color: rgba(2,6,23,.78); }
+
+    .st_cards{
+      margin-top: 10px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .st_cardLink{
+      display:block;
+      text-decoration:none;
+      color: rgba(2,6,23,.92);
+      background:#fff;
+      border:1px solid rgba(2,6,23,.10);
+      border-radius:16px;
+      box-shadow:0 12px 30px rgba(2,6,23,.06);
+      padding: 14px 14px;
+    }
+    .st_cardLinkTitle{
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+    .st_cardLinkDesc{
+      margin-top: 6px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(2,6,23,.75);
+      max-width: 78ch;
+    }
+    .st_cardLinkMeta{
+      margin-top: 10px;
+      display:inline-flex;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(2,6,23,.03);
+    }
+
+    .st_list{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(2,6,23,.78);
+    }
+    .st_list li{ margin: 6px 0; }
+
+    .st_backLink{
+      display:inline-block;
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.9);
+      text-decoration: none;
+      color: rgba(2,6,23,.92);
+    }
+  </style>
+</BaseLayout>
