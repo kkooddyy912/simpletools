@@ -1,4 +1,4 @@
----
+0---
 import { site } from "../../config/site";
 
 const toolLinks = (site as any).headerTools ?? [];
@@ -60,16 +60,16 @@ const navLinks = (site as any).nav ?? [];
 
   /* ===== Logo Image (ST → logo.png) ===== */
   .st_logoImg{
-    width:40px;
-    height:40px;
+    width:32px;
+    height:32px;
     object-fit:contain;
     border-radius:10px;
     background: none; /* 투명 PNG 대비용 */
-    padding:6px;       /* 기존 ST 박스 감성 유지 */
+    padding:0px;       /* 기존 ST 박스 감성 유지 */
   }
 
   .st_name{
-    font-size:14px;
+    font-size:17px;
     font-weight:900;
     letter-spacing:-0.02em;
   }
