@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../../../components/layout/BaseLayout.astro";
+import BaseLayout from "../../../../components/layout/BaseLayout.astro";
 ---
 
 <BaseLayout
@@ -23,32 +23,32 @@ import BaseLayout from "../../../components/layout/BaseLayout.astro";
         <div class="calc_inputs">
           <label>
             Selling Price (USD)
-            <input type="number" id="price" placeholder="e.g. 50" />
+            <input type="number" id="price" placeholder="e.g. 50" inputmode="decimal" />
           </label>
 
           <label>
             Product Cost (COGS)
-            <input type="number" id="cost" placeholder="e.g. 15" />
+            <input type="number" id="cost" placeholder="e.g. 15" inputmode="decimal" />
           </label>
 
           <label>
             Platform Fee (%)
-            <input type="number" id="platformFee" placeholder="e.g. 15" />
+            <input type="number" id="platformFee" placeholder="e.g. 15" inputmode="decimal" />
           </label>
 
           <label>
             Payment Fee (%)
-            <input type="number" id="paymentFee" placeholder="e.g. 2.9" />
+            <input type="number" id="paymentFee" placeholder="e.g. 2.9" inputmode="decimal" />
           </label>
 
           <label>
             Shipping Cost
-            <input type="number" id="shipping" placeholder="e.g. 5" />
+            <input type="number" id="shipping" placeholder="e.g. 5" inputmode="decimal" />
           </label>
 
           <label>
             Target Net Margin (%)
-            <input type="number" id="targetMargin" placeholder="e.g. 20" />
+            <input type="number" id="targetMargin" placeholder="e.g. 20" inputmode="decimal" />
           </label>
         </div>
 
@@ -60,9 +60,7 @@ import BaseLayout from "../../../components/layout/BaseLayout.astro";
           </div>
 
           <div class="result_sub">
-            <p id="resultDesc">
-              Enter values to see how much you can spend on ads per order.
-            </p>
+            <p id="resultDesc">Enter values to see how much you can spend on ads per order.</p>
           </div>
         </div>
       </div>
@@ -88,8 +86,8 @@ Target Profit = Price × Target Margin
 Max Ad Cost per Order =
 Price
 − Product Cost
-− Platform Fee
-− Payment Fee
+− (Platform Fee % × Price)
+− (Payment Fee % × Price)
 − Shipping
 − Target Profit
       </pre>
@@ -108,55 +106,54 @@ Price
       <h2>FAQ</h2>
 
       <h4>Is this the same as ROAS?</h4>
-      <p>
-        No. This calculator focuses on cost per order,
-        not revenue ratios like ROAS.
-      </p>
+      <p>No. This calculator focuses on cost per order, not revenue ratios like ROAS.</p>
 
       <h4>Can I use this before running ads?</h4>
-      <p>
-        Yes. It is designed to help you plan ad budgets before launching campaigns.
-      </p>
+      <p>Yes. It is designed to help you plan ad budgets before launching campaigns.</p>
 
       <h4>Does this include taxes?</h4>
-      <p>
-        No. Taxes vary by region and are not included.
-      </p>
+      <p>No. Taxes vary by region and are not included.</p>
 
       <h4>Which platforms does this work for?</h4>
-      <p>
-        Amazon, Shopify, Etsy, and any platform with percentage-based fees.
-      </p>
+      <p>Amazon, Shopify, Etsy, and any platform with percentage-based fees.</p>
     </section>
   </main>
 
   <!-- Script -->
-  <script>
-    const inputs = [
-      "price",
-      "cost",
-      "platformFee",
-      "paymentFee",
-      "shipping",
-      "targetMargin"
-    ].map(id => document.getElementById(id));
-
+  <script is:inline>
+    const ids = ["price","cost","platformFee","paymentFee","shipping","targetMargin"];
+    const inputs = ids.map((id) => document.getElementById(id));
     const output = document.getElementById("maxAdCost");
     const desc = document.getElementById("resultDesc");
 
-    function calc() {
-      const [
-        price,
-        cost,
-        platformFee,
-        paymentFee,
-        shipping,
-        targetMargin
-      ] = inputs.map(i => parseFloat(i.value) || 0);
+    function toNum(v) {
+      const n = parseFloat(v);
+      return Number.isFinite(n) ? n : 0;
+    }
 
-      const platformCost = price * (platformFee / 100);
-      const paymentCost = price * (paymentFee / 100);
-      const targetProfit = price * (targetMargin / 100);
+    function fmtUSD(n) {
+      const v = Number.isFinite(n) ? n : 0;
+      const sign = v < 0 ? "-" : "";
+      return `${sign}$${Math.abs(v).toFixed(2)}`;
+    }
+
+    function calc() {
+      const price = toNum(inputs[0].value);
+      const cost = toNum(inputs[1].value);
+      const platformFee = toNum(inputs[2].value) / 100;
+      const paymentFee = toNum(inputs[3].value) / 100;
+      const shipping = toNum(inputs[4].value);
+      const targetMargin = toNum(inputs[5].value) / 100;
+
+      if (price <= 0) {
+        output.textContent = "$0.00";
+        desc.textContent = "Enter values to see how much you can spend on ads per order.";
+        return;
+      }
+
+      const platformCost = price * platformFee;
+      const paymentCost = price * paymentFee;
+      const targetProfit = price * targetMargin;
 
       const maxAd =
         price -
@@ -166,21 +163,16 @@ Price
         shipping -
         targetProfit;
 
-      if (price <= 0) {
-        output.textContent = "$0.00";
-        desc.textContent =
-          "Enter values to see how much you can spend on ads per order.";
-        return;
-      }
+      output.textContent = fmtUSD(maxAd);
 
-      output.textContent = `$${maxAd.toFixed(2)}`;
       desc.textContent =
         maxAd >= 0
           ? "This is the maximum ad spend per order you can afford."
           : "Your costs exceed your target margin.";
     }
 
-    inputs.forEach(input => input.addEventListener("input", calc));
+    inputs.forEach((el) => el.addEventListener("input", calc));
+    calc();
   </script>
 
   <!-- Styles -->
@@ -218,6 +210,7 @@ Price
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
+      align-items: start;
     }
 
     .calc_inputs label {
@@ -234,6 +227,7 @@ Price
       border-radius: 12px;
       border: 1px solid rgba(2,6,23,.15);
       font-size: 14px;
+      background: #fff;
     }
 
     .calc_results {
@@ -243,6 +237,7 @@ Price
       display: flex;
       flex-direction: column;
       justify-content: center;
+      min-height: 220px;
     }
 
     .result_item {
@@ -264,6 +259,7 @@ Price
       margin-top: 10px;
       font-size: 12px;
       color: var(--muted);
+      line-height: 1.5;
     }
 
     .calc_content,
@@ -280,6 +276,7 @@ Price
 
     .calc_content h3 {
       margin-top: 24px;
+      font-size: 16px;
     }
 
     .calc_content pre {
@@ -288,6 +285,7 @@ Price
       border-radius: 12px;
       font-size: 13px;
       overflow-x: auto;
+      border: 1px solid rgba(2,6,23,.08);
     }
 
     .calc_faq h4 {
@@ -295,9 +293,18 @@ Price
       font-size: 15px;
     }
 
+    .calc_faq p {
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
     @media (max-width: 768px) {
       .calc_grid {
         grid-template-columns: 1fr;
+      }
+      .calc_results {
+        min-height: auto;
       }
     }
   </style>
