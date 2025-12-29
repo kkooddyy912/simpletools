@@ -1,287 +1,389 @@
 ---
+// File: src/pages/index.astro
 import BaseLayout from "../components/layout/BaseLayout.astro";
 import { site } from "../config/site";
+
+const pageTitle = "Free simple calculators — instant results | SimpleTools";
+const pageDescription =
+  "Fast, clear, and reliable calculators for everyday decisions—pricing, fees, budgets, and more. No login. Instant results with transparent formulas.";
 ---
 
-<BaseLayout
-  title="Free simple calculators — instant results | SimpleTools"
-  description="Free, no-login calculators for fast decisions. Clear formulas, instant results, and practical tools for daily business and life."
-  canonical={site.url}
->
-  <!-- HERO (2-column) -->
-  <section class="hero">
-    <div class="heroGrid">
-      <!-- LEFT: Content -->
-      <div class="heroLeft">
-        <div class="badge">Free • No login • Instant results</div>
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="st_home">
+    <!-- Hero -->
+    <section class="container st_homeHero">
+      <div class="st_homeHeroGrid">
+        <div class="st_homeHeroLeft">
+          <div class="st_kicker">Free • No login • Instant results</div>
+          <h1 class="st_h1">Simple calculators for quick decisions.</h1>
+          <p class="st_lead">
+            Fast, clear, and reliable tools for everyday calculations—pricing, fees, budgets, and more.
+            See results instantly with transparent formulas.
+          </p>
 
-        <h1 class="heroTitle">Simple calculators for quick decisions.</h1>
-
-        <p class="heroDesc">
-          Fast, clear, and reliable tools for everyday calculations—pricing, fees, budgets, and more.
-          See results instantly with transparent formulas.
-        </p>
-
-        <div class="heroCtas">
-          <!-- 지금은 e-commerce만 있어서 여기로 보냄 (카피는 중립) -->
-          <a class="btn" href="/tools/e-commerce/">Open calculators</a>
-          <a class="btn btn-ghost" href="/tools/e-commerce/#calculators">Most used tools</a>
-        </div>
-
-        <div class="heroMini">
-          <div class="miniItem">
-            <div class="miniK">Simple inputs</div>
-            <div class="miniV">Enter values → get results instantly.</div>
+          <div class="st_homeCtas">
+            <a class="st_btnPrimary" href="/tools/e-commerce/">Open calculators</a>
+            <a class="st_btnGhost" href="/tools/e-commerce/#calculators">Most used tools</a>
           </div>
-          <div class="miniItem">
-            <div class="miniK">Transparent formulas</div>
-            <div class="miniV">How it works • Formula • FAQ on every tool.</div>
-          </div>
-          <div class="miniItem">
-            <div class="miniK">Built to scale</div>
-            <div class="miniV">E-commerce now, Tax/Wedding next.</div>
-          </div>
-        </div>
-      </div>
 
-      <!-- RIGHT: Illustration (placeholder UI cards) -->
-      <div class="heroRight" aria-hidden="true">
-        <div class="gridBg"></div>
-
-        <div class="illusCard illusA">
-          <div class="illusTitle">Instant Output</div>
-          <div class="illusRow">
-            <span class="illusLabel">Result</span>
-            <span class="illusValue">$1,248.40</span>
-          </div>
-          <div class="bars">
-            <span></span><span></span><span></span><span></span><span></span>
+          <div class="st_homeBadges" aria-label="Key benefits">
+            <span class="st_badge">Simple inputs</span>
+            <span class="st_badge">Clear breakdown</span>
+            <span class="st_badge">Formula + FAQ on every tool</span>
           </div>
         </div>
 
-        <div class="illusCard illusB">
-          <div class="illusTitle">Clear Breakdown</div>
-          <div class="illusRow">
-            <span class="illusLabel">Fees</span>
-            <span class="illusValue">− 12.4%</span>
-          </div>
-          <div class="line"></div>
-        </div>
+        <!-- Right: Minimal “preview” card -->
+        <div class="st_homeHeroRight" aria-label="Preview">
+          <div class="st_card st_previewCard">
+            <div class="st_previewHead">
+              <div class="st_previewTitle">Instant output</div>
+              <div class="st_previewSub">Example result</div>
+            </div>
 
-        <div class="illusCard illusC">
-          <div class="illusTitle">Practical Tools</div>
-          <div class="chips">
-            <span>Pricing</span><span>Fees</span><span>Ads</span><span>Budget</span>
+            <div class="st_previewMain">
+              <div class="st_previewLabel">Result</div>
+              <div class="st_previewValue">$1,248.40</div>
+            </div>
+
+            <div class="st_previewGrid">
+              <div class="st_pill">
+                <div class="st_pillKey">Fees</div>
+                <div class="st_pillVal">− 12.4%</div>
+                <div class="st_pillSub">Percent-based</div>
+              </div>
+              <div class="st_pill">
+                <div class="st_pillKey">Budget</div>
+                <div class="st_pillVal">$38.20</div>
+                <div class="st_pillSub">Per order</div>
+              </div>
+            </div>
+
+            <div class="st_previewNote">
+              Every calculator includes how it works, the formula, an example, and FAQs.
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- QUICK LINKS -->
-  <section class="section section-tight">
-    <div class="card">
-      <div class="kicker">Start here</div>
-      <h2 class="h2">Most-used calculators (free)</h2>
-      <p class="p">
-        Quick tools designed for speed and clarity. Every calculator includes how it works, the formula, and FAQs
-        so you can trust the result.
-      </p>
+    <!-- What you can calculate (content-rich hub) -->
+    <section class="container st_section" aria-label="What you can calculate">
+      <div class="st_sectionHead">
+        <h2 class="st_h2">What you can calculate</h2>
+        <p class="st_muted">Start with the most-used calculators. More categories will be added over time.</p>
+      </div>
 
-      <div class="quickGrid">
-        <a class="quick" href="/tools/e-commerce/profit-margin/">
-          <div class="qTitle">Profit Margin</div>
-          <div class="qDesc">Net profit & net margin after costs and fees.</div>
+      <div class="st_toolGrid" id="calculators">
+        <a class="st_toolCard" href="/tools/e-commerce/profit-margin/">
+          <div class="st_toolTitle">Profit Margin</div>
+          <div class="st_toolDesc">Net profit & net margin after costs and fees.</div>
         </a>
 
-        <a class="quick" href="/tools/e-commerce/break-even-price/">
-          <div class="qTitle">Break-even Price</div>
-          <div class="qDesc">Minimum selling price to avoid losses.</div>
+        <a class="st_toolCard" href="/tools/e-commerce/break-even-price/">
+          <div class="st_toolTitle">Break-even Price</div>
+          <div class="st_toolDesc">Minimum selling price to avoid losses.</div>
         </a>
 
-        <a class="quick" href="/tools/e-commerce/product-pricing/">
-          <div class="qTitle">Product Pricing</div>
-          <div class="qDesc">Reverse-calc a recommended selling price.</div>
+        <a class="st_toolCard" href="/tools/e-commerce/product-pricing/">
+          <div class="st_toolTitle">Product Pricing</div>
+          <div class="st_toolDesc">Reverse-calc a recommended selling price.</div>
         </a>
 
-        <a class="quick" href="/tools/e-commerce/ad-cost-per-order/">
-          <div class="qTitle">Ad Cost / Order</div>
-          <div class="qDesc">Max ad spend per order while keeping margin.</div>
+        <a class="st_toolCard" href="/tools/e-commerce/ad-cost-per-order/">
+          <div class="st_toolTitle">Ad Cost / Order</div>
+          <div class="st_toolDesc">Max ad spend per order while keeping margin.</div>
         </a>
 
-        <a class="quick" href="/tools/e-commerce/amazon-fba-fee/">
-          <div class="qTitle">Amazon FBA Fee</div>
-          <div class="qDesc">Simple fee estimate + profit check.</div>
+        <a class="st_toolCard" href="/tools/e-commerce/amazon-fba-fee/">
+          <div class="st_toolTitle">Amazon FBA Fee</div>
+          <div class="st_toolDesc">Simple fee estimate + quick profit check.</div>
         </a>
       </div>
 
-      <div class="note">
-        Currently available: <strong>E-commerce tools</strong>. More categories will be added over time.
+      <div class="st_sectionFoot">
+        <a class="st_btnGhost" href="/tools/e-commerce/">Browse all calculators →</a>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- How it works -->
+    <section class="container st_section" aria-label="How it works">
+      <div class="st_sectionHead">
+        <h2 class="st_h2">How SimpleTools works</h2>
+        <p class="st_muted">A consistent, verifiable structure on every tool page.</p>
+      </div>
+
+      <div class="st_steps">
+        <div class="st_step">
+          <div class="st_stepNum">1</div>
+          <div class="st_stepBody">
+            <div class="st_stepTitle">Enter your numbers</div>
+            <div class="st_stepDesc">Use simple inputs—USD, percentages, and per-order costs.</div>
+          </div>
+        </div>
+        <div class="st_step">
+          <div class="st_stepNum">2</div>
+          <div class="st_stepBody">
+            <div class="st_stepTitle">We apply transparent formulas</div>
+            <div class="st_stepDesc">No black box: formulas and assumptions are shown.</div>
+          </div>
+        </div>
+        <div class="st_step">
+          <div class="st_stepNum">3</div>
+          <div class="st_stepBody">
+            <div class="st_stepTitle">Get instant results + breakdown</div>
+            <div class="st_stepDesc">See the final number and what’s driving it.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who it's for -->
+    <section class="container st_section" aria-label="Who it is for">
+      <div class="st_sectionHead">
+        <h2 class="st_h2">Who this is for</h2>
+        <p class="st_muted">Built for anyone who needs quick, reliable calculations without logging in.</p>
+      </div>
+
+      <div class="st_audience">
+        <div class="st_audienceItem">E-commerce sellers and operators</div>
+        <div class="st_audienceItem">Amazon, Shopify, Etsy, and marketplace users</div>
+        <div class="st_audienceItem">Creators and small businesses planning pricing & budgets</div>
+        <div class="st_audienceItem">Anyone who wants instant results with clear formulas</div>
+      </div>
+    </section>
+
+    <!-- Built to scale -->
+    <section class="container st_section" aria-label="Built to scale">
+      <div class="st_scaleCard">
+        <div>
+          <div class="st_scaleTitle">Built to scale</div>
+          <div class="st_scaleDesc">
+            E-commerce tools are available now. More categories—tax, wedding, and daily calculators—will be added over time.
+          </div>
+        </div>
+        <a class="st_btnPrimary" href="/tools/e-commerce/">Start with E-commerce</a>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    /* Shell */
+    .st_home { padding: 18px 0 34px; }
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+    /* Reuse calc style tokens */
+    .st_kicker{
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted, rgba(2,6,23,.65));
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.7);
+      padding: 7px 10px;
+      border-radius: 999px;
+    }
+    .st_h1{
+      margin: 12px 0 8px;
+      font-size: clamp(28px, 3.2vw, 38px);
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+    }
+    .st_lead{
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted, rgba(2,6,23,.70));
+      max-width: 66ch;
+    }
+    .st_h2{
+      margin: 0;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+    .st_muted{
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: var(--muted, rgba(2,6,23,.65));
+      line-height: 1.55;
+    }
+
+    /* Buttons */
+    .st_homeCtas{ margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap; }
+    .st_btnPrimary, .st_btnGhost{
+      display:inline-flex; align-items:center; justify-content:center;
+      text-decoration:none;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 950;
+      letter-spacing: -0.01em;
+      border: 1px solid rgba(2,6,23,.10);
+    }
+    .st_btnPrimary{
+      background: rgba(2,6,23,.92);
+      color: #fff;
+      border-color: rgba(2,6,23,.92);
+    }
+    .st_btnGhost{
+      background: rgba(255,255,255,.92);
+      color: rgba(2,6,23,.92);
+    }
+    .st_btnPrimary:hover, .st_btnGhost:hover{ transform: translateY(-1px); }
+
+    /* Badges */
+    .st_homeBadges{ margin-top: 12px; display:flex; gap:8px; flex-wrap:wrap; }
+    .st_badge{
+      font-size: 12px;
+      font-weight: 900;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(2,6,23,.03);
+      color: rgba(2,6,23,.75);
+      white-space: nowrap;
+    }
+
+    /* Hero layout */
+    .st_homeHero{ padding-top: 8px; padding-bottom: 10px; }
+    .st_homeHeroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (max-width: 920px){
+      .st_homeHeroGrid{ grid-template-columns: 1fr; }
+    }
+    .st_homeHeroRight{ display:block; }
+
+    /* Card */
+    .st_card{
+      background: #fff;
+      border: 1px solid rgba(2,6,23,.10);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(2,6,23,.06);
+      overflow: hidden;
+    }
+
+    /* Preview */
+    .st_previewCard{ padding: 16px; }
+    .st_previewHead{ display:flex; justify-content:space-between; align-items:baseline; gap: 10px; }
+    .st_previewTitle{ font-size: 12px; font-weight: 950; color: rgba(2,6,23,.80); }
+    .st_previewSub{ font-size: 12px; font-weight: 800; color: var(--muted, rgba(2,6,23,.60)); }
+    .st_previewMain{ margin-top: 14px; padding: 12px; border-radius: 14px; border: 1px solid rgba(2,6,23,.08); background: rgba(2,6,23,.02); }
+    .st_previewLabel{ font-size: 12px; font-weight: 900; color: rgba(2,6,23,.65); }
+    .st_previewValue{ margin-top: 6px; font-size: 34px; font-weight: 950; letter-spacing: -0.04em; line-height: 1.05; }
+    .st_previewGrid{ margin-top: 10px; display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 920px){ .st_previewGrid{ grid-template-columns: 1fr; } }
+    .st_pill{
+      border-radius: 14px;
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(2,6,23,.02);
+      padding: 12px 12px;
+    }
+    .st_pillKey{ font-size: 12px; font-weight: 900; color: rgba(2,6,23,.65); }
+    .st_pillVal{ margin-top: 6px; font-size: 20px; font-weight: 950; letter-spacing: -0.03em; }
+    .st_pillSub{ margin-top: 6px; font-size: 12px; color: var(--muted, rgba(2,6,23,.60)); }
+    .st_previewNote{ margin-top: 12px; font-size: 12px; line-height: 1.6; color: var(--muted, rgba(2,6,23,.62)); }
+
+    /* Sections */
+    .st_section{ margin-top: 18px; }
+    .st_sectionHead{ max-width: 820px; }
+
+    /* Tool grid */
+    .st_toolGrid{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 980px){ .st_toolGrid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px){ .st_toolGrid{ grid-template-columns: 1fr; } }
+
+    .st_toolCard{
+      display:block;
+      text-decoration:none;
+      background:#fff;
+      border:1px solid rgba(2,6,23,.10);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(2,6,23,.06);
+      padding: 14px 14px;
+      color: rgba(2,6,23,.92);
+    }
+    .st_toolCard:hover{ transform: translateY(-1px); }
+    .st_toolTitle{ font-size: 13px; font-weight: 950; letter-spacing: -0.02em; }
+    .st_toolDesc{ margin-top: 6px; font-size: 12px; line-height: 1.6; color: var(--muted, rgba(2,6,23,.65)); }
+
+    .st_sectionFoot{ margin-top: 12px; }
+
+    /* Steps */
+    .st_steps{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 980px){ .st_steps{ grid-template-columns: 1fr; } }
+    .st_step{
+      background:#fff;
+      border:1px solid rgba(2,6,23,.10);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(2,6,23,.06);
+      padding: 14px 14px;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+    }
+    .st_stepNum{
+      width: 28px; height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(2,6,23,.03);
+      display:flex; align-items:center; justify-content:center;
+      font-size: 12px; font-weight: 950;
+      color: rgba(2,6,23,.80);
+      flex: 0 0 auto;
+    }
+    .st_stepTitle{ font-size: 13px; font-weight: 950; letter-spacing: -0.02em; }
+    .st_stepDesc{ margin-top: 6px; font-size: 12px; line-height: 1.6; color: var(--muted, rgba(2,6,23,.65)); }
+
+    /* Audience */
+    .st_audience{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 720px){ .st_audience{ grid-template-columns: 1fr; } }
+    .st_audienceItem{
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(255,255,255,.9);
+      border-radius: 14px;
+      padding: 12px 12px;
+      font-size: 12.5px;
+      font-weight: 850;
+      color: rgba(2,6,23,.78);
+    }
+
+    /* Scale card */
+    .st_scaleCard{
+      margin-top: 6px;
+      background:#fff;
+      border:1px solid rgba(2,6,23,.10);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(2,6,23,.06);
+      padding: 14px 14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .st_scaleTitle{ font-size: 13px; font-weight: 950; letter-spacing: -0.02em; }
+    .st_scaleDesc{ margin-top: 6px; font-size: 12px; line-height: 1.6; color: var(--muted, rgba(2,6,23,.65)); max-width: 72ch; }
+  </style>
 </BaseLayout>
-
-<style>
-  /* HERO */
-  .hero{ padding: 26px 0 14px; }
-  .heroGrid{
-    display:grid;
-    grid-template-columns: 1.05fr .95fr;
-    gap: 18px;
-    align-items: center;
-  }
-  @media (max-width: 980px){
-    .heroGrid{ grid-template-columns: 1fr; }
-  }
-
-  .heroTitle{
-    font-size: 46px;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin: 12px 0 10px;
-  }
-  @media (max-width: 520px){
-    .heroTitle{ font-size: 36px; }
-  }
-  .heroDesc{
-    margin: 0 0 14px;
-    font-size: 16px;
-    max-width: 60ch;
-  }
-
-  .heroCtas{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom: 14px;
-  }
-
-  .heroMini{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap:10px;
-    max-width: 560px;
-  }
-  .miniItem{
-    padding: 12px 14px;
-    border-radius: 16px;
-    border: 1px solid rgba(2,6,23,.10);
-    background: rgba(255,255,255,.7);
-  }
-  .miniK{ font-weight:900; font-size: 13px; }
-  .miniV{ font-size: 12px; color: var(--muted); margin-top: 3px; }
-
-  /* RIGHT Illustration */
-  .heroRight{
-    position: relative;
-    min-height: 380px;
-    border-radius: 22px;
-    border: 1px solid rgba(2,6,23,.10);
-    background: rgba(255,255,255,.55);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-  .gridBg{
-    position:absolute; inset:0;
-    background:
-      linear-gradient(to right, rgba(2,6,23,.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(2,6,23,.06) 1px, transparent 1px);
-    background-size: 44px 44px;
-    opacity: .45;
-    pointer-events:none;
-  }
-
-  .illusCard{
-    position:absolute;
-    border-radius: 18px;
-    border: 1px solid rgba(2,6,23,.10);
-    background: rgba(255,255,255,.85);
-    box-shadow: 0 18px 40px rgba(2,6,23,.10);
-    padding: 14px;
-    z-index: 1;
-  }
-  .illusTitle{ font-weight: 900; font-size: 13px; margin-bottom: 10px; }
-  .illusRow{ display:flex; justify-content:space-between; gap:12px; font-size: 12px; color: var(--muted); }
-  .illusValue{ font-weight: 900; color: var(--text); }
-
-  .illusA{ left: 18px; top: 18px; width: 64%; }
-  .illusB{ right: 18px; top: 120px; width: 56%; }
-  .illusC{ left: 18px; bottom: 18px; width: 60%; }
-
-  .bars{
-    margin-top: 10px;
-    display:flex; gap:8px; align-items:flex-end;
-    height: 52px;
-  }
-  .bars span{
-    flex:1;
-    border-radius: 10px;
-    background: rgba(37,99,235,.18);
-    border: 1px solid rgba(37,99,235,.22);
-  }
-  .bars span:nth-child(1){ height: 18px; }
-  .bars span:nth-child(2){ height: 32px; }
-  .bars span:nth-child(3){ height: 24px; }
-  .bars span:nth-child(4){ height: 44px; }
-  .bars span:nth-child(5){ height: 28px; }
-
-  .line{
-    height: 54px;
-    margin-top: 10px;
-    border-radius: 14px;
-    background:
-      linear-gradient(90deg, rgba(37,99,235,.0), rgba(37,99,235,.35), rgba(37,99,235,.0));
-    position:relative;
-  }
-  .line:after{
-    content:"";
-    position:absolute; left:10%; top:50%;
-    width: 80%; height: 2px;
-    background: rgba(2,6,23,.12);
-    transform: translateY(-50%);
-    border-radius: 99px;
-  }
-
-  .chips{ display:flex; gap:8px; flex-wrap:wrap; }
-  .chips span{
-    font-size: 11px;
-    font-weight: 800;
-    padding: 7px 10px;
-    border-radius: 999px;
-    border: 1px solid rgba(2,6,23,.10);
-    background: rgba(255,255,255,.85);
-    color: var(--muted);
-  }
-
-  /* QUICK LIST */
-  .kicker{ font-weight: 900; font-size: 12px; color: var(--muted); }
-  .h2{ margin: 8px 0 8px; font-size: 20px; letter-spacing:-0.02em; }
-  .p{ margin: 0 0 14px; font-size: 13px; color: var(--muted); max-width: 74ch; }
-
-  .quickGrid{
-    display:grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-  }
-  @media (max-width: 980px){
-    .quickGrid{ grid-template-columns: 1fr; }
-  }
-
-  .quick{
-    padding: 14px;
-    border-radius: 18px;
-    border: 1px solid rgba(2,6,23,.10);
-    background: rgba(255,255,255,.75);
-  }
-  .qTitle{ font-weight: 900; font-size: 13px; }
-  .qDesc{ margin-top: 4px; font-size: 12px; color: var(--muted); }
-
-  .note{
-    margin-top: 14px;
-    font-size: 12px;
-    color: var(--muted);
-    padding-top: 12px;
-    border-top: 1px solid rgba(2,6,23,.08);
-  }
-</style>
