@@ -8,12 +8,19 @@ const navLinks = (site as any).nav ?? [];
 <header class="st_header">
   <div class="container st_top">
     <a class="st_brand" href="/">
-      <span class="st_logo">ST</span>
+      <!-- LOGO IMAGE -->
+      <img
+        src="/logo.png"
+        alt={`${site.name} logo`}
+        class="st_logoImg"
+        loading="eager"
+        decoding="async"
+      />
       <span class="st_name">{site.name}</span>
     </a>
   </div>
 
-  <!-- 2행: 우선 headerTools가 있으면 그걸, 없으면 nav를 보여줌 -->
+  <!-- 2행: 툴 네비게이션 -->
   <div class="st_bottom">
     <div class="container st_menu">
       {(toolLinks.length ? toolLinks : navLinks).map((item) => (
@@ -24,6 +31,7 @@ const navLinks = (site as any).nav ?? [];
 </header>
 
 <style>
+  /* ===== Header Base ===== */
   .st_header{
     position: sticky;
     top: 0;
@@ -33,39 +41,51 @@ const navLinks = (site as any).nav ?? [];
     border-bottom: 1px solid rgba(2,6,23,.08);
   }
 
+  /* ===== Top ===== */
   .st_top{
     display:flex;
     align-items:center;
     padding: 14px 0 10px;
   }
+
   .st_brand{
     display:flex;
     align-items:center;
     gap:10px;
     font-weight:900;
     letter-spacing:-0.02em;
-  }
-  .st_logo{
-    width:34px;
-    height:34px;
-    border-radius:10px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    background:#0f172a;
-    color:#fff;
-    font-size:12px;
+    text-decoration:none;
+    color:inherit;
   }
 
+  /* ===== Logo Image (ST → logo.png) ===== */
+  .st_logoImg{
+    width:34px;
+    height:34px;
+    object-fit:contain;
+    border-radius:10px;
+    background:#0f172a; /* 투명 PNG 대비용 */
+    padding:6px;       /* 기존 ST 박스 감성 유지 */
+  }
+
+  .st_name{
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:-0.02em;
+  }
+
+  /* ===== Bottom Nav ===== */
   .st_bottom{
     border-top: 1px solid rgba(2,6,23,.06);
   }
+
   .st_menu{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
     padding: 10px 0 12px;
   }
+
   .st_toolLink{
     font-size:12px;
     font-weight:800;
@@ -74,12 +94,16 @@ const navLinks = (site as any).nav ?? [];
     border:1px solid rgba(2,6,23,.10);
     background: rgba(255,255,255,.75);
     white-space:nowrap;
+    text-decoration:none;
+    color:inherit;
   }
+
   .st_toolLink:hover{
     background:#0f172a;
     color:#fff;
   }
 
+  /* ===== Mobile ===== */
   @media (max-width: 720px){
     .st_menu{
       overflow-x:auto;
