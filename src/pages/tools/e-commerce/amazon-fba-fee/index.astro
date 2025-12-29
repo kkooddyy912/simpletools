@@ -1,266 +1,591 @@
 ---
+// File: src/pages/tools/e-commerce/amazon-fba-fee/index.astro
 import BaseLayout from "../../../../components/layout/BaseLayout.astro";
+
+const pageTitle = "Amazon FBA Fee Calculator — Free & Instant | SimpleTools";
+const pageDescription =
+  "Estimate Amazon FBA fees and your profit per order using selling price, COGS, referral fee %, and FBA fee inputs. No login. Instant results with formulas and FAQ.";
 ---
 
-<BaseLayout
-  title="Amazon FBA Fee Calculator — Simple & Free | SimpleTools"
-  description="Estimate Amazon FBA fees and see how much profit you keep after Amazon costs. Free and instant."
->
-  <!-- ===================== -->
-  <!-- Header / Intro -->
-  <!-- ===================== -->
-  <section class="calcHeader">
-    <span class="badge">Free • No login • Instant</span>
-    <h1>Amazon FBA Fee Calculator (Simple)</h1>
-    <p>
-      Quickly estimate Amazon FBA fees and see how much profit you keep
-      after Amazon selling and fulfillment costs.
-    </p>
-  </section>
-
-  <!-- ===================== -->
-  <!-- Calculator Body -->
-  <!-- ===================== -->
-  <section class="calcBody">
-    <!-- Left : Inputs -->
-    <div class="calcInputs">
-      <div class="inputGroup">
-        <label>Selling price (USD)</label>
-        <input id="fba_price" type="number" placeholder="e.g. 29.99" />
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="st_calcPage">
+    <section class="st_calcHero container">
+      <div class="st_calcHeroTop">
+        <div class="st_kicker">Free • No login • Instant</div>
+        <h1 class="st_h1">Amazon FBA Fee Calculator</h1>
+        <p class="st_lead">
+          Estimate Amazon referral + FBA fees and see net profit and net margin
+          per order—fast, with transparent formulas.
+        </p>
       </div>
+    </section>
 
-      <div class="inputGroup">
-        <label>Product cost (COGS)</label>
-        <input id="fba_cogs" type="number" placeholder="e.g. 8" />
-      </div>
+    <!-- Calculator -->
+    <section class="container st_calcWrap" aria-label="Amazon FBA fee calculator">
+      <div class="st_calcGrid">
+        <!-- LEFT: Inputs -->
+        <div class="st_card st_inputs">
+          <div class="st_cardHead">
+            <h2 class="st_h2">Inputs</h2>
+            <p class="st_muted">Enter your price, product cost, and Amazon fees.</p>
+          </div>
 
-      <div class="inputGroup">
-        <label>Amazon referral fee (%)</label>
-        <input id="fba_referral" type="number" placeholder="e.g. 15" />
-      </div>
+          <div class="st_field">
+            <label class="st_label" for="fba_price">Selling price (USD)</label>
+            <div class="st_inputRow">
+              <span class="st_prefix">$</span>
+              <input
+                id="fba_price"
+                class="st_input"
+                inputmode="decimal"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              />
+            </div>
+          </div>
 
-      <div class="inputGroup">
-        <label>FBA fulfillment fee</label>
-        <input id="fba_fulfillment" type="number" placeholder="e.g. 5.25" />
-      </div>
-    </div>
+          <div class="st_field">
+            <label class="st_label" for="fba_cogs">Product cost (COGS)</label>
+            <div class="st_inputRow">
+              <span class="st_prefix">$</span>
+              <input
+                id="fba_cogs"
+                class="st_input"
+                inputmode="decimal"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              />
+            </div>
+            <div class="st_hint">Your per-unit cost (manufacturing + inbound, if you include it).</div>
+          </div>
 
-    <!-- Right : Results -->
-    <div class="calcResults">
-      <div class="resultCard">
-        <div class="resultItem">
-          <span>Total Amazon Fees</span>
-          <strong id="fba_fees">$0.00</strong>
+          <div class="st_field">
+            <label class="st_label" for="fba_referral">Amazon referral fee (%)</label>
+            <div class="st_inputRow">
+              <input
+                id="fba_referral"
+                class="st_input"
+                inputmode="decimal"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              />
+              <span class="st_suffix">%</span>
+            </div>
+            <div class="st_hint">Category-based percentage fee (often ~8–15%).</div>
+          </div>
+
+          <div class="st_field">
+            <label class="st_label" for="fba_fulfillment">FBA fulfillment fee (per unit)</label>
+            <div class="st_inputRow">
+              <span class="st_prefix">$</span>
+              <input
+                id="fba_fulfillment"
+                class="st_input"
+                inputmode="decimal"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              />
+            </div>
+            <div class="st_hint">Pick &amp; pack + weight handling (you input the fee).</div>
+          </div>
+
+          <div class="st_field">
+            <label class="st_label" for="fba_other">Other per-order costs (optional)</label>
+            <div class="st_inputRow">
+              <span class="st_prefix">$</span>
+              <input
+                id="fba_other"
+                class="st_input"
+                inputmode="decimal"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              />
+            </div>
+            <div class="st_hint">Optional: prep, labeling, returns allowance, coupons, etc.</div>
+          </div>
+
+          <div class="st_divider"></div>
+
+          <div class="st_actions">
+            <button class="st_btn" type="button" id="fba_reset">Reset</button>
+            <div class="st_note">Tip: start by pasting known fees from your listing.</div>
+          </div>
         </div>
 
-        <div class="resultItem">
-          <span>Estimated Profit</span>
-          <strong id="fba_profit">$0.00</strong>
-        </div>
+        <!-- RIGHT: Results -->
+        <aside class="st_card st_results" aria-label="Results">
+          <div class="st_cardHead">
+            <h2 class="st_h2">Results</h2>
+            <p class="st_muted">Net profit and a simple fee breakdown.</p>
+          </div>
+
+          <div class="st_resultMain">
+            <div class="st_resultLabel">Net profit</div>
+            <div class="st_resultValue" id="fba_profit">$0.00</div>
+
+            <div class="st_badgeRow">
+              <span class="st_badge" id="fba_marginBadge">Net margin: 0.0%</span>
+              <span class="st_badge" id="fba_totalFeeBadge">Total fees: $0.00</span>
+            </div>
+
+            <div class="st_warn" id="fba_warn" hidden>
+              Price is required. Enter a selling price above $0 to calculate profit and margin.
+            </div>
+          </div>
+
+          <div class="st_pills">
+            <div class="st_pill">
+              <div class="st_pillKey">Referral fee</div>
+              <div class="st_pillVal" id="fba_referralFee">$0.00</div>
+              <div class="st_pillSub">Referral % × price</div>
+            </div>
+
+            <div class="st_pill">
+              <div class="st_pillKey">FBA fulfillment fee</div>
+              <div class="st_pillVal" id="fba_fulfillmentFee">$0.00</div>
+              <div class="st_pillSub">Per unit (input)</div>
+            </div>
+
+            <div class="st_pill">
+              <div class="st_pillKey">COGS + other costs</div>
+              <div class="st_pillVal" id="fba_costs">$0.00</div>
+              <div class="st_pillSub">COGS + optional costs</div>
+            </div>
+          </div>
+        </aside>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===================== -->
-  <!-- Content / SEO -->
-  <!-- ===================== -->
-  <section class="content">
-    <h2>How it works</h2>
-    <p>
-      This calculator estimates Amazon FBA fees using a percentage-based referral fee
-      and a fixed fulfillment fee per order. It then subtracts those fees and your
-      product cost from the selling price to show your estimated profit.
-    </p>
+    <!-- Content (AdSense/SEO) -->
+    <section class="container st_content">
+      <div class="st_contentInner">
+        <h2 class="st_h3">How it works</h2>
+        <p class="st_p">
+          This calculator estimates your per-order profit on Amazon FBA using a simple breakdown:
+          product cost (COGS), referral fee (percentage of selling price), FBA fulfillment fee (per unit),
+          and any optional extra costs you want to include. It outputs net profit and net margin.
+        </p>
 
-    <h2>Formula</h2>
-    <pre>
-Referral fee = Price × Referral fee %
+        <h2 class="st_h3">Formula</h2>
+        <div class="st_formula">
+          <div class="st_formulaLine">
+            <span class="st_mono">Referral fee</span> =
+            <span class="st_mono">Price × (Referral % / 100)</span>
+          </div>
+          <div class="st_formulaLine">
+            <span class="st_mono">Total fees</span> =
+            <span class="st_mono">Referral fee + FBA fulfillment fee</span>
+          </div>
+          <div class="st_formulaLine">
+            <span class="st_mono">Net profit</span> =
+            <span class="st_mono">Price − COGS − Other costs − Total fees</span>
+          </div>
+          <div class="st_formulaLine">
+            <span class="st_mono">Net margin (%)</span> =
+            <span class="st_mono">(Net profit ÷ Price) × 100</span>
+          </div>
+        </div>
 
-Total Amazon fees =
-Referral fee + FBA fulfillment fee
+        <h2 class="st_h3">Example</h2>
+        <p class="st_p">
+          If you sell at $50, COGS is $15, referral fee is 15%, FBA fulfillment fee is $5, and other costs are $1:
+          referral fee = $7.50, total fees = $12.50, net profit = 50 − 15 − 1 − 12.50 = <strong>$21.50</strong>,
+          net margin ≈ <strong>43.0%</strong>.
+        </p>
 
-Estimated profit =
-Price − Product cost − Total Amazon fees
-    </pre>
+        <h2 class="st_h3">FAQ</h2>
+        <div class="st_faq">
+          <details class="st_faqItem">
+            <summary>Is this an official Amazon fee calculator?</summary>
+            <p>No. It’s a simple estimator. Use your listing’s known fees for the most accurate result.</p>
+          </details>
 
-    <h2>FAQ</h2>
-    <p><strong>Is this an official Amazon calculator?</strong><br />
-      No. This is a simplified estimator for quick decision-making.
-    </p>
+          <details class="st_faqItem">
+            <summary>What should I enter for referral fee?</summary>
+            <p>Use your category’s referral fee percentage (commonly around 8–15%).</p>
+          </details>
 
-    <p><strong>Does this include storage fees?</strong><br />
-      No. Storage and long-term storage fees vary and are not included.
-    </p>
+          <details class="st_faqItem">
+            <summary>Does this include storage fees?</summary>
+            <p>Not automatically. If you want, add estimated storage/returns/coupons into “Other per-order costs”.</p>
+          </details>
 
-    <p><strong>Who is this calculator for?</strong><br />
-      Amazon sellers who want a fast profit check before using FBA.
-    </p>
-  </section>
+          <details class="st_faqItem">
+            <summary>Why is my margin negative?</summary>
+            <p>Your total costs and fees exceed your selling price. Lower costs, raise price, or reduce fees where possible.</p>
+          </details>
 
-  <!-- ===================== -->
-  <!-- Logic -->
-  <!-- ===================== -->
-  <script is:inline>
-    (function () {
-      const $ = (id) => document.getElementById(id);
+          <details class="st_faqItem">
+            <summary>Can I use this for FBM?</summary>
+            <p>You can—set FBA fulfillment fee to $0 and instead add your shipping/handling into “Other costs”.</p>
+          </details>
 
-      const price = $("fba_price");
-      const cogs = $("fba_cogs");
-      const referral = $("fba_referral");
-      const fulfillment = $("fba_fulfillment");
-      const feesEl = $("fba_fees");
-      const profitEl = $("fba_profit");
+          <details class="st_faqItem">
+            <summary>Is this calculator free?</summary>
+            <p>Yes. No login, no account, and no payment required.</p>
+          </details>
+        </div>
 
-      function num(v) {
-        const n = Number(v);
-        return Number.isFinite(n) ? n : 0;
+        <a class="st_backLink" href="/tools/e-commerce/">← Back to E-commerce Tools</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const el = {
+      price: $("fba_price"),
+      cogs: $("fba_cogs"),
+      referral: $("fba_referral"),
+      fulfillment: $("fba_fulfillment"),
+      other: $("fba_other"),
+
+      outProfit: $("fba_profit"),
+      outMarginBadge: $("fba_marginBadge"),
+      outTotalFeeBadge: $("fba_totalFeeBadge"),
+      outReferralFee: $("fba_referralFee"),
+      outFulfillmentFee: $("fba_fulfillmentFee"),
+      outCosts: $("fba_costs"),
+      warn: $("fba_warn"),
+
+      reset: $("fba_reset"),
+    };
+
+    const toNum = (v) => {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    };
+
+    const money = (n) =>
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 2,
+      }).format(Number.isFinite(n) ? n : 0);
+
+    function calc() {
+      const price = Math.max(0, toNum(el.price.value));
+      const cogs = Math.max(0, toNum(el.cogs.value));
+      const referralRate = Math.max(0, toNum(el.referral.value)) / 100;
+      const fulfillmentFee = Math.max(0, toNum(el.fulfillment.value));
+      const other = Math.max(0, toNum(el.other.value));
+
+      if (price <= 0) {
+        el.warn.hidden = false;
+        el.outProfit.textContent = money(0);
+        el.outMarginBadge.textContent = "Net margin: 0.0%";
+        el.outTotalFeeBadge.textContent = `Total fees: ${money(0)}`;
+        el.outReferralFee.textContent = money(0);
+        el.outFulfillmentFee.textContent = money(0);
+        el.outCosts.textContent = money(cogs + other);
+        return;
       }
 
-      function calc() {
-        const p = num(price.value);
-        const c = num(cogs.value);
-        const r = num(referral.value) / 100;
-        const f = num(fulfillment.value);
+      el.warn.hidden = true;
 
-        const referralFee = p * r;
-        const totalFees = referralFee + f;
-        const profit = p - c - totalFees;
+      const referralFee = price * referralRate;
+      const totalFees = referralFee + fulfillmentFee;
+      const costs = cogs + other;
 
-        feesEl.textContent = totalFees.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        });
+      const netProfit = price - costs - totalFees;
+      const netMargin = (netProfit / price) * 100;
 
-        profitEl.textContent = profit.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        });
-      }
+      el.outProfit.textContent = money(netProfit);
+      el.outMarginBadge.textContent = `Net margin: ${(Number.isFinite(netMargin) ? netMargin : 0).toFixed(1)}%`;
+      el.outTotalFeeBadge.textContent = `Total fees: ${money(totalFees)}`;
 
-      [price, cogs, referral, fulfillment].forEach((el) => {
-        el.addEventListener("input", calc);
-        el.addEventListener("change", calc);
-      });
+      el.outReferralFee.textContent = money(referralFee);
+      el.outFulfillmentFee.textContent = money(fulfillmentFee);
+      el.outCosts.textContent = money(costs);
+    }
 
+    ["input", "change"].forEach((evt) => {
+      el.price.addEventListener(evt, calc);
+      el.cogs.addEventListener(evt, calc);
+      el.referral.addEventListener(evt, calc);
+      el.fulfillment.addEventListener(evt, calc);
+      el.other.addEventListener(evt, calc);
+    });
+
+    el.reset.addEventListener("click", () => {
+      el.price.value = "";
+      el.cogs.value = "";
+      el.referral.value = "";
+      el.fulfillment.value = "";
+      el.other.value = "";
       calc();
-    })();
+    });
+
+    calc();
   </script>
 
-  <!-- ===================== -->
-  <!-- Styles (Template fixed) -->
-  <!-- ===================== -->
   <style>
-    .calcHeader {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 48px 20px 32px;
-    }
+    /* Page shell */
+    .st_calcPage { padding: 18px 0 34px; }
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 
-    .badge {
-      display: inline-block;
+    .st_calcHero { padding-top: 8px; padding-bottom: 10px; }
+    .st_calcHeroTop { max-width: 820px; }
+    .st_kicker {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
       font-size: 12px;
-      padding: 6px 12px;
+      font-weight: 800;
+      color: var(--muted, rgba(2,6,23,.65));
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.7);
+      padding: 7px 10px;
       border-radius: 999px;
-      background: #eef4ff;
-      color: #245bdb;
+    }
+    .st_h1 {
+      margin: 12px 0 8px;
+      font-size: clamp(26px, 3vw, 34px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+    .st_lead {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted, rgba(2,6,23,.70));
+      max-width: 64ch;
     }
 
-    .calcHeader h1 {
-      font-size: 32px;
-      margin: 12px 0;
-    }
-
-    .calcHeader p {
-      color: #555;
-      max-width: 560px;
-    }
-
-    .calcBody {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
+    /* Grid */
+    .st_calcWrap { margin-top: 14px; }
+    .st_calcGrid {
       display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 32px;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .st_calcGrid { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 900px) {
-      .calcBody {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .calcInputs {
+    /* Card */
+    .st_card{
       background: #fff;
+      border: 1px solid rgba(2,6,23,.10);
       border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      box-shadow: 0 12px 30px rgba(2,6,23,.06);
+      overflow: hidden;
     }
-
-    .inputGroup {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+    .st_cardHead{
+      padding: 16px 16px 10px;
+      border-bottom: 1px solid rgba(2,6,23,.06);
     }
-
-    label {
+    .st_h2{
+      margin: 0;
       font-size: 14px;
-      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    .st_muted{
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: var(--muted, rgba(2,6,23,.65));
+      line-height: 1.55;
     }
 
-    input {
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 15px;
+    /* Inputs */
+    .st_inputs { padding-bottom: 14px; }
+    .st_field { padding: 12px 16px 0; }
+    .st_label{
+      display:block;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
     }
-
-    .calcResults {
-      align-self: flex-start;
-    }
-
-    .resultCard {
-      background: #fff;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .resultItem span {
-      font-size: 14px;
-      color: #666;
-    }
-
-    .resultItem strong {
-      font-size: 32px;
-      font-weight: 600;
-      display: block;
-      margin-top: 4px;
-    }
-
-    .content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
-
-    .content h2 {
-      margin-top: 32px;
-    }
-
-    pre {
-      background: #f3f4f6;
-      padding: 20px;
+    .st_inputRow{
+      display:flex;
+      align-items:center;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.9);
       border-radius: 12px;
+      overflow: hidden;
+    }
+    .st_prefix, .st_suffix{
+      font-size: 12px;
+      font-weight: 800;
+      padding: 10px 10px;
+      color: rgba(2,6,23,.65);
+      background: rgba(2,6,23,.03);
+      border-right: 1px solid rgba(2,6,23,.08);
+    }
+    .st_suffix{
+      border-right: 0;
+      border-left: 1px solid rgba(2,6,23,.08);
+    }
+    .st_input{
+      width: 100%;
+      border: 0;
+      outline: none;
+      padding: 10px 12px;
       font-size: 14px;
-      overflow-x: auto;
-      margin-top: 12px;
+      font-weight: 800;
+      background: transparent;
+      color: rgba(2,6,23,.92);
+    }
+    .st_input::placeholder{ color: rgba(2,6,23,.35); font-weight: 700; }
+    .st_hint{
+      margin-top: 7px;
+      font-size: 12px;
+      color: var(--muted, rgba(2,6,23,.60));
+      line-height: 1.5;
+    }
+    .st_divider{ margin: 14px 16px 0; height:1px; background: rgba(2,6,23,.06); }
+    .st_actions{
+      padding: 12px 16px 0;
+      display:flex; justify-content: space-between; align-items:center; gap: 12px; flex-wrap: wrap;
+    }
+    .st_btn{
+      appearance: none;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.92);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .st_btn:hover{ transform: translateY(-1px); }
+    .st_note{ font-size: 12px; color: var(--muted, rgba(2,6,23,.60)); }
+
+    /* Results */
+    .st_results { position: sticky; top: 14px; }
+    @media (max-width: 860px) { .st_results { position: static; } }
+
+    .st_resultMain{ padding: 14px 16px 8px; }
+    .st_resultLabel{
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(2,6,23,.65);
+    }
+    .st_resultValue{
+      margin-top: 6px;
+      font-size: 34px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+    .st_badgeRow{
+      margin-top: 10px;
+      display:flex; gap: 8px; flex-wrap: wrap;
+    }
+    .st_badge{
+      font-size: 12px;
+      font-weight: 900;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(2,6,23,.03);
+      color: rgba(2,6,23,.75);
+    }
+    .st_warn{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(220,38,38,.25);
+      background: rgba(220,38,38,.06);
+      color: rgba(127,29,29,.95);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .st_pills{
+      padding: 10px 16px 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .st_pill{
+      border-radius: 14px;
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(2,6,23,.02);
+      padding: 12px 12px;
+    }
+    .st_pillKey{ font-size: 12px; font-weight: 900; color: rgba(2,6,23,.65); }
+    .st_pillVal{ margin-top: 6px; font-size: 20px; font-weight: 950; letter-spacing: -0.03em; }
+    .st_pillSub{ margin-top: 6px; font-size: 12px; color: var(--muted, rgba(2,6,23,.60)); }
+
+    /* Content sections */
+    .st_content{ margin-top: 18px; }
+    .st_contentInner{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 16px 0 0;
+    }
+    .st_h3{
+      margin: 18px 0 8px;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+    .st_p{
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(2,6,23,.78);
+    }
+    .st_formula{
+      margin-top: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(2,6,23,.02);
+    }
+    .st_formulaLine{
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: rgba(2,6,23,.80);
+    }
+    .st_mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-weight: 800; }
+
+    .st_faq{ margin-top: 8px; display: grid; gap: 10px; }
+    .st_faqItem{
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(255,255,255,.9);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+    .st_faqItem summary{
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 900;
+      list-style: none;
+    }
+    .st_faqItem summary::-webkit-details-marker { display: none; }
+    .st_faqItem p{
+      margin: 8px 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(2,6,23,.75);
+    }
+
+    .st_backLink{
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.9);
+      text-decoration: none;
+      color: rgba(2,6,23,.92);
     }
   </style>
 </BaseLayout>
