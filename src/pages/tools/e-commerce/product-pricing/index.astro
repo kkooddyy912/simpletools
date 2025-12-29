@@ -1,266 +1,617 @@
 ---
+// File: src/pages/tools/e-commerce/product-pricing/index.astro
 import BaseLayout from "../../../../components/layout/BaseLayout.astro";
+
+const pageTitle = "Product Pricing Calculator — Free & Instant | SimpleTools";
+const pageDescription =
+  "Reverse-calculate a recommended selling price from your target net margin and all costs (COGS, platform fee, payment fee, shipping, ads). No login. Instant results.";
 ---
 
-<BaseLayout
-  title="Product Pricing Calculator — Free & Instant | SimpleTools"
-  description="Calculate a recommended selling price based on your target margin and all costs."
->
-  <!-- ===================== -->
-  <!-- Header / Intro -->
-  <!-- ===================== -->
-  <section class="calcHeader">
-    <span class="badge">Free • No login • Instant</span>
-    <h1>Product Pricing Calculator</h1>
-    <p>
-      Calculate a recommended selling price based on your target profit margin,
-      product cost, fees, shipping, and advertising spend.
-    </p>
-  </section>
-
-  <!-- ===================== -->
-  <!-- Calculator Body -->
-  <!-- ===================== -->
-  <section class="calcBody">
-    <!-- Left : Inputs -->
-    <div class="calcInputs">
-      <div class="inputGroup">
-        <label>Product cost (COGS)</label>
-        <input id="pp_cogs" type="number" placeholder="e.g. 15" />
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="st_calcPage">
+    <section class="st_calcHero container">
+      <div class="st_calcHeroTop">
+        <div class="st_kicker">Free • No login • Instant</div>
+        <h1 class="st_h1">Product Pricing Calculator</h1>
+        <p class="st_lead">
+          Set a price with confidence. Enter your costs and a target net margin,
+          then reverse-calculate a recommended selling price.
+        </p>
       </div>
+    </section>
 
-      <div class="inputGroup">
-        <label>Target margin (%)</label>
-        <input id="pp_margin" type="number" placeholder="e.g. 30" />
-      </div>
+    <!-- Calculator -->
+    <section class="container st_calcWrap" aria-label="Product pricing calculator">
+      <div class="st_calcGrid">
+        <!-- LEFT: Inputs -->
+        <div class="st_card st_inputs">
+          <div class="st_cardHead">
+            <h2 class="st_h2">Inputs</h2>
+            <p class="st_muted">Enter costs and your target net margin.</p>
+          </div>
 
-      <div class="inputGroup">
-        <label>Platform fee (%)</label>
-        <input id="pp_platform" type="number" placeholder="e.g. 15" />
-      </div>
+          <div class="st_field">
+            <label class="st_label" for="pp_targetMargin">Target net margin</label>
+            <div class="st_inputRow">
+              <input id="pp_targetMargin" class="st_input" inputmode="decimal" type="number" min="0" step="0.1" placeholder="20" />
+              <span class="st_suffix">%</span>
+            </div>
+            <div class="st_hint">Net margin after all costs and fees (not gross margin).</div>
+          </div>
 
-      <div class="inputGroup">
-        <label>Payment fee (%)</label>
-        <input id="pp_payment" type="number" placeholder="e.g. 2.9" />
-      </div>
+          <div class="st_field">
+            <label class="st_label" for="pp_cogs">Product cost (COGS)</label>
+            <div class="st_inputRow">
+              <span class="st_prefix">$</span>
+              <input id="pp_cogs" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
+            </div>
+          </div>
 
-      <div class="inputGroup">
-        <label>Shipping cost</label>
-        <input id="pp_shipping" type="number" placeholder="e.g. 5" />
-      </div>
+          <div class="st_field">
+            <label class="st_label" for="pp_platformFee">Platform fee (%)</label>
+            <div class="st_inputRow">
+              <input id="pp_platformFee" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
+              <span class="st_suffix">%</span>
+            </div>
+            <div class="st_hint">Example: Amazon referral fee / marketplace fee.</div>
+          </div>
 
-      <div class="inputGroup">
-        <label>Ad cost per order</label>
-        <input id="pp_ads" type="number" placeholder="e.g. 10" />
-      </div>
-    </div>
+          <div class="st_field">
+            <label class="st_label" for="pp_paymentFee">Payment fee (%)</label>
+            <div class="st_inputRow">
+              <input id="pp_paymentFee" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
+              <span class="st_suffix">%</span>
+            </div>
+            <div class="st_hint">Example: card processing fee on Shopify.</div>
+          </div>
 
-    <!-- Right : Results -->
-    <div class="calcResults">
-      <div class="resultCard">
-        <div class="resultItem">
-          <span>Recommended Price</span>
-          <strong id="pp_price">$0.00</strong>
+          <div class="st_field">
+            <label class="st_label" for="pp_shipping">Shipping cost</label>
+            <div class="st_inputRow">
+              <span class="st_prefix">$</span>
+              <input id="pp_shipping" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
+            </div>
+          </div>
+
+          <div class="st_field">
+            <label class="st_label" for="pp_ads">Ad cost per order</label>
+            <div class="st_inputRow">
+              <span class="st_prefix">$</span>
+              <input id="pp_ads" class="st_input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" />
+            </div>
+          </div>
+
+          <div class="st_divider"></div>
+
+          <div class="st_actions">
+            <button class="st_btn" type="button" id="pp_reset">Reset</button>
+            <div class="st_note">Tip: if you don’t run ads yet, set ad cost to $0.</div>
+          </div>
         </div>
+
+        <!-- RIGHT: Results -->
+        <aside class="st_card st_results" aria-label="Results">
+          <div class="st_cardHead">
+            <h2 class="st_h2">Results</h2>
+            <p class="st_muted">Recommended price to hit your target net margin.</p>
+          </div>
+
+          <div class="st_resultMain">
+            <div class="st_resultLabel">Recommended selling price</div>
+            <div class="st_resultValue" id="pp_price">$0.00</div>
+
+            <div class="st_badgeRow">
+              <span class="st_badge" id="pp_targetBadge">Target margin: 0.0%</span>
+              <span class="st_badge" id="pp_keepBadge">Revenue kept: 100.00%</span>
+            </div>
+
+            <div class="st_warn" id="pp_warn" hidden>
+              Your target margin + percent fees are <strong>100%</strong> or higher. A valid price can’t be calculated.
+            </div>
+          </div>
+
+          <div class="st_pills">
+            <div class="st_pill">
+              <div class="st_pillKey">Fixed costs</div>
+              <div class="st_pillVal" id="pp_fixed">$0.00</div>
+              <div class="st_pillSub">COGS + shipping + ads</div>
+            </div>
+
+            <div class="st_pill">
+              <div class="st_pillKey">Expected net profit</div>
+              <div class="st_pillVal" id="pp_profit">$0.00</div>
+              <div class="st_pillSub">At the recommended price</div>
+            </div>
+
+            <div class="st_pill">
+              <div class="st_pillKey">Net margin</div>
+              <div class="st_pillVal" id="pp_margin">0.0%</div>
+              <div class="st_pillSub">Should match your target</div>
+            </div>
+          </div>
+
+          <div class="st_breakdown">
+            <div class="st_breakRow">
+              <span>Platform fee</span><span id="pp_platformFeeAmt">$0.00</span>
+            </div>
+            <div class="st_breakRow">
+              <span>Payment fee</span><span id="pp_paymentFeeAmt">$0.00</span>
+            </div>
+            <div class="st_breakRow">
+              <span>Total fees</span><span id="pp_totalFeeAmt">$0.00</span>
+            </div>
+          </div>
+        </aside>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===================== -->
-  <!-- Content / SEO -->
-  <!-- ===================== -->
-  <section class="content">
-    <h2>How it works</h2>
-    <p>
-      This calculator works backwards from your target profit margin to determine
-      a selling price that covers all costs and fees while meeting your margin goal.
-    </p>
+    <!-- Content (AdSense/SEO) -->
+    <section class="container st_content">
+      <div class="st_contentInner">
+        <h2 class="st_h3">How it works</h2>
+        <p class="st_p">
+          This calculator reverse-calculates price from your target net margin.
+          We treat COGS, shipping, and ads as fixed costs per order. Platform and payment
+          fees are percent-based fees applied to revenue. The recommended price is the
+          smallest price that satisfies your target margin after all costs and fees.
+        </p>
 
-    <h2>Formula</h2>
-    <pre>
-Recommended price =
-(Product cost + Shipping + Ads)
-÷ (1 − Target margin % − Platform fee % − Payment fee %)
-    </pre>
+        <h2 class="st_h3">Formula</h2>
+        <div class="st_formula">
+          <div class="st_formulaLine">
+            <span class="st_mono">Fixed costs</span> = <span class="st_mono">COGS + Shipping + Ads</span>
+          </div>
+          <div class="st_formulaLine">
+            <span class="st_mono">Fee rate</span> = <span class="st_mono">(Platform % + Payment %) / 100</span>
+          </div>
+          <div class="st_formulaLine">
+            <span class="st_mono">Target margin rate</span> = <span class="st_mono">Target % / 100</span>
+          </div>
+          <div class="st_formulaLine">
+            <span class="st_mono">Recommended price</span> =
+            <span class="st_mono">Fixed costs / (1 − Fee rate − Target margin rate)</span>
+          </div>
+          <div class="st_formulaLine">
+            <span class="st_mono">Net profit</span> =
+            <span class="st_mono">Price − Fixed costs − (Fee rate × Price)</span>
+          </div>
+          <div class="st_formulaLine">
+            <span class="st_mono">Net margin (%)</span> =
+            <span class="st_mono">(Net profit ÷ Price) × 100</span>
+          </div>
+        </div>
 
-    <h2>FAQ</h2>
-    <p><strong>What is a target margin?</strong><br />
-      The percentage of revenue you want to keep as profit after all costs.
-    </p>
+        <h2 class="st_h3">Example</h2>
+        <p class="st_p">
+          Let COGS = $15, shipping = $5, ads = $10 (fixed costs = $30). Platform fee = 15%,
+          payment fee = 2.9% (fee rate = 17.9%). If your target net margin is 20%,
+          recommended price = $30 ÷ (1 − 0.179 − 0.20) = <strong>$48.31</strong>.
+          At this price, the expected net margin is about 20%.
+        </p>
 
-    <p><strong>Can I use this for new products?</strong><br />
-      Yes. This calculator is designed for pricing before launch.
-    </p>
+        <h2 class="st_h3">FAQ</h2>
+        <div class="st_faq">
+          <details class="st_faqItem">
+            <summary>Is this gross margin or net margin?</summary>
+            <p>This is net margin—after fees, shipping, and ads. Gross margin only considers price minus COGS.</p>
+          </details>
 
-    <p><strong>Is this calculator free?</strong><br />
-      Yes. No login or payment is required.
-    </p>
-  </section>
+          <details class="st_faqItem">
+            <summary>Does this include taxes?</summary>
+            <p>No. Taxes vary by state and business setup, so this calculator excludes them for clarity.</p>
+          </details>
 
-  <!-- ===================== -->
-  <!-- Logic -->
-  <!-- ===================== -->
-  <script is:inline>
-    (function () {
-      const $ = (id) => document.getElementById(id);
+          <details class="st_faqItem">
+            <summary>What should I enter for ad cost if I don’t run ads yet?</summary>
+            <p>Set ad cost to $0 to get a baseline price. Later, update it using your real CPA/Ad cost per order.</p>
+          </details>
 
-      const cogs = $("pp_cogs");
-      const margin = $("pp_margin");
-      const platform = $("pp_platform");
-      const payment = $("pp_payment");
-      const shipping = $("pp_shipping");
-      const ads = $("pp_ads");
-      const priceEl = $("pp_price");
+          <details class="st_faqItem">
+            <summary>Why can’t it calculate a price?</summary>
+            <p>If target margin + percent fees reach 100% or more, there’s no revenue left to cover fixed costs.</p>
+          </details>
 
-      function num(v) {
-        const n = Number(v);
-        return Number.isFinite(n) ? n : 0;
+          <details class="st_faqItem">
+            <summary>Which platforms is this for?</summary>
+            <p>Amazon, Shopify, Etsy, or any platform where fees are a percentage of the selling price.</p>
+          </details>
+
+          <details class="st_faqItem">
+            <summary>Should I round the recommended price?</summary>
+            <p>Yes. Most sellers round to psychological price points (e.g., $49.99) and then re-check the margin.</p>
+          </details>
+        </div>
+
+        <a class="st_backLink" href="/tools/e-commerce/">← Back to E-commerce Tools</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const el = {
+      targetMargin: $("pp_targetMargin"),
+      cogs: $("pp_cogs"),
+      platform: $("pp_platformFee"),
+      payment: $("pp_paymentFee"),
+      shipping: $("pp_shipping"),
+      ads: $("pp_ads"),
+
+      outPrice: $("pp_price"),
+      outFixed: $("pp_fixed"),
+      outProfit: $("pp_profit"),
+      outMargin: $("pp_margin"),
+
+      outPlatformAmt: $("pp_platformFeeAmt"),
+      outPaymentAmt: $("pp_paymentFeeAmt"),
+      outTotalFeeAmt: $("pp_totalFeeAmt"),
+
+      targetBadge: $("pp_targetBadge"),
+      keepBadge: $("pp_keepBadge"),
+      warn: $("pp_warn"),
+
+      reset: $("pp_reset"),
+    };
+
+    const toNum = (v) => {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    };
+
+    const money = (n) =>
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 2,
+      }).format(Number.isFinite(n) ? n : 0);
+
+    const pct1 = (n) => `${(Number.isFinite(n) ? n : 0).toFixed(1)}%`;
+    const pct2 = (n) => `${(Number.isFinite(n) ? n : 0).toFixed(2)}%`;
+
+    function calc() {
+      const targetMarginPct = toNum(el.targetMargin.value);
+      const targetMarginRate = Math.max(0, targetMarginPct / 100);
+
+      const cogs = toNum(el.cogs.value);
+      const shipping = toNum(el.shipping.value);
+      const ads = toNum(el.ads.value);
+
+      const platformRate = Math.max(0, toNum(el.platform.value) / 100);
+      const paymentRate = Math.max(0, toNum(el.payment.value) / 100);
+      const feeRate = platformRate + paymentRate;
+
+      const fixed = Math.max(0, cogs + shipping + ads);
+      const denom = 1 - feeRate - targetMarginRate;
+
+      el.targetBadge.textContent = `Target margin: ${pct1(targetMarginPct)}`;
+      el.keepBadge.textContent = `Revenue kept: ${pct2(Math.max(0, denom) * 100)}`;
+
+      if (denom <= 0) {
+        el.warn.hidden = false;
+        el.outPrice.textContent = "$—";
+        el.outFixed.textContent = money(fixed);
+        el.outProfit.textContent = money(0);
+        el.outMargin.textContent = "0.0%";
+        el.outPlatformAmt.textContent = money(0);
+        el.outPaymentAmt.textContent = money(0);
+        el.outTotalFeeAmt.textContent = money(0);
+        return;
       }
 
-      function calc() {
-        const c = num(cogs.value);
-        const m = num(margin.value) / 100;
-        const p = num(platform.value) / 100;
-        const pay = num(payment.value) / 100;
-        const s = num(shipping.value);
-        const a = num(ads.value);
+      el.warn.hidden = true;
 
-        const denominator = 1 - m - p - pay;
+      const price = fixed / denom;
+      const platformFeeAmt = price * platformRate;
+      const paymentFeeAmt = price * paymentRate;
+      const totalFeeAmt = platformFeeAmt + paymentFeeAmt;
 
-        if (denominator <= 0) {
-          priceEl.textContent = "—";
-          return;
-        }
+      const netProfit = price - fixed - totalFeeAmt;
+      const netMargin = price > 0 ? (netProfit / price) * 100 : 0;
 
-        const price = (c + s + a) / denominator;
+      el.outPrice.textContent = money(price);
+      el.outFixed.textContent = money(fixed);
+      el.outProfit.textContent = money(netProfit);
+      el.outMargin.textContent = pct1(netMargin);
 
-        priceEl.textContent = price.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        });
-      }
+      el.outPlatformAmt.textContent = money(platformFeeAmt);
+      el.outPaymentAmt.textContent = money(paymentFeeAmt);
+      el.outTotalFeeAmt.textContent = money(totalFeeAmt);
+    }
 
-      [cogs, margin, platform, payment, shipping, ads].forEach((el) => {
-        el.addEventListener("input", calc);
-        el.addEventListener("change", calc);
-      });
+    ["input", "change"].forEach((evt) => {
+      el.targetMargin.addEventListener(evt, calc);
+      el.cogs.addEventListener(evt, calc);
+      el.platform.addEventListener(evt, calc);
+      el.payment.addEventListener(evt, calc);
+      el.shipping.addEventListener(evt, calc);
+      el.ads.addEventListener(evt, calc);
+    });
 
+    el.reset.addEventListener("click", () => {
+      el.targetMargin.value = "";
+      el.cogs.value = "";
+      el.platform.value = "";
+      el.payment.value = "";
+      el.shipping.value = "";
+      el.ads.value = "";
       calc();
-    })();
+    });
+
+    calc();
   </script>
 
-  <!-- ===================== -->
-  <!-- Styles (Template fixed) -->
-  <!-- ===================== -->
   <style>
-    .calcHeader {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 48px 20px 32px;
-    }
+    /* ===== Template (same as Break-even) ===== */
+    .st_calcPage { padding: 18px 0 34px; }
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 
-    .badge {
-      display: inline-block;
+    .st_calcHero { padding-top: 8px; padding-bottom: 10px; }
+    .st_calcHeroTop { max-width: 820px; }
+    .st_kicker {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
       font-size: 12px;
-      padding: 6px 12px;
+      font-weight: 800;
+      color: var(--muted, rgba(2,6,23,.65));
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.7);
+      padding: 7px 10px;
       border-radius: 999px;
-      background: #eef4ff;
-      color: #245bdb;
+    }
+    .st_h1 {
+      margin: 12px 0 8px;
+      font-size: clamp(26px, 3vw, 34px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+    .st_lead {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted, rgba(2,6,23,.70));
+      max-width: 64ch;
     }
 
-    .calcHeader h1 {
-      font-size: 32px;
-      margin: 12px 0;
-    }
-
-    .calcHeader p {
-      color: #555;
-      max-width: 560px;
-    }
-
-    .calcBody {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
+    .st_calcWrap { margin-top: 14px; }
+    .st_calcGrid {
       display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 32px;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .st_calcGrid { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 900px) {
-      .calcBody {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .calcInputs {
+    .st_card{
       background: #fff;
+      border: 1px solid rgba(2,6,23,.10);
       border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      box-shadow: 0 12px 30px rgba(2,6,23,.06);
+      overflow: hidden;
     }
-
-    .inputGroup {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+    .st_cardHead{
+      padding: 16px 16px 10px;
+      border-bottom: 1px solid rgba(2,6,23,.06);
     }
-
-    label {
+    .st_h2{
+      margin: 0;
       font-size: 14px;
-      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    .st_muted{
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: var(--muted, rgba(2,6,23,.65));
+      line-height: 1.55;
     }
 
-    input {
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 15px;
+    .st_inputs { padding-bottom: 14px; }
+    .st_field { padding: 12px 16px 0; }
+    .st_label{
+      display:block;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
     }
-
-    .calcResults {
-      align-self: flex-start;
-    }
-
-    .resultCard {
-      background: #fff;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-    }
-
-    .resultItem span {
-      font-size: 14px;
-      color: #666;
-    }
-
-    .resultItem strong {
-      font-size: 32px;
-      font-weight: 600;
-      display: block;
-      margin-top: 4px;
-    }
-
-    .content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
-
-    .content h2 {
-      margin-top: 32px;
-    }
-
-    pre {
-      background: #f3f4f6;
-      padding: 20px;
+    .st_inputRow{
+      display:flex;
+      align-items:center;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.9);
       border-radius: 12px;
+      overflow: hidden;
+    }
+    .st_prefix, .st_suffix{
+      font-size: 12px;
+      font-weight: 800;
+      padding: 10px 10px;
+      color: rgba(2,6,23,.65);
+      background: rgba(2,6,23,.03);
+      border-right: 1px solid rgba(2,6,23,.08);
+    }
+    .st_suffix{
+      border-right: 0;
+      border-left: 1px solid rgba(2,6,23,.08);
+    }
+    .st_input{
+      width: 100%;
+      border: 0;
+      outline: none;
+      padding: 10px 12px;
       font-size: 14px;
-      overflow-x: auto;
-      margin-top: 12px;
+      font-weight: 800;
+      background: transparent;
+      color: rgba(2,6,23,.92);
+    }
+    .st_input::placeholder{ color: rgba(2,6,23,.35); font-weight: 700; }
+    .st_hint{
+      margin-top: 7px;
+      font-size: 12px;
+      color: var(--muted, rgba(2,6,23,.60));
+      line-height: 1.5;
+    }
+    .st_divider{ margin: 14px 16px 0; height:1px; background: rgba(2,6,23,.06); }
+    .st_actions{
+      padding: 12px 16px 0;
+      display:flex; justify-content: space-between; align-items:center; gap: 12px; flex-wrap: wrap;
+    }
+    .st_btn{
+      appearance: none;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.92);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .st_btn:hover{ transform: translateY(-1px); }
+    .st_note{ font-size: 12px; color: var(--muted, rgba(2,6,23,.60)); }
+
+    .st_results { position: sticky; top: 14px; }
+    @media (max-width: 860px) { .st_results { position: static; } }
+
+    .st_resultMain{ padding: 14px 16px 8px; }
+    .st_resultLabel{
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(2,6,23,.65);
+    }
+    .st_resultValue{
+      margin-top: 6px;
+      font-size: 34px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+    .st_badgeRow{
+      margin-top: 10px;
+      display:flex; gap: 8px; flex-wrap: wrap;
+    }
+    .st_badge{
+      font-size: 12px;
+      font-weight: 900;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(2,6,23,.03);
+      color: rgba(2,6,23,.75);
+    }
+    .st_warn{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(220,38,38,.25);
+      background: rgba(220,38,38,.06);
+      color: rgba(127,29,29,.95);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .st_pills{
+      padding: 10px 16px 12px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .st_pill{
+      border-radius: 14px;
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(2,6,23,.02);
+      padding: 12px 12px;
+    }
+    .st_pillKey{ font-size: 12px; font-weight: 900; color: rgba(2,6,23,.65); }
+    .st_pillVal{ margin-top: 6px; font-size: 20px; font-weight: 950; letter-spacing: -0.03em; }
+    .st_pillSub{ margin-top: 6px; font-size: 12px; color: var(--muted, rgba(2,6,23,.60)); }
+
+    .st_breakdown{
+      margin: 0 16px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(255,255,255,.9);
+      overflow: hidden;
+    }
+    .st_breakRow{
+      display:flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(2,6,23,.78);
+      border-top: 1px solid rgba(2,6,23,.06);
+    }
+    .st_breakRow:first-child{ border-top: 0; }
+    .st_breakRow span:last-child{ font-weight: 950; }
+
+    .st_content{ margin-top: 18px; }
+    .st_contentInner{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 16px 0 0;
+    }
+    .st_h3{
+      margin: 18px 0 8px;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+    .st_p{
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(2,6,23,.78);
+    }
+    .st_formula{
+      margin-top: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(2,6,23,.02);
+    }
+    .st_formulaLine{
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: rgba(2,6,23,.80);
+    }
+    .st_mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-weight: 800; }
+
+    .st_faq{ margin-top: 8px; display: grid; gap: 10px; }
+    .st_faqItem{
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(255,255,255,.9);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+    .st_faqItem summary{
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 900;
+      list-style: none;
+    }
+    .st_faqItem summary::-webkit-details-marker { display: none; }
+    .st_faqItem p{
+      margin: 8px 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(2,6,23,.75);
+    }
+
+    .st_backLink{
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.9);
+      text-decoration: none;
+      color: rgba(2,6,23,.92);
     }
   </style>
 </BaseLayout>
