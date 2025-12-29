@@ -1,0 +1,243 @@
+---
+// File: src/pages/guides/ecommerce-pricing-basics/index.astro
+import BaseLayout from "../../../components/layout/BaseLayout.astro";
+
+const pageTitle = "E-commerce Pricing Basics — Profit, break-even & ad spend | SimpleTools";
+const pageDescription =
+  "A practical guide for US e-commerce sellers: profit margin, break-even price, recommended pricing, and max ad cost per order. Includes formulas, examples, and FAQs.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="st_calcPage">
+    <section class="container st_calcHero">
+      <div class="st_calcHeroTop">
+        <div class="st_kicker">Guide • Clear formulas • Practical examples</div>
+        <h1 class="st_h1">E-commerce Pricing Basics (US sellers)</h1>
+        <p class="st_lead">
+          This guide explains the simplest decision flow for pricing: <strong>profit margin → break-even → recommended price → max ad cost per order</strong>.
+          It’s designed for fast, real-world checks before you launch, discount, or run ads.
+        </p>
+      </div>
+    </section>
+
+    <section class="container st_content">
+      <div class="st_contentInner">
+        <h2 class="st_h3">The 4-step pricing flow</h2>
+        <ol class="st_ol">
+          <li><strong>Profit Margin</strong>: confirm your net profit after COGS, fees, shipping, and ads.</li>
+          <li><strong>Break-even Price</strong>: find the minimum price that avoids losses.</li>
+          <li><strong>Product Pricing</strong>: reverse-calc a recommended selling price from a target margin.</li>
+          <li><strong>Ad Cost / Order (CPO)</strong>: set a max ad spend per order that still hits your target margin.</li>
+        </ol>
+
+        <div class="st_ctaRow">
+          <a class="st_cta" href="/tools/e-commerce/profit-margin/">Open Profit Margin Calculator →</a>
+          <a class="st_cta" href="/tools/e-commerce/break-even-price/">Open Break-even Price Calculator →</a>
+          <a class="st_cta" href="/tools/e-commerce/product-pricing/">Open Product Pricing Calculator →</a>
+          <a class="st_cta" href="/tools/e-commerce/ad-cost-per-order/">Open Ad Cost / Order Calculator →</a>
+        </div>
+
+        <h2 class="st_h3">Key definitions (keep it simple)</h2>
+        <p class="st_p">
+          <strong>Revenue</strong> is your selling price. <strong>Variable costs</strong> include product cost (COGS), shipping, and ads (per order).
+          <strong>Percent fees</strong> (platform + payment) scale with your selling price, so they can quietly compress margin.
+        </p>
+
+        <div class="st_formula">
+          <div class="st_formulaLine"><span class="st_mono">Fee rate</span> = <span class="st_mono">(Platform % + Payment %) / 100</span></div>
+          <div class="st_formulaLine"><span class="st_mono">Fixed costs</span> = <span class="st_mono">COGS + Shipping + Ads</span></div>
+          <div class="st_formulaLine"><span class="st_mono">Net profit</span> = <span class="st_mono">Price − Fixed costs − (Fee rate × Price)</span></div>
+          <div class="st_formulaLine"><span class="st_mono">Net margin</span> = <span class="st_mono">(Net profit ÷ Price) × 100</span></div>
+        </div>
+
+        <h2 class="st_h3">Worked example (realistic numbers)</h2>
+        <p class="st_p">
+          Let’s say: Price $50, COGS $15, Shipping $5, Ads $10, Platform fee 15%, Payment fee 2.9%.
+          Fee rate = 17.9% and fixed costs = $30.
+          Net profit = $50 − $30 − (0.179 × $50) = <strong>$11.05</strong>.
+          Net margin = $11.05 ÷ $50 = <strong>22.1%</strong>.
+        </p>
+
+        <h2 class="st_h3">Break-even price (avoid accidental losses)</h2>
+        <p class="st_p">
+          Break-even is the minimum price where net profit becomes $0. If your fee rate is high, break-even rises fast.
+        </p>
+        <div class="st_formula">
+          <div class="st_formulaLine">
+            <span class="st_mono">Break-even price</span> = <span class="st_mono">Fixed costs / (1 − Fee rate)</span>
+          </div>
+        </div>
+        <p class="st_p">
+          Using the same example: $30 ÷ (1 − 0.179) = <strong>$36.54</strong>. Any lower price is a loss per order.
+        </p>
+
+        <h2 class="st_h3">Recommended selling price (from target margin)</h2>
+        <p class="st_p">
+          If you want a target net margin (e.g., 25%), you can reverse-calc a price that covers costs and fees and still hits your goal.
+          This is useful before launching a new product or testing bundles.
+        </p>
+
+        <h2 class="st_h3">Max ad spend per order (CPO) that still works</h2>
+        <p class="st_p">
+          Ads are the easiest line item to overspend. A practical rule is to compute the maximum ad cost per order you can afford while
+          keeping a target margin. Use CPO before scaling budgets.
+        </p>
+
+        <h2 class="st_h3">Common mistakes (quick checklist)</h2>
+        <ul class="st_list">
+          <li>Forgetting percent fees (platform + payment) and only counting COGS.</li>
+          <li>Treating shipping and ads as “marketing” and ignoring them in margin.</li>
+          <li>Using gross margin instead of <strong>net margin</strong> for ad decisions.</li>
+          <li>Setting a price without checking break-even first.</li>
+          <li>Scaling ads without a max CPO guardrail.</li>
+        </ul>
+
+        <h2 class="st_h3">FAQ</h2>
+        <div class="st_faq">
+          <details class="st_faqItem">
+            <summary>Does this include taxes?</summary>
+            <p>No. Taxes vary by state and business setup, so the guide keeps formulas tax-free for clarity and consistency.</p>
+          </details>
+
+          <details class="st_faqItem">
+            <summary>Which fee % should I use?</summary>
+            <p>Use your platform’s referral/marketplace fee and your payment processing fee. If you’re unsure, start with a conservative estimate and refine later.</p>
+          </details>
+
+          <details class="st_faqItem">
+            <summary>Why is break-even higher than expected?</summary>
+            <p>Percent fees scale with price. Combined with shipping and ads, they can push break-even up quickly.</p>
+          </details>
+
+          <details class="st_faqItem">
+            <summary>Is net margin the only metric that matters?</summary>
+            <p>It’s the most decision-useful metric for pricing and ads because it reflects what you actually keep after variable costs and percent fees.</p>
+          </details>
+
+          <details class="st_faqItem">
+            <summary>How often should I re-check pricing?</summary>
+            <p>Whenever costs change (COGS/shipping), fee structure updates, or ad costs shift. Small changes can move break-even meaningfully.</p>
+          </details>
+
+          <details class="st_faqItem">
+            <summary>Where do I start if I only have 2 minutes?</summary>
+            <p>Run Profit Margin → then Break-even. If ads matter, add Ad Cost/Order as your guardrail.</p>
+          </details>
+        </div>
+
+        <div class="st_ctaRow" style="margin-top:14px;">
+          <a class="st_cta" href="/tools/e-commerce/">Browse E-commerce Tools →</a>
+          <a class="st_cta" href="/guides/">Back to Guides →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .st_calcPage { padding: 18px 0 34px; }
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+    .st_calcHero { padding-top: 8px; padding-bottom: 10px; }
+    .st_calcHeroTop { max-width: 860px; }
+    .st_kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12px; font-weight:800; color: var(--muted, rgba(2,6,23,.65));
+      border:1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.7);
+      padding:7px 10px; border-radius:999px;
+    }
+    .st_h1{
+      margin:12px 0 8px;
+      font-size: clamp(26px, 3vw, 34px);
+      line-height:1.15; letter-spacing:-0.03em;
+    }
+    .st_lead{
+      margin:0;
+      font-size:14px; line-height:1.6;
+      color: var(--muted, rgba(2,6,23,.70));
+      max-width: 72ch;
+    }
+
+    .st_content{ margin-top: 16px; }
+    .st_contentInner{ max-width: 980px; margin: 0 auto; padding: 16px 0 0; }
+    .st_h3{
+      margin:18px 0 10px;
+      font-size:14px; font-weight:950; letter-spacing:-0.02em;
+    }
+    .st_p{ margin: 0; font-size: 13px; line-height: 1.75; color: rgba(2,6,23,.78); }
+
+    .st_ol{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(2,6,23,.78);
+    }
+    .st_ol li{ margin: 6px 0; }
+
+    .st_list{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(2,6,23,.78);
+    }
+    .st_list li{ margin: 6px 0; }
+
+    .st_formula{
+      margin-top: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(2,6,23,.02);
+    }
+    .st_formulaLine{
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: rgba(2,6,23,.80);
+    }
+    .st_mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-weight: 800;
+    }
+
+    .st_ctaRow{
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .st_cta{
+      display:inline-flex;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.9);
+      text-decoration: none;
+      color: rgba(2,6,23,.92);
+    }
+
+    .st_faq{ margin-top: 8px; display: grid; gap: 10px; }
+    .st_faqItem{
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(255,255,255,.9);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+    .st_faqItem summary{
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 900;
+      list-style: none;
+    }
+    .st_faqItem summary::-webkit-details-marker { display: none; }
+    .st_faqItem p{
+      margin: 8px 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(2,6,23,.75);
+    }
+  </style>
+</BaseLayout>
