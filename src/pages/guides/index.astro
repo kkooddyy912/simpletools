@@ -1,153 +1,208 @@
 ---
-// File: src/pages/guides/index.astro
 import BaseLayout from "../../components/layout/BaseLayout.astro";
+import { site } from "../../config/site";
 
-const pageTitle = "Guides — Pricing, fees & ad planning basics | SimpleTools";
+const pageTitle = "E-commerce Pricing Guide — How to Price Products Profitably | SimpleTools";
 const pageDescription =
-  "Practical guides for quick, reliable decisions—pricing, fees, budgets, and more. Clear explanations, examples, and links to free calculators.";
+  "A practical guide for e-commerce sellers to understand pricing, break-even points, profit margins, and advertising costs before running ads or launching products.";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <main class="st_calcPage">
-    <section class="container st_calcHero">
-      <div class="st_calcHeroTop">
-        <div class="st_kicker">Free • No login • Clear explanations</div>
-        <h1 class="st_h1">Guides</h1>
-        <p class="st_lead">
-          Simple, practical guides that explain the “why” behind the numbers.
-          Each guide includes definitions, examples, common mistakes, and links to free calculators.
-        </p>
+  <main class="st_guidePage">
+
+    <!-- Hero -->
+    <section class="container st_guideHero">
+      <span class="st_kicker">Free Guide • No Login</span>
+      <h1 class="st_h1">E-commerce Pricing Guide</h1>
+      <p class="st_lead">
+        This guide explains how e-commerce sellers should think about pricing, costs,
+        break-even points, and advertising spend before launching products or running paid ads.
+      </p>
+    </section>
+
+    <!-- Why this guide exists (핵심 심사용 섹션) -->
+    <section class="container st_guideSection">
+      <h2 class="st_h2">Why this guide exists</h2>
+      <p class="st_p">
+        Many e-commerce sellers fail not because their products are bad, but because they
+        misunderstand pricing, fees, and advertising costs. Selling products without knowing
+        your real break-even price or profit margin often leads to hidden losses.
+      </p>
+      <p class="st_p">
+        This guide was created to help sellers understand the fundamentals of pricing decisions
+        and to show how each calculator on SimpleTools fits into a clear decision-making process.
+      </p>
+    </section>
+
+    <!-- How to use the calculators -->
+    <section class="container st_guideSection">
+      <h2 class="st_h2">How to use SimpleTools calculators</h2>
+      <p class="st_p">
+        The calculators on SimpleTools are designed to be used together.
+        Each tool answers a specific pricing question, but none should be used in isolation.
+      </p>
+
+      <ul class="st_list">
+        <li>
+          <strong>Profit Margin Calculator</strong> — Understand how much profit you keep after
+          all costs, fees, shipping, and advertising.
+        </li>
+        <li>
+          <strong>Break-even Price Calculator</strong> — Find the minimum price required to avoid
+          losing money on each order.
+        </li>
+        <li>
+          <strong>Product Pricing Calculator</strong> — Reverse-calculate a recommended selling
+          price based on your target margin.
+        </li>
+        <li>
+          <strong>Ad Cost per Order (CPO)</strong> — Estimate how much you can spend on ads while
+          remaining profitable.
+        </li>
+        <li>
+          <strong>Amazon FBA Fee Calculator</strong> — Understand how Amazon fees affect your
+          pricing and margins.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Common mistakes -->
+    <section class="container st_guideSection">
+      <h2 class="st_h2">Common pricing mistakes</h2>
+      <p class="st_p">
+        New and experienced sellers alike often repeat the same pricing mistakes.
+        Avoiding these errors can significantly improve long-term profitability.
+      </p>
+
+      <ul class="st_list">
+        <li>Ignoring platform and payment fees when setting prices</li>
+        <li>Running ads without knowing the maximum affordable cost per order</li>
+        <li>Assuming revenue equals profit</li>
+        <li>Copying competitors’ prices without understanding cost structures</li>
+      </ul>
+    </section>
+
+    <!-- Practical flow -->
+    <section class="container st_guideSection">
+      <h2 class="st_h2">A practical pricing workflow</h2>
+      <p class="st_p">
+        A simple pricing workflow for e-commerce sellers looks like this:
+      </p>
+
+      <ol class="st_list">
+        <li>Calculate your total product cost (COGS, shipping, packaging)</li>
+        <li>Estimate all platform and payment fees</li>
+        <li>Find your break-even price</li>
+        <li>Set a target profit margin</li>
+        <li>Determine the maximum ad cost per order you can afford</li>
+      </ol>
+    </section>
+
+    <!-- Links to tools -->
+    <section class="container st_guideSection">
+      <h2 class="st_h2">Recommended calculators</h2>
+      <p class="st_p">
+        Use the calculators below to apply the concepts explained in this guide.
+      </p>
+
+      <div class="st_links">
+        <a href="/tools/e-commerce/profit-margin/">Profit Margin Calculator →</a>
+        <a href="/tools/e-commerce/break-even-price/">Break-even Price Calculator →</a>
+        <a href="/tools/e-commerce/product-pricing/">Product Pricing Calculator →</a>
+        <a href="/tools/e-commerce/ad-cost-per-order/">Ad Cost per Order Calculator →</a>
+        <a href="/tools/e-commerce/amazon-fba-fee/">Amazon FBA Fee Calculator →</a>
       </div>
     </section>
 
-    <section class="container st_content">
-      <div class="st_contentInner">
-        <h2 class="st_h3">Start here</h2>
-
-        <div class="st_cards">
-          <a class="st_cardLink" href="/guides/ecommerce-pricing-basics/">
-            <div class="st_cardLinkTitle">E-commerce Pricing Basics (US sellers)</div>
-            <div class="st_cardLinkDesc">
-              Learn the core flow: profit margin → break-even → product pricing → ad cost per order.
-              Includes formulas, a worked example, and FAQs.
-            </div>
-            <div class="st_cardLinkMeta">Read guide →</div>
-          </a>
-        </div>
-
-        <h2 class="st_h3">What you’ll find in every guide</h2>
-        <ul class="st_list">
-          <li>Definitions that match real seller decisions (pricing, fees, ad spend)</li>
-          <li>Transparent formulas you can verify</li>
-          <li>1–2 realistic examples with numbers</li>
-          <li>Common mistakes checklist</li>
-          <li>FAQ designed for quick scanning</li>
-          <li>Direct links to calculators</li>
-        </ul>
-
-        <h2 class="st_h3">Currently available</h2>
-        <p class="st_p">
-          Guides are expanding over time. Right now, the most complete set supports E-commerce tools.
-          Next categories planned: Tax and Wedding (coming soon).
-        </p>
-
-        <a class="st_backLink" href="/tools/">← Back to All Tools</a>
-      </div>
+    <!-- Trust / closing -->
+    <section class="container st_guideSection">
+      <h2 class="st_h2">Final thoughts</h2>
+      <p class="st_p">
+        Pricing decisions directly affect profitability, scalability, and advertising success.
+        Understanding your numbers before launching products or campaigns reduces risk and
+        improves long-term outcomes.
+      </p>
+      <p class="st_p">
+        SimpleTools was built to provide transparent formulas, clear explanations,
+        and practical calculators for everyday e-commerce decisions.
+      </p>
     </section>
+
   </main>
 
   <style>
-    .st_calcPage { padding: 18px 0 34px; }
-    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+    .st_guidePage { padding: 24px 0 40px; }
 
-    .st_calcHero { padding-top: 8px; padding-bottom: 10px; }
-    .st_calcHeroTop { max-width: 860px; }
-    .st_kicker{
-      display:inline-flex; gap:8px; align-items:center;
-      font-size:12px; font-weight:800; color: var(--muted, rgba(2,6,23,.65));
-      border:1px solid rgba(2,6,23,.10);
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .st_guideHero { padding-bottom: 20px; }
+    .st_kicker {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(2,6,23,.1);
       background: rgba(255,255,255,.7);
-      padding:7px 10px; border-radius:999px;
+      color: rgba(2,6,23,.65);
     }
-    .st_h1{
-      margin:12px 0 8px;
+
+    .st_h1 {
+      margin: 12px 0 8px;
       font-size: clamp(26px, 3vw, 34px);
-      line-height:1.15; letter-spacing:-0.03em;
-    }
-    .st_lead{
-      margin:0;
-      font-size:14px; line-height:1.6;
-      color: var(--muted, rgba(2,6,23,.70));
-      max-width: 68ch;
+      letter-spacing: -0.03em;
     }
 
-    .st_content{ margin-top: 16px; }
-    .st_contentInner{ max-width: 980px; margin: 0 auto; padding: 16px 0 0; }
-    .st_h3{
-      margin:18px 0 10px;
-      font-size:14px; font-weight:950; letter-spacing:-0.02em;
-    }
-    .st_p{ margin:0; font-size:13px; line-height:1.75; color: rgba(2,6,23,.78); }
-
-    .st_cards{
-      margin-top: 10px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .st_cardLink{
-      display:block;
-      text-decoration:none;
-      color: rgba(2,6,23,.92);
-      background:#fff;
-      border:1px solid rgba(2,6,23,.10);
-      border-radius:16px;
-      box-shadow:0 12px 30px rgba(2,6,23,.06);
-      padding: 14px 14px;
-    }
-    .st_cardLinkTitle{
+    .st_lead {
       font-size: 14px;
-      font-weight: 950;
-      letter-spacing: -0.02em;
-    }
-    .st_cardLinkDesc{
-      margin-top: 6px;
-      font-size: 13px;
       line-height: 1.7;
       color: rgba(2,6,23,.75);
-      max-width: 78ch;
-    }
-    .st_cardLinkMeta{
-      margin-top: 10px;
-      display:inline-flex;
-      font-size: 12px;
-      font-weight: 900;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(2,6,23,.10);
-      background: rgba(2,6,23,.03);
+      max-width: 70ch;
     }
 
-    .st_list{
-      margin: 10px 0 0;
+    .st_guideSection { margin-top: 28px; }
+
+    .st_h2 {
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .st_p {
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: rgba(2,6,23,.8);
+      margin-bottom: 10px;
+    }
+
+    .st_list {
       padding-left: 18px;
-      font-size: 13px;
-      line-height: 1.75;
-      color: rgba(2,6,23,.78);
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: rgba(2,6,23,.8);
     }
-    .st_list li{ margin: 6px 0; }
 
-    .st_backLink{
-      display:inline-block;
-      margin-top: 16px;
+    .st_links {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .st_links a {
       font-size: 13px;
-      font-weight: 900;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(2,6,23,.10);
-      background: rgba(255,255,255,.9);
+      font-weight: 800;
       text-decoration: none;
-      color: rgba(2,6,23,.92);
+      color: #0f172a;
+    }
+
+    .st_links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
   </style>
 </BaseLayout>
