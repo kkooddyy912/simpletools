@@ -1,170 +1,322 @@
 ---
+// File: src/pages/tools/e-commerce/index.astro
 import BaseLayout from "../../../components/layout/BaseLayout.astro";
+
+const pageTitle = "E-commerce Tools — Free & Instant | SimpleTools";
+const pageDescription =
+  "Free, fast calculators for US e-commerce sellers: profit margin, break-even price, product pricing, ad cost per order (CPO), and Amazon FBA fee estimate. No login. Instant results with clear formulas.";
+
+const tools = [
+  {
+    title: "Profit Margin",
+    href: "/tools/e-commerce/profit-margin/",
+    desc: "Net profit & net margin after COGS, fees, shipping, and ads.",
+    tag: "Most used",
+  },
+  {
+    title: "Break-even Price",
+    href: "/tools/e-commerce/break-even-price/",
+    desc: "Minimum selling price to avoid losses after costs and fees.",
+    tag: "Launch check",
+  },
+  {
+    title: "Product Pricing",
+    href: "/tools/e-commerce/product-pricing/",
+    desc: "Reverse-calc a recommended price from target margin and costs.",
+    tag: "Pricing",
+  },
+  {
+    title: "Ad Cost per Order (CPO)",
+    href: "/tools/e-commerce/ad-cost-per-order/",
+    desc: "Max ad spend per order while still hitting your target margin.",
+    tag: "Ad planning",
+  },
+  {
+    title: "Amazon FBA Fee",
+    href: "/tools/e-commerce/amazon-fba-fee/",
+    desc: "Estimate referral + fulfillment fees and check profit per order.",
+    tag: "Amazon",
+  },
+];
 ---
 
-<BaseLayout
-  title="E-commerce Calculators for US Sellers — Free Tools | SimpleTools"
-  description="Free e-commerce calculators for US sellers. Price products, estimate fees, plan ad spend, and avoid losses."
->
-  <!-- ===================== -->
-  <!-- Header -->
-  <!-- ===================== -->
-  <section class="hubHeader">
-    <h1>E-commerce Calculators</h1>
-    <p>
-      Free calculators designed for US e-commerce sellers.
-      Use these tools to price products, estimate fees, and plan ad spend
-      with clear formulas and instant results.
-    </p>
-  </section>
-
-  <!-- ===================== -->
-  <!-- Calculator List -->
-  <!-- ===================== -->
-  <section class="hubList">
-    <ul>
-      <li>
-        <a href="/tools/e-commerce/profit-margin/">
-          <h2>Profit Margin Calculator</h2>
-        </a>
-        <p>
-          Calculate your real net profit and net margin after product costs,
-          platform fees, payment fees, shipping, and advertising.
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="st_calcPage">
+    <!-- Hero (same style) -->
+    <section class="st_calcHero container">
+      <div class="st_calcHeroTop">
+        <div class="st_kicker">US E-commerce • Free • No login</div>
+        <h1 class="st_h1">E-commerce Tools</h1>
+        <p class="st_lead">
+          Simple calculators for US e-commerce sellers. Price smarter, understand fees, and plan ad spend with clear formulas.
         </p>
-      </li>
 
-      <li>
-        <a href="/tools/e-commerce/break-even-price/">
-          <h2>Break-even Price Calculator</h2>
-        </a>
-        <p>
-          Find the minimum selling price required to avoid losses before
-          launching a product or running ads.
+        <div class="st_heroChips" aria-label="Highlights">
+          <span class="st_chip">Instant results</span>
+          <span class="st_chip">Transparent formulas</span>
+          <span class="st_chip">Examples + FAQ</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools grid (cards) -->
+    <section class="container st_toolsWrap" aria-label="E-commerce calculators">
+      <div class="st_toolsGrid">
+        {tools.map((t) => (
+          <a class="st_toolCard" href={t.href}>
+            <div class="st_toolTop">
+              <div class="st_toolTitle">{t.title}</div>
+              <span class="st_toolTag">{t.tag}</span>
+            </div>
+            <div class="st_toolDesc">{t.desc}</div>
+            <div class="st_toolCta">Open calculator →</div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Content (AdSense/SEO) -->
+    <section class="container st_content">
+      <div class="st_contentInner">
+        <h2 class="st_h3">How to use these tools</h2>
+        <p class="st_p">
+          Start with <strong>Break-even Price</strong> to make sure your price covers costs and percent-based fees.
+          Then use <strong>Profit Margin</strong> to verify net profit after shipping and ads. If you want to set a
+          price based on a target margin, use <strong>Product Pricing</strong>. For ad planning, use <strong>Ad CPO</strong>
+          to find your maximum ad spend per order. If you sell on Amazon FBA, use <strong>Amazon FBA Fee</strong> to estimate
+          referral + fulfillment fees and sanity-check profit.
         </p>
-      </li>
 
-      <li>
-        <a href="/tools/e-commerce/product-pricing/">
-          <h2>Product Pricing Calculator</h2>
-        </a>
-        <p>
-          Set a recommended selling price based on your target profit margin
-          and all associated costs.
-        </p>
-      </li>
+        <h2 class="st_h3">What these calculators include</h2>
+        <div class="st_points">
+          <div class="st_point">
+            <div class="st_pointTitle">Costs</div>
+            <div class="st_pointDesc">COGS, shipping, FBA fulfillment, optional per-order costs.</div>
+          </div>
+          <div class="st_point">
+            <div class="st_pointTitle">Percent fees</div>
+            <div class="st_pointDesc">Platform fees like marketplace/referral and payment processing fees.</div>
+          </div>
+          <div class="st_point">
+            <div class="st_pointTitle">Ad math</div>
+            <div class="st_pointDesc">Translate target margin into max allowable ad spend per order.</div>
+          </div>
+        </div>
 
-      <li>
-        <a href="/tools/e-commerce/ad-cost-per-order/">
-          <h2>Ad Cost per Order Calculator</h2>
-        </a>
-        <p>
-          Determine the maximum advertising cost per order you can afford
-          while still hitting your target margin.
-        </p>
-      </li>
+        <h2 class="st_h3">FAQ</h2>
+        <div class="st_faq">
+          <details class="st_faqItem">
+            <summary>Are these calculators free?</summary>
+            <p>Yes. No login, no account, and no payment required.</p>
+          </details>
 
-      <li>
-        <a href="/tools/e-commerce/amazon-fba-fee/">
-          <h2>Amazon FBA Fee Calculator (Simple)</h2>
-        </a>
-        <p>
-          Estimate Amazon referral and fulfillment fees and see how much
-          profit you keep after using FBA.
-        </p>
-      </li>
-    </ul>
-  </section>
+          <details class="st_faqItem">
+            <summary>Do these include taxes?</summary>
+            <p>No. Taxes vary by state and business setup, so they’re excluded for clarity.</p>
+          </details>
 
-  <!-- ===================== -->
-  <!-- SEO / Context -->
-  <!-- ===================== -->
-  <section class="hubContent">
-    <h2>Why these calculators matter</h2>
-    <p>
-      Pricing mistakes are one of the most common reasons e-commerce sellers
-      lose money. Platform fees, payment processing, fulfillment, and advertising
-      costs can quickly reduce margins if they are not calculated correctly.
-    </p>
+          <details class="st_faqItem">
+            <summary>Are the formulas shown?</summary>
+            <p>Yes. Each calculator page includes how it works, formulas, an example, and FAQs.</p>
+          </details>
 
-    <p>
-      SimpleTools provides clear, transparent calculators that help you make
-      informed pricing and advertising decisions without spreadsheets or logins.
-      All calculations are shown openly so you can trust and verify the results.
-    </p>
-  </section>
+          <details class="st_faqItem">
+            <summary>Which one should I start with?</summary>
+            <p>Break-even first, then Profit Margin. Use Pricing to set a recommended price and Ad CPO for ad planning.</p>
+          </details>
+        </div>
 
-  <!-- ===================== -->
-  <!-- Styles -->
-  <!-- ===================== -->
+        <a class="st_backLink" href="/tools/">← Back to All Tools</a>
+      </div>
+    </section>
+  </main>
+
   <style>
-    .hubHeader {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 56px 20px 32px;
-      text-align: center;
-    }
+    /* Page shell */
+    .st_calcPage { padding: 18px 0 34px; }
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 
-    .hubHeader h1 {
-      font-size: 36px;
-      margin-bottom: 16px;
-    }
+    .st_calcHero { padding-top: 8px; padding-bottom: 10px; }
+    .st_calcHeroTop { max-width: 860px; }
 
-    .hubHeader p {
-      color: #555;
-      line-height: 1.6;
+    .st_kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12px; font-weight:800;
+      color: var(--muted, rgba(2,6,23,.65));
+      border:1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.7);
+      padding:7px 10px;
+      border-radius: 999px;
     }
-
-    .hubList {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 20px 48px;
+    .st_h1{
+      margin:12px 0 8px;
+      font-size: clamp(26px, 3vw, 34px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
     }
-
-    .hubList ul {
-      list-style: none;
-      padding: 0;
+    .st_lead{
       margin: 0;
-    }
-
-    .hubList li {
-      padding: 24px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .hubList h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    .hubList a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .hubList a:hover h2 {
-      text-decoration: underline;
-    }
-
-    .hubList p {
-      color: #555;
+      font-size: 14px;
       line-height: 1.6;
-      max-width: 720px;
+      color: var(--muted, rgba(2,6,23,.70));
+      max-width: 72ch;
     }
 
-    .hubContent {
-      max-width: 800px;
+    .st_heroChips{
+      margin-top: 12px;
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .st_chip{
+      font-size:12px; font-weight:900;
+      padding:7px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(2,6,23,.10);
+      background: rgba(2,6,23,.03);
+      color: rgba(2,6,23,.78);
+    }
+
+    /* Tools cards */
+    .st_toolsWrap{ margin-top: 14px; }
+    .st_toolsGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+    @media (max-width: 980px){
+      .st_toolsGrid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px){
+      .st_toolsGrid{ grid-template-columns: 1fr; }
+    }
+
+    .st_toolCard{
+      display:block;
+      text-decoration:none;
+      background:#fff;
+      border:1px solid rgba(2,6,23,.10);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(2,6,23,.06);
+      padding: 14px 14px;
+      color: rgba(2,6,23,.92);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .st_toolCard:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(2,6,23,.08);
+    }
+
+    .st_toolTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .st_toolTitle{
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+    .st_toolTag{
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(2,6,23,.03);
+      color: rgba(2,6,23,.75);
+      white-space: nowrap;
+    }
+    .st_toolDesc{
+      margin-top: 10px;
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: rgba(2,6,23,.72);
+      max-width: 46ch;
+    }
+    .st_toolCta{
+      margin-top: 12px;
+      display:inline-flex;
+      font-size: 12px;
+      font-weight: 950;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.92);
+      color: rgba(2,6,23,.92);
+    }
+
+    /* Content */
+    .st_content{ margin-top: 18px; }
+    .st_contentInner{
+      max-width: 980px;
       margin: 0 auto;
-      padding: 40px 20px 80px;
+      padding: 16px 0 0;
+    }
+    .st_h3{
+      margin: 18px 0 8px;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+    .st_p{
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(2,6,23,.78);
     }
 
-    .hubContent h2 {
-      margin-bottom: 16px;
+    .st_points{
+      margin-top: 10px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 860px){
+      .st_points{ grid-template-columns: 1fr; }
+    }
+    .st_point{
+      border-radius: 14px;
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(2,6,23,.02);
+      padding: 12px 12px;
+    }
+    .st_pointTitle{ font-size: 12px; font-weight: 950; color: rgba(2,6,23,.70); }
+    .st_pointDesc{ margin-top: 6px; font-size: 13px; line-height: 1.7; color: rgba(2,6,23,.75); }
+
+    /* FAQ (same component feel) */
+    .st_faq{ margin-top: 8px; display: grid; gap: 10px; }
+    .st_faqItem{
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(255,255,255,.9);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+    .st_faqItem summary{
+      cursor:pointer;
+      font-size: 13px;
+      font-weight: 900;
+      list-style: none;
+    }
+    .st_faqItem summary::-webkit-details-marker{ display:none; }
+    .st_faqItem p{
+      margin: 8px 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(2,6,23,.75);
     }
 
-    .hubContent p {
-      line-height: 1.6;
-      color: #555;
-      margin-bottom: 16px;
+    .st_backLink{
+      display:inline-block;
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.9);
+      text-decoration:none;
+      color: rgba(2,6,23,.92);
     }
   </style>
 </BaseLayout>
