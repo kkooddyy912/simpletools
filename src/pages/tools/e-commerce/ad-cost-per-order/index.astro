@@ -1,265 +1,304 @@
 ---
-import BaseLayout from "../../../../components/layout/BaseLayout.astro";
+import BaseLayout from "../../../components/layout/BaseLayout.astro";
 ---
 
 <BaseLayout
-  title="Ad Cost per Order Calculator — Free & Instant | SimpleTools"
-  description="Calculate the maximum ad spend per order you can afford while hitting your target margin."
+  title="Ad Cost per Order Calculator — Free & Instant"
+  description="Calculate the maximum ad cost per order you can afford while still hitting your target profit margin."
 >
-  <!-- ===================== -->
-  <!-- Header / Intro -->
-  <!-- ===================== -->
-  <section class="calcHeader">
-    <span class="badge">Free • No login • Instant</span>
-    <h1>Ad Cost per Order Calculator</h1>
-    <p>
-      Calculate the maximum ad cost per order you can afford
-      while still achieving your target profit margin.
-    </p>
-  </section>
+  <main class="calc_wrap">
+    <!-- Header -->
+    <header class="calc_header">
+      <h1>Ad Cost per Order Calculator</h1>
+      <p>
+        Calculate the maximum ad spend per order you can afford
+        while still keeping your target profit margin.
+      </p>
+    </header>
 
-  <!-- ===================== -->
-  <!-- Calculator Body -->
-  <!-- ===================== -->
-  <section class="calcBody">
-    <!-- Left : Inputs -->
-    <div class="calcInputs">
-      <div class="inputGroup">
-        <label>Selling price (USD)</label>
-        <input id="cpo_price" type="number" placeholder="e.g. 50" />
-      </div>
+    <!-- Calculator -->
+    <section class="calc_card">
+      <div class="calc_grid">
+        <!-- Inputs -->
+        <div class="calc_inputs">
+          <label>
+            Selling Price (USD)
+            <input type="number" id="price" placeholder="e.g. 50" />
+          </label>
 
-      <div class="inputGroup">
-        <label>Product cost (COGS)</label>
-        <input id="cpo_cogs" type="number" placeholder="e.g. 15" />
-      </div>
+          <label>
+            Product Cost (COGS)
+            <input type="number" id="cost" placeholder="e.g. 15" />
+          </label>
 
-      <div class="inputGroup">
-        <label>Target margin (%)</label>
-        <input id="cpo_margin" type="number" placeholder="e.g. 30" />
-      </div>
+          <label>
+            Platform Fee (%)
+            <input type="number" id="platformFee" placeholder="e.g. 15" />
+          </label>
 
-      <div class="inputGroup">
-        <label>Platform fee (%)</label>
-        <input id="cpo_platform" type="number" placeholder="e.g. 15" />
-      </div>
+          <label>
+            Payment Fee (%)
+            <input type="number" id="paymentFee" placeholder="e.g. 2.9" />
+          </label>
 
-      <div class="inputGroup">
-        <label>Payment fee (%)</label>
-        <input id="cpo_payment" type="number" placeholder="e.g. 2.9" />
-      </div>
+          <label>
+            Shipping Cost
+            <input type="number" id="shipping" placeholder="e.g. 5" />
+          </label>
 
-      <div class="inputGroup">
-        <label>Shipping cost</label>
-        <input id="cpo_shipping" type="number" placeholder="e.g. 5" />
-      </div>
-    </div>
+          <label>
+            Target Net Margin (%)
+            <input type="number" id="targetMargin" placeholder="e.g. 20" />
+          </label>
+        </div>
 
-    <!-- Right : Results -->
-    <div class="calcResults">
-      <div class="resultCard">
-        <div class="resultItem">
-          <span>Max Ad Cost per Order</span>
-          <strong id="cpo_result">$0.00</strong>
+        <!-- Results -->
+        <div class="calc_results">
+          <div class="result_item">
+            <span class="result_label">Max Ad Cost per Order</span>
+            <strong id="maxAdCost">$0.00</strong>
+          </div>
+
+          <div class="result_sub">
+            <p id="resultDesc">
+              Enter values to see how much you can spend on ads per order.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===================== -->
-  <!-- Content / SEO -->
-  <!-- ===================== -->
-  <section class="content">
-    <h2>How it works</h2>
-    <p>
-      This calculator determines how much you can spend on advertising per order
-      while still meeting your target profit margin.
-    </p>
+    <!-- How it works -->
+    <section class="calc_content">
+      <h2>How it works</h2>
+      <p>
+        This calculator starts with your selling price and subtracts all
+        non-ad costs such as product cost, platform fees, payment fees,
+        and shipping.
+      </p>
+      <p>
+        Your target net margin is then reserved as profit.
+        Whatever amount remains is the maximum ad cost you can afford per order.
+      </p>
 
-    <h2>Formula</h2>
-    <pre>
-Max Ad Cost =
+      <h3>Formula</h3>
+      <pre>
+Target Profit = Price × Target Margin
+
+Max Ad Cost per Order =
 Price
-− Product cost
-− (Platform fee % × Price)
-− (Payment fee % × Price)
+− Product Cost
+− Platform Fee
+− Payment Fee
 − Shipping
-− (Target margin % × Price)
-    </pre>
+− Target Profit
+      </pre>
 
-    <h2>FAQ</h2>
-    <p><strong>What if the result is negative?</strong><br />
-      A negative result means your current price or margin target is too low to run ads profitably.
-    </p>
+      <h3>Example</h3>
+      <p>
+        If you sell a product for $50 with a product cost of $15,
+        platform fee of 15%, payment fee of 2.9%, shipping cost of $5,
+        and a target net margin of 20%,
+        your maximum ad cost per order is $11.05.
+      </p>
+    </section>
 
-    <p><strong>Is this calculator free?</strong><br />
-      Yes. No login or payment is required.
-    </p>
-  </section>
+    <!-- FAQ -->
+    <section class="calc_faq">
+      <h2>FAQ</h2>
 
-  <!-- ===================== -->
-  <!-- Logic -->
-  <!-- ===================== -->
-  <script is:inline>
-    (function () {
-      const $ = (id) => document.getElementById(id);
+      <h4>Is this the same as ROAS?</h4>
+      <p>
+        No. This calculator focuses on cost per order,
+        not revenue ratios like ROAS.
+      </p>
 
-      const price = $("cpo_price");
-      const cogs = $("cpo_cogs");
-      const margin = $("cpo_margin");
-      const platform = $("cpo_platform");
-      const payment = $("cpo_payment");
-      const shipping = $("cpo_shipping");
-      const result = $("cpo_result");
+      <h4>Can I use this before running ads?</h4>
+      <p>
+        Yes. It is designed to help you plan ad budgets before launching campaigns.
+      </p>
 
-      function num(v) {
-        const n = Number(v);
-        return Number.isFinite(n) ? n : 0;
+      <h4>Does this include taxes?</h4>
+      <p>
+        No. Taxes vary by region and are not included.
+      </p>
+
+      <h4>Which platforms does this work for?</h4>
+      <p>
+        Amazon, Shopify, Etsy, and any platform with percentage-based fees.
+      </p>
+    </section>
+  </main>
+
+  <!-- Script -->
+  <script>
+    const inputs = [
+      "price",
+      "cost",
+      "platformFee",
+      "paymentFee",
+      "shipping",
+      "targetMargin"
+    ].map(id => document.getElementById(id));
+
+    const output = document.getElementById("maxAdCost");
+    const desc = document.getElementById("resultDesc");
+
+    function calc() {
+      const [
+        price,
+        cost,
+        platformFee,
+        paymentFee,
+        shipping,
+        targetMargin
+      ] = inputs.map(i => parseFloat(i.value) || 0);
+
+      const platformCost = price * (platformFee / 100);
+      const paymentCost = price * (paymentFee / 100);
+      const targetProfit = price * (targetMargin / 100);
+
+      const maxAd =
+        price -
+        cost -
+        platformCost -
+        paymentCost -
+        shipping -
+        targetProfit;
+
+      if (price <= 0) {
+        output.textContent = "$0.00";
+        desc.textContent =
+          "Enter values to see how much you can spend on ads per order.";
+        return;
       }
 
-      function calc() {
-        const p = num(price.value);
-        const c = num(cogs.value);
-        const m = num(margin.value) / 100;
-        const pf = num(platform.value) / 100;
-        const pay = num(payment.value) / 100;
-        const s = num(shipping.value);
+      output.textContent = `$${maxAd.toFixed(2)}`;
+      desc.textContent =
+        maxAd >= 0
+          ? "This is the maximum ad spend per order you can afford."
+          : "Your costs exceed your target margin.";
+    }
 
-        const targetProfit = p * m;
-        const platformFee = p * pf;
-        const paymentFee = p * pay;
-
-        const maxAdCost =
-          p - c - platformFee - paymentFee - s - targetProfit;
-
-        result.textContent = maxAdCost.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        });
-      }
-
-      [price, cogs, margin, platform, payment, shipping].forEach((el) => {
-        el.addEventListener("input", calc);
-        el.addEventListener("change", calc);
-      });
-
-      calc();
-    })();
+    inputs.forEach(input => input.addEventListener("input", calc));
   </script>
 
-  <!-- ===================== -->
-  <!-- Styles (Template fixed) -->
-  <!-- ===================== -->
+  <!-- Styles -->
   <style>
-    /* 템플릿 스타일은 이전 계산기와 100% 동일 */
-    .calcHeader {
-      max-width: 1100px;
+    .calc_wrap {
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 48px 20px 32px;
+      padding: 40px 16px 80px;
     }
 
-    .badge {
-      display: inline-block;
-      font-size: 12px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: #eef4ff;
-      color: #245bdb;
+    .calc_header {
+      margin-bottom: 28px;
     }
 
-    .calcHeader h1 {
-      font-size: 32px;
-      margin: 12px 0;
+    .calc_header h1 {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
     }
 
-    .calcHeader p {
-      color: #555;
-      max-width: 560px;
+    .calc_header p {
+      margin-top: 8px;
+      color: var(--muted);
+      max-width: 640px;
     }
 
-    .calcBody {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 32px;
-    }
-
-    @media (max-width: 900px) {
-      .calcBody {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .calcInputs {
+    .calc_card {
       background: #fff;
       border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
       padding: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
     }
 
-    .inputGroup {
+    .calc_grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .calc_inputs label {
       display: flex;
       flex-direction: column;
       gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
     }
 
-    label {
+    .calc_inputs input {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(2,6,23,.15);
       font-size: 14px;
-      font-weight: 500;
     }
 
-    input {
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
+    .calc_results {
+      background: rgba(248,250,252,.9);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .result_item {
+      font-size: 14px;
+    }
+
+    .result_label {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .result_item strong {
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .result_sub {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .calc_content,
+    .calc_faq {
+      margin-top: 48px;
+      max-width: 760px;
+    }
+
+    .calc_content h2,
+    .calc_faq h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .calc_content h3 {
+      margin-top: 24px;
+    }
+
+    .calc_content pre {
+      background: rgba(248,250,252,.9);
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+
+    .calc_faq h4 {
+      margin-top: 20px;
       font-size: 15px;
     }
 
-    .calcResults {
-      align-self: flex-start;
-    }
-
-    .resultCard {
-      background: #fff;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-    }
-
-    .resultItem span {
-      font-size: 14px;
-      color: #666;
-    }
-
-    .resultItem strong {
-      font-size: 32px;
-      font-weight: 600;
-      display: block;
-      margin-top: 4px;
-    }
-
-    .content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
-
-    .content h2 {
-      margin-top: 32px;
-    }
-
-    pre {
-      background: #f3f4f6;
-      padding: 20px;
-      border-radius: 12px;
-      font-size: 14px;
-      overflow-x: auto;
-      margin-top: 12px;
+    @media (max-width: 768px) {
+      .calc_grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </BaseLayout>
